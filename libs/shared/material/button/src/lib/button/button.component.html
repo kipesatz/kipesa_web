@@ -1,0 +1,79 @@
+@switch(variant()) {
+    @case('plain') {
+    <button 
+        mat-button 
+        [color]="btnColor()" 
+        [routerLink]="btnLink()"
+        (click)="clicked.emit()"  
+        [attr.type]="btnType()"
+        [disabled]="getDisabledState()"
+        [ngClass]="[isFullWidth() ? 'btn-block' : '', 'btn-normal']"
+        [attr.aria-label]="btnAriaLabel()"
+        >
+    
+        <ng-template [ngTemplateOutlet]="btnContent"></ng-template>
+        
+    </button>
+    }
+
+    @case('stroked') {
+    <button 
+        mat-stroked-button 
+        [color]="btnColor()" 
+        [routerLink]="btnLink()"
+        (click)="clicked.emit()"  
+        [attr.type]="btnType()"
+        [disabled]="getDisabledState()"
+        [ngClass]="[isFullWidth() ? 'btn-block' : '', 'btn-normal']"
+        [attr.aria-label]="btnAriaLabel()"
+        >
+    
+        <ng-template [ngTemplateOutlet]="btnContent"></ng-template>
+        
+    </button>
+    }
+    @case ('raised') {
+    <button 
+        mat-raised-button 
+        [color]="btnColor()" 
+        [routerLink]="btnLink()"
+        (click)="clicked.emit()"  
+        [attr.type]="btnType()"
+        [disabled]="getDisabledState()"
+        [ngClass]="[isFullWidth() ? 'btn-block' : '', 'btn-normal']"
+        [attr.aria-label]="btnAriaLabel()"
+        >
+    
+        <ng-template [ngTemplateOutlet]="btnContent"></ng-template>
+        
+    </button>
+    }
+    @case ('flat') {
+    <button 
+        mat-flat-button 
+        [color]="btnColor()" 
+        [routerLink]="btnLink()"
+        (click)="clicked.emit()"  
+        [attr.type]="btnType()"
+        [disabled]="getDisabledState()"
+        [ngClass]="[isFullWidth() ? 'btn-block' : '', 'btn-normal']"
+        [attr.aria-label]="btnAriaLabel()"
+        >
+    
+        <ng-template [ngTemplateOutlet]="btnContent"></ng-template>
+        
+    </button>
+    }
+}
+
+<ng-template #btnContent>
+    <div class="d-flex align-items-center">
+        @if(icon(); as iconName) {
+            <mat-icon class="mat-18"> {{ iconName }} </mat-icon>
+        }
+    
+        @if(text(); as btnText) {
+            <span class="ms-1"> {{ btnText }} </span>
+        }
+    </div>
+</ng-template>

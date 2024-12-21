@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  height: fit-content;
+  // inline-size: 100% !important;
+}
+
+.btn-block {
+  inline-size: -webkit-fill-available !important;
+  min-inline-size: -webkit-fill-available !important;
+}
