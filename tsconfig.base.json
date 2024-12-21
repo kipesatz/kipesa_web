@@ -16,7 +16,12 @@
     "baseUrl": ".",
     "paths": {
       "@kps/accounts": ["libs/feats/accounts/src/index.ts"],
-      "@kps/accounts/auth": ["libs/feats/accounts/auth/src/index.ts"]
+      "@kps/accounts/auth": ["libs/feats/accounts/auth/src/index.ts"],
+      "@kps/accounts/auth-forms": [
+        "libs/feats/accounts/auth-forms/src/index.ts"
+      ],
+      "@kps/data": ["libs/shared/data/src/index.ts"],
+      "@kps/data/auth": ["libs/shared/data/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
