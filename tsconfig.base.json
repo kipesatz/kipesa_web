@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@kps/accounts": ["libs/feats/accounts/src/index.ts"]
+      "@kps/accounts": ["libs/feats/accounts/src/index.ts"],
+      "@kps/accounts/auth": ["libs/feats/accounts/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
