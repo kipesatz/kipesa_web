@@ -1,0 +1,38 @@
+import { Component, InputSignal, input, output } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
+import { BtnType, BtnVariant } from '../types';
+import { AbstractControl } from '@angular/forms';
+
+@Component({
+  selector: 'kps-base-button',
+  template: ``,
+  styles: ``,
+  standalone: true,
+})
+export class BaseButtonComponent {
+  icon = input<string | undefined>();
+  btnLink = input<string | string[] | null>(null);
+  btnType = input<BtnType>('button');
+  btnAriaLabel = input.required<string>();
+  variant = input<BtnVariant>('plain');
+  btnColor = input<ThemePalette>('primary');
+  btnDisabled = input<boolean>(false);
+  /**When provided, it set the disabled state using it's validity and dirty state */
+  validationController: InputSignal<AbstractControl | undefined> =
+    input<AbstractControl>();
+
+  clicked = output<void>();
+
+  /**Returns the disabled state of the button, if `validationFormGroup` is provided it uses the formGroup to
+   * disable a button based on it's validity and whether it is not changed.
+   * @see {@link btnDisabled}
+   * @see {@link validationController}
+   */
+  getDisabledState(): boolean {
+    const controller = this.validationController();
+    if (controller) {
+      return controller.invalid || (controller.valid && !controller.dirty);
+    }
+    return this.btnDisabled();
+  }
+}

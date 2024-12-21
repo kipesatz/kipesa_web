@@ -1,0 +1,12 @@
+<button
+  mat-icon-button
+  [color]="btnColor()"
+  [routerLink]="btnLink()"
+  (click)="clicked.emit()"
+  [attr.type]="btnType()"
+  [attr.aria-label]="btnAriaLabel()"
+>
+    @if(icon(); as iconName) {
+        <mat-icon class="mat-18"> {{ iconName }} </mat-icon>
+    } 
+</button>

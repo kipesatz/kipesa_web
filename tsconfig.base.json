@@ -22,7 +22,10 @@
       ],
       "@kps/data": ["libs/shared/data/src/index.ts"],
       "@kps/data/auth": ["libs/shared/data/auth/src/index.ts"],
-      "@kps/forms": ["libs/shared/forms/src/index.ts"]
+      "@kps/forms": ["libs/shared/forms/src/index.ts"],
+      "@kps/forms/fields": ["libs/shared/forms/fields/src/index.ts"],
+      "@kps/material": ["libs/shared/material/src/index.ts"],
+      "@kps/material/button": ["libs/shared/material/button/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
