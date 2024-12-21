@@ -21,7 +21,8 @@
         "libs/feats/accounts/auth-forms/src/index.ts"
       ],
       "@kps/data": ["libs/shared/data/src/index.ts"],
-      "@kps/data/auth": ["libs/shared/data/auth/src/index.ts"]
+      "@kps/data/auth": ["libs/shared/data/auth/src/index.ts"],
+      "@kps/forms": ["libs/shared/forms/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
