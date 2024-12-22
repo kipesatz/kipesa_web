@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { LoginFormComponent } from '@kps/accounts/auth-forms';
 import {
   MatCard,
   MatCardHeader,
@@ -7,17 +6,19 @@ import {
   MatCardMdImage,
 } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
+import { RegistrationFormComponent } from '@kps/accounts/auth-forms';
+
 @Component({
-  selector: 'kps-login-page',
+  selector: 'kps-registration-page',
   imports: [
-    LoginFormComponent,
+    RouterLink,
+    RegistrationFormComponent,
     MatCard,
     MatCardHeader,
-    RouterLink,
     MatCardContent,
     MatCardMdImage,
   ],
-  templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.scss',
+  templateUrl: './registration-page.component.html',
+  styleUrl: './registration-page.component.scss',
 })
-export class LoginPageComponent {}
+export class RegistrationPageComponent {}

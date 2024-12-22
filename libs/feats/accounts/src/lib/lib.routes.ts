@@ -1,6 +1,11 @@
 import { Route } from '@angular/router';
-import { AccountsComponent } from './accounts/accounts.component';
 
 export const accountsRoutes: Route[] = [
-  { path: '', component: AccountsComponent },
+  {
+    path: 'auth',
+    title: 'Auth',
+    loadChildren: () =>
+      import('@kps/accounts/auth').then((m) => m.accountsAuthRoutes),
+  },
+  { path: '**', redirectTo: 'auth' },
 ];

@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-center py-5">
+    <mat-card class="bg-white mat-elevation-z5 p-3">
+      <img
+        matCardImageMedium
+        src="kipesa_logo.jpeg"
+        alt="Kipesa Logo"
+        class="d-block mx-auto"
+      />
+  
+      <mat-card-header class="my-4">
+        <h3 class="h3 text-capitalize mx-auto">get started with kipesa app</h3>
+      </mat-card-header>
+  
+      <mat-card-content>
+        <kps-registration-form />
+  
+        <div class="d-block my-3">
+          <span>I have account?</span>
+          <a [routerLink]="['../', 'login']" class="fw-bold text-decoration-none ps-1">Login</a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
