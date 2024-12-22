@@ -1,0 +1,9 @@
+.country-code-form-field {
+  inline-size: 150px;
+}
+
+.phone-number-form-field {
+  inline-size: 100%;
+  max-inline-size: 300px;
+  flex-grow: 1;
+}

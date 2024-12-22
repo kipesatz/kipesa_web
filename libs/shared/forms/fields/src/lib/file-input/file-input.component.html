@@ -1,0 +1,52 @@
+<section class="mb-3">
+  <label for="file-input"> {{ fieldLabel }} </label>
+  <!-- input -->
+
+  <mat-card appearance="outlined">
+    <mat-card-content class="bg-light pb-3">
+      <input
+        [formControl]="formControl"
+        [multiple]="multiSelection()"
+        [accept]="acceptedFormats()"
+        type="file"
+        id="file-input"
+        class="d-none"
+        (change)="onFileSelection($event)"
+        #fileUpload
+      />
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="fileUpload.click()"
+        class="d-block mx-auto"
+      >
+        <mat-icon class="mat-18">attach_file</mat-icon>
+        <span>Browse files</span>
+      </button>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-footer>
+      <mat-list dense>
+        @for(file of selectedFiles; track file) {
+        <mat-list-item>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="filename mat-body"> {{ file.name }} </span>
+            <span class="file-size mat-body-strong"> {{ file.size }} </span>
+          </div>
+        </mat-list-item>
+        } @empty {
+        <span class="p-3 mat-body-strong">No any file selected</span>
+        }
+      </mat-list>
+    </mat-card-footer>
+  </mat-card>
+
+  <!-- hint -->
+  <mat-hint>
+    <ng-content select="mat-hint"></ng-content>
+  </mat-hint>
+</section>

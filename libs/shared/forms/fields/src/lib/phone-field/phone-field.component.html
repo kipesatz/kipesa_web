@@ -1,0 +1,43 @@
+<section>
+  <mat-label>Phone Number</mat-label>
+
+  <div class="d-flex align-items-center flex-nowrap gap-1">
+    <!-- countryCode -->
+    <mat-form-field
+      class="country-code-form-field"
+      appearance="outline"
+      [hideRequiredMarker]="false"
+    >
+      <mat-select formControlName="countryCode" [panelWidth]="300">
+        <mat-option value="+1">+1 (USA)</mat-option>
+        <mat-option value="+44">+44 (UK)</mat-option>
+        <mat-option value="+91">+91 (India)</mat-option>
+        <mat-option value="+255">+255 (Tanzania, United Republic of)</mat-option>
+      </mat-select>
+
+      @if (phoneForm.get('phoneNumber')?.errors?.['required']) {
+      <mat-error> Phone number is required </mat-error>
+      } @if (phoneForm.get('phoneNumber')?.errors?.['invalidFormat']) {
+      <mat-error> Please enter a valid phone number </mat-error>
+      }
+    </mat-form-field>
+
+    <!-- phoneNumber -->
+    <mat-form-field
+      appearance="outline"
+      [hideRequiredMarker]="false"
+      class="phone-number-form-field"
+    >
+      <input
+        matInput
+        formControlName="phoneNumber"
+        placeholder="Enter phone number"
+        type="tel"
+      />
+
+      @if (phoneForm.valid) {
+          <mat-icon class="mat-18" matIconSuffix>check</mat-icon>
+      }
+    </mat-form-field>
+  </div>
+</section>

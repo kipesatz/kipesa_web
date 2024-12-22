@@ -1,0 +1,51 @@
+<mat-form-field
+  [floatLabel]="floatLabel()"
+  [appearance]="appearance()"
+  [class]="['w-100', 'mb-' + marginBottom()]"
+>
+  @if(!hideLabel()) {
+    <mat-label> {{ fieldLabel }} </mat-label>
+  }
+
+  <!-- input -->
+  <input
+    [formControl]="formControl"
+    matInput
+    [type]="inputType()"
+    [placeholder]="fieldPlaceholder()"
+  />
+
+  <!-- hints -->
+  <mat-hint class="mat-hint">
+    <ng-content select="mat-hint"></ng-content>
+  </mat-hint>
+
+  <!-- prefix -->
+  @if(hasPrefix()) {
+  <div matPrefix>
+    <ng-content select="[matPrefix]"></ng-content>
+    <ng-content select="[matIconPrefix]"></ng-content>
+    <ng-content select="[matTextPrefix]"></ng-content>
+  </div>
+  }
+
+  <!-- suffix -->
+  @if(hasSuffix()) {
+  <div matSuffix>
+    <ng-content select="[matSuffix]"></ng-content>
+    <ng-content select="[matIconSuffix]"></ng-content>
+    <ng-content select="[matTextSuffix]"></ng-content>
+  </div>
+  }
+
+  <!-- error -->
+  @if (formControl.errors) {
+  <mat-error>
+    <kps-field-error
+      [controller]="formControl"
+      [fieldLabel]="fieldLabel"
+      class="position-absolute d-block start-0 top-0"
+    ></kps-field-error>
+  </mat-error>
+  }
+</mat-form-field>

@@ -1,0 +1,22 @@
+<section class="field-error">
+  @if (controller().touched && requiredError) {
+
+  <span class="mat-body">{{ requiredError }}</span>
+  } @if (controller().dirty && controller().errors) { @if (minLengthError) {
+  <span class="mat-body">
+    {{ minLengthError }}
+  </span>
+  } @if (maxLengthError) {
+  <span class="mat-body">
+    {{ maxLengthError }}
+  </span>
+  } @if(maxError) {
+  <span class="mat-body">
+    {{ maxError }}
+  </span>
+  } @if (minError) {
+  <span class="mat-body">
+    {{ minError }}
+  </span>
+  } }
+</section>

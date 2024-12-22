@@ -1,0 +1,29 @@
+<mat-form-field
+  [floatLabel]="floatLabel()"
+  [appearance]="appearance()"
+  [class]="['w-100', 'mb-' + marginBottom()]"
+>
+  <mat-label> {{ fieldLabel }} </mat-label>
+  <!-- input -->
+  <textarea
+    matInput
+    [formControl]="getFormControl()"
+    [placeholder]="fieldPlaceholder()"
+  ></textarea>
+
+  <!-- hints -->
+  <mat-hint class="mat-hint">
+    <ng-content select="mat-hint"></ng-content>
+  </mat-hint>
+
+  <!-- error -->
+  @if (formControl.errors) {
+  <mat-error>
+    <kps-field-error
+      [controller]="formControl"
+      [fieldLabel]="fieldLabel"
+      class="position-absolute d-block start-0 top-0"
+    ></kps-field-error>
+  </mat-error>
+  }
+</mat-form-field>

@@ -1,1 +1,7 @@
-export const greeting = 'Hello World!';
+export * from './lib/base-button/base-button.component';
+
+export * from './lib/button/button.component';
+
+export * from './lib/iconic-button/iconic-button.component';
+
+export * from './lib/types';
