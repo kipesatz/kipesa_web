@@ -1,0 +1,33 @@
+<mat-form-field
+  [appearance]="appearance()"
+  [floatLabel]="floatLabel()"
+  class="w-100"
+>
+  <input
+    matInput
+    [formControl]="formControl"
+    [matDatepicker]="datePickerRef"
+    [attr.placeholder]="fieldPlaceholder()"
+  />
+
+  <!-- datepicker toggler -->
+  <mat-datepicker-toggle
+    matSuffix
+    [for]="datePickerRef"
+  ></mat-datepicker-toggle>
+
+  <!-- datepicker -->
+  <mat-datepicker #datePickerRef></mat-datepicker>
+
+  <!-- error -->
+  @if(formControl.errors) {
+  <mat-error class="position-relative">
+    <kps-field-error
+      [controller]="formControl"
+      [fieldLabel]="fieldLabel"
+      class="position-absolute d-block start-0 top-0"
+    ></kps-field-error>
+  </mat-error>
+
+  }
+</mat-form-field>

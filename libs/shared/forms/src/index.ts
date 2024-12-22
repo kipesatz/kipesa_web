@@ -1,1 +1,1 @@
-export const sharedForms = "Shared forms";
+export * from './lib/types';

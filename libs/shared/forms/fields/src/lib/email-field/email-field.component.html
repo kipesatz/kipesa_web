@@ -1,0 +1,11 @@
+<kps-input-field
+  [controller]="controller()"
+  [controlName]="controlName()"
+  [customLabel]="customLabel()"
+  inputType="email"
+  [hasPrefix]="true"
+  floatLabel="always"
+  [fieldPlaceholder]="fieldPlaceholder() ? fieldPlaceholder() : 'example@gmail.com'"
+>
+  <mat-icon matIconPrefix class="mx-2">contact_mail</mat-icon>
+</kps-input-field>
