@@ -29,6 +29,7 @@
       "@kps/forms": ["libs/shared/forms/src/index.ts"],
       "@kps/forms/fields": ["libs/shared/forms/fields/src/index.ts"],
       "@kps/layout": ["libs/shared/layout/src/index.ts"],
+      "@kps/layout/core": ["libs/shared/layout/core/src/index.ts"],
       "@kps/material": ["libs/shared/material/src/index.ts"],
       "@kps/material/button": ["libs/shared/material/button/src/index.ts"],
       "@kps/material/table": ["libs/shared/material/table/src/index.ts"]

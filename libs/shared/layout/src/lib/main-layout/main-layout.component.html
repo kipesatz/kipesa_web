@@ -1,0 +1,91 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #sidenav
+    [mode]="isSmallScreen() ? 'over' : 'side'"
+    [opened]="!isSmallScreen()"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLeave()"
+    [class.expanded]="isExpanded()"
+    class="sidenav"
+  >
+    <!-- Logo Section -->
+    <div class="logo-container">
+      <img
+        src="kipesa_logo.jpeg"
+        [class.small]="!isExpanded()"
+        alt="Kipesa Logo"
+      />
+    </div>
+
+    <!-- Back Navigation -->
+    @if (navigationStack().length) {
+    <mat-toolbar class="back-nav">
+      <button mat-icon-button (click)="navigateBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      @if (isExpanded()) {
+      <span>Back</span>
+      }
+    </mat-toolbar>
+    }
+    <!-- Menu Items -->
+    <div [@slideInOut]>
+      <mat-nav-list>
+        @for (item of currentLevel(); track $index) {
+        <a
+          mat-list-item
+          [routerLink]="item.route"
+          (click)="!item.route && navigateToSubMenu(item)"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: false }"
+        >
+          <!-- icon -->
+          @if (item.icon) {
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          }
+
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <!-- expanded -->
+            @if (isExpanded()) {
+            <span> {{ item.label }} </span>
+            }
+
+            <!-- children & expanded -->
+            @if (item.children && isExpanded()) {
+            <mat-icon>chevron_right</mat-icon>
+            }
+          </div>
+        </a>
+        }
+      </mat-nav-list>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="d-flex flex-column overflow-hidden">
+    <mat-toolbar class="top-nav">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button mat-icon-button [matMenuTriggerFor]="menuRef">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+
+        <mat-menu #menuRef="matMenu">
+          <p class="px-2 my-0">{{ 'Hello, Alex Urassa' }}</p>
+          <mat-nav-list style="min-inline-size: 250px" class="px-2">
+            <mat-list-item [routerLink]="['/myAccount/profile']">
+              <mat-icon matListItemIcon class="mat-18">account_box</mat-icon>
+              <span matListItemTitle>My Profile</span>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+
+    <section class="flex-grow-1 overflow-auto">
+      <router-outlet></router-outlet>
+    </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>
