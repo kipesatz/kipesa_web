@@ -20,8 +20,14 @@
       "@kps/accounts/auth-forms": [
         "libs/feats/accounts/auth-forms/src/index.ts"
       ],
+      "@kps/associations": ["libs/feats/associations/src/index.ts"],
+      "@kps/associations/forms": ["libs/feats/associations/forms/src/index.ts"],
       "@kps/data": ["libs/shared/data/src/index.ts"],
+      "@kps/data/associations": ["libs/shared/data/associations/src/index.ts"],
       "@kps/data/auth": ["libs/shared/data/auth/src/index.ts"],
+      "@kps/data/core": ["libs/shared/data/core/src/index.ts"],
+      "@kps/data/finances": ["libs/shared/data/finances/src/index.ts"],
+      "@kps/data/storage": ["libs/shared/data/storage/src/index.ts"],
       "@kps/finances": ["libs/feats/finances/src/index.ts"],
       "@kps/finances/contributions": [
         "libs/feats/finances/contributions/src/index.ts"
@@ -32,6 +38,10 @@
       "@kps/layout/core": ["libs/shared/layout/core/src/index.ts"],
       "@kps/material": ["libs/shared/material/src/index.ts"],
       "@kps/material/button": ["libs/shared/material/button/src/index.ts"],
+      "@kps/material/dialog": ["libs/shared/material/dialog/src/index.ts"],
+      "@kps/material/snack-bar": [
+        "libs/shared/material/snack-bar/src/index.ts"
+      ],
       "@kps/material/table": ["libs/shared/material/table/src/index.ts"]
     }
   },
