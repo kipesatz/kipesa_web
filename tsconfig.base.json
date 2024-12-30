@@ -39,6 +39,7 @@
       "@kps/material": ["libs/shared/material/src/index.ts"],
       "@kps/material/button": ["libs/shared/material/button/src/index.ts"],
       "@kps/material/dialog": ["libs/shared/material/dialog/src/index.ts"],
+      "@kps/material/progress": ["libs/shared/material/progress/src/index.ts"],
       "@kps/material/snack-bar": [
         "libs/shared/material/snack-bar/src/index.ts"
       ],
