@@ -26,6 +26,7 @@
       ],
       "@kps/associations/forms": ["libs/feats/associations/forms/src/index.ts"],
       "@kps/data": ["libs/shared/data/src/index.ts"],
+      "@kps/data/accounts": ["libs/shared/data/accounts/src/index.ts"],
       "@kps/data/associations": ["libs/shared/data/associations/src/index.ts"],
       "@kps/data/auth": ["libs/shared/data/auth/src/index.ts"],
       "@kps/data/core": ["libs/shared/data/core/src/index.ts"],
