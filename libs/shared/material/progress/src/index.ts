@@ -1,1 +1,1 @@
-export const greeting = 'Hello World!';
+export * from './lib/loading-indicator/loading-indicator.component';
