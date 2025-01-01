@@ -1,13 +1,19 @@
 import { importProvidersFrom } from '@angular/core';
 import { Route } from '@angular/router';
 import { MyMembershipDataModule } from '@kps/data/associations';
-import { LoginDataModule } from '@kps/data/auth';
+import { LoginDataModule, LogoutDataModule } from '@kps/data/auth';
 import { MainLayoutComponent } from '@kps/layout';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    providers: [importProvidersFrom(LoginDataModule, MyMembershipDataModule)],
+    providers: [
+      importProvidersFrom(
+        LoginDataModule,
+        LogoutDataModule,
+        MyMembershipDataModule
+      ),
+    ],
     children: [
       {
         path: 'accounts',
@@ -19,6 +25,11 @@ export const appRoutes: Route[] = [
         path: '',
         component: MainLayoutComponent,
         children: [
+          {
+            path: 'admin',
+            loadChildren: () =>
+              import('@kps/admin').then((m) => m.adminRoutes),
+          },
           {
             path: 'dashboards',
             loadChildren: () =>

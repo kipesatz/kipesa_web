@@ -2,6 +2,7 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
   isDevMode,
+  DEFAULT_CURRENCY_CODE,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
@@ -28,5 +29,6 @@ export const appConfig: ApplicationConfig = {
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: KpsDialogDefaultConfig },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'TSH' },
   ],
 };
