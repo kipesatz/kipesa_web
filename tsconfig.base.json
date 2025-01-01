@@ -20,6 +20,7 @@
       "@kps/accounts/auth-forms": [
         "libs/feats/accounts/auth-forms/src/index.ts"
       ],
+      "@kps/admin": ["libs/feats/admin/src/index.ts"],
       "@kps/associations": ["libs/feats/associations/src/index.ts"],
       "@kps/associations/current-assoc": [
         "libs/feats/associations/current-assoc/src/index.ts"
