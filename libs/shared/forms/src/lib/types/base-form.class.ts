@@ -1,7 +1,7 @@
 import { FormGroup, FormControl } from '@angular/forms';
 
 export abstract class BaseFormService<T> {
-  protected abstract buildForm(): FormGroup<{
+  abstract buildForm(): FormGroup<{
     [K in keyof T]: FormControl<T[K]>;
   }>;
 

@@ -1,7 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormFieldComponent } from '../form-field/form-field.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormField, MatError } from '@angular/material/form-field';
+import {
+  MatFormField,
+  MatError,
+  MatLabel,
+  MatHint,
+} from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import {
   MatDatepicker,
@@ -17,6 +22,8 @@ import { FieldErrorComponent } from '../field-error/field-error.component';
     MatFormField,
     MatInput,
     MatError,
+    MatLabel,
+    MatHint,
     ReactiveFormsModule,
     FieldErrorComponent,
     MatDatepicker,
