@@ -3,12 +3,23 @@
   [floatLabel]="floatLabel()"
   class="w-100"
 >
+  @if(!hideLabel()) {
+  <mat-label> {{ fieldLabel }} </mat-label>
+  }
+
   <input
     matInput
     [formControl]="formControl"
     [matDatepicker]="datePickerRef"
     [attr.placeholder]="fieldPlaceholder()"
+    type="date"
+    autocomplete="bday-month"
+    aria-label="date input"
   />
+
+  <mat-hint>
+    <ng-content select="mat-hint"></ng-content>
+  </mat-hint>
 
   <!-- datepicker toggler -->
   <mat-datepicker-toggle

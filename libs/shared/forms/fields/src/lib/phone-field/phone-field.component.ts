@@ -1,18 +1,39 @@
-import { Component, inject, model, OnInit } from '@angular/core';
-import { NonNullableFormBuilder, Validators } from '@angular/forms';
-import { MatFormField, MatError, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { Component, inject, model, OnDestroy, OnInit } from '@angular/core';
+import {
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  MatFormField,
+  MatError,
+  MatLabel,
+  MatSuffix,
+} from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'kps-phone-field',
-  imports: [MatFormField, MatError, MatInput, MatSelect, MatOption, MatLabel, MatIcon, MatSuffix],
+  imports: [
+    MatFormField,
+    MatError,
+    MatInput,
+    MatSelect,
+    MatOption,
+    MatLabel,
+    MatIcon,
+    MatSuffix,
+    ReactiveFormsModule,
+  ],
   templateUrl: './phone-field.component.html',
   styleUrl: './phone-field.component.scss',
 })
-export class PhoneFieldComponent implements OnInit {
+export class PhoneFieldComponent implements OnInit, OnDestroy {
   private builder = inject(NonNullableFormBuilder);
+  private subscriptions = new Subscription();
 
   /**
    * Parses the phone string in the format of `+1234567890` into a country code and phone number
@@ -42,9 +63,9 @@ export class PhoneFieldComponent implements OnInit {
   /**
    * Returns the phone string in the format of `+1234567890`
    */
-  getPhoneString(): string | null {
+  getPhoneString(): string {
     const { countryCode, phoneNumber } = this.phoneForm.value;
-    if (!countryCode || !phoneNumber) return null;
+    if (!countryCode || !phoneNumber) return '';
     return `${countryCode}${phoneNumber}`;
   }
 
@@ -58,8 +79,14 @@ export class PhoneFieldComponent implements OnInit {
   ngOnInit(): void {
     this.phoneString.set(this.getPhoneString());
 
-    this.phoneForm.valueChanges.subscribe(() => {
-      this.phoneString.set(this.getPhoneString());
-    });
+    this.subscriptions.add(
+      this.phoneForm.valueChanges.subscribe(() => {
+        this.phoneString.set(this.getPhoneString());
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

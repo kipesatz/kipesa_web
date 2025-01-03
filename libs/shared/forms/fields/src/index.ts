@@ -2,7 +2,7 @@ export * from './lib/phone-field/phone-field.component';
 
 export * from './lib/email-field/email-field.component';
 
-export * from './lib/password-field/password-field.component'
+export * from './lib/password-field/password-field.component';
 
 export * from './lib/types';
 
@@ -19,3 +19,5 @@ export * from './lib/select-field/select-field.component';
 export * from './lib/textarea/textarea.component';
 
 export * from './lib/file-input/file-input.component';
+
+export * from './lib/search-field/search-field.component';

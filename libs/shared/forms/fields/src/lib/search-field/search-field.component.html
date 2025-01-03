@@ -1,0 +1,30 @@
+<mat-form-field appearance="outline" class="search-field">
+  <mat-icon matPrefix>search</mat-icon>
+  <input matInput [placeholder]="searchPlaceholder()" />
+
+  @if (availableFilters() !== undefined) {
+  <kps-iconic-button
+    matSuffix
+    icon="filter_list"
+    btnAriaLabel="filters"
+    [matMenuTriggerFor]="filterMenu"
+    [class.active]="hasActiveFilters()"
+  />
+  }
+</mat-form-field>
+
+<mat-menu #filterMenu="matMenu" class="filter-menu">
+  <div class="filter-menu-header">
+    <span>Filters</span>
+    @if (hasActiveFilters()) {
+    <button mat-button color="primary" (click)="clearFilters()">
+      Clear all
+    </button>
+    }
+  </div>
+  @for (filter of availableFilters(); track $index) {
+  <mat-selection-list>
+    <mat-list-option [value]="filter.key"> {{ filter.label }} </mat-list-option>
+  </mat-selection-list>
+  }
+</mat-menu>
