@@ -1,1 +1,3 @@
-export const greeting = 'Hello World!';
+export * from './lib/services';
+
+export * from './lib/types';
