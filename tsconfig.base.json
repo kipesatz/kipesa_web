@@ -27,6 +27,8 @@
         "libs/feats/associations/current-assoc/src/index.ts"
       ],
       "@kps/associations/forms": ["libs/feats/associations/forms/src/index.ts"],
+      "@kps/core": ["libs/shared/core/src/index.ts"],
+      "@kps/core/router": ["libs/shared/core/router/src/index.ts"],
       "@kps/data": ["libs/shared/data/src/index.ts"],
       "@kps/data/accounts": ["libs/shared/data/accounts/src/index.ts"],
       "@kps/data/associations": ["libs/shared/data/associations/src/index.ts"],
