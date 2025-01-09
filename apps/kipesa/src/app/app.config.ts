@@ -18,10 +18,14 @@ import {
 import { authInterceptor } from './interceptors';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { KpsDialogDefaultConfig } from '@kps/material/dialog';
+import { provideNativeDateAdapter } from '@angular/material/core';
+
+import { provideEchartsCore } from 'ngx-echarts';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
+    provideNativeDateAdapter(),
     provideRouter(appRoutes),
     provideAnimationsAsync(),
     provideStore(),
@@ -30,5 +34,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: KpsDialogDefaultConfig },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'TSH' },
+    provideEchartsCore({
+      echarts: () => import('echarts'), // Lazy load echarts
+    }),
   ],
 };

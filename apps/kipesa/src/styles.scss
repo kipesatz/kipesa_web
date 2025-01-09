@@ -1,4 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.side-dialog {
+  position: fixed !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+
+  .mat-mdc-dialog-container {
+    border-radius: 8px !important;
+  }
+
+  .mat-mdc-dialog-content {
+    max-height: unset !important;
+    background-color: #fff;
+  }
+}
+
+.side-dialog-end {
+  right: 0 !important;
+
+  .mat-mdc-dialog-container {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+}
+
+.side-dialog-start {
+  left: 0 !important;
+
+  .mat-mdc-dialog-container {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+}
+
+.mat-mdc-list-item {
+  &.auto-height {
+    height: auto !important;
+  }
+
+  .mat-mdc-list-item-line {
+    &.multiline {
+      white-space: pre-line;
+      overflow: visible !important;
+      height: auto !important;
+    }
+  }
+}
