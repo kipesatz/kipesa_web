@@ -31,6 +31,7 @@
       "@kps/associations/forms": ["libs/feats/associations/forms/src/index.ts"],
       "@kps/charts": ["libs/shared/charts/src/index.ts"],
       "@kps/charts/bar": ["libs/shared/charts/bar/src/index.ts"],
+      "@kps/charts/doughnut": ["libs/shared/charts/doughnut/src/index.ts"],
       "@kps/charts/line": ["libs/shared/charts/line/src/index.ts"],
       "@kps/charts/pie": ["libs/shared/charts/pie/src/index.ts"],
       "@kps/core": ["libs/shared/core/src/index.ts"],
