@@ -1,1 +1,1 @@
-export const charts = 'charts';
+export * from './lib/base-chart.component';
