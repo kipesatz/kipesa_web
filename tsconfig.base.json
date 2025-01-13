@@ -51,6 +51,7 @@
         "libs/feats/finances/payment-methods/src/index.ts"
       ],
       "@kps/forms": ["libs/shared/forms/src/index.ts"],
+      "@kps/forms/editor": ["libs/shared/forms/editor/src/index.ts"],
       "@kps/forms/fields": ["libs/shared/forms/fields/src/index.ts"],
       "@kps/forms/validators": ["libs/shared/forms/validators/src/index.ts"],
       "@kps/layout": ["libs/shared/layout/src/index.ts"],
