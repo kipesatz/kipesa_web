@@ -47,8 +47,13 @@
       "@kps/finances/contributions": [
         "libs/feats/finances/contributions/src/index.ts"
       ],
+      "@kps/finances/loans": ["libs/feats/finances/loans/src/index.ts"],
       "@kps/finances/payment-methods": [
         "libs/feats/finances/payment-methods/src/index.ts"
+      ],
+      "@kps/finances/reports": ["libs/feats/finances/reports/src/index.ts"],
+      "@kps/finances/transactions": [
+        "libs/feats/finances/transactions/src/index.ts"
       ],
       "@kps/forms": ["libs/shared/forms/src/index.ts"],
       "@kps/forms/editor": ["libs/shared/forms/editor/src/index.ts"],
