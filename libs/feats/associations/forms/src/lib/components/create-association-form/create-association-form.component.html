@@ -1,0 +1,21 @@
+@if (getFormGroup() !== undefined) {
+<kps-validity-progress-checker [formGroup]="getFormGroup()" />
+
+<form [formGroup]="getFormGroup()" (ngSubmit)="notifySubmit()">
+  <kps-input-field [controller]="getController('name')" controlName="name">
+  </kps-input-field>
+
+  <kps-textarea
+    [controller]="getController('description')"
+    controlName="description"
+  />
+
+  <kps-button
+    text="Create Association"
+    btnType="submit"
+    variant="flat"
+    btnAriaLabel="create association"
+  />
+</form>
+
+}
