@@ -17,6 +17,7 @@ export class BaseButtonComponent {
   variant = input<BtnVariant>('plain');
   btnColor = input<ThemePalette>('primary');
   btnDisabled = input<boolean>(false);
+  loading = input<boolean>(false);
   /**When provided, it set the disabled state using it's validity and dirty state */
   validationController: InputSignal<AbstractControl | undefined> =
     input<AbstractControl>();
@@ -29,9 +30,14 @@ export class BaseButtonComponent {
    * @see {@link validationController}
    */
   getDisabledState(): boolean {
+    // if invalid,, loading, or valid and not touched -> make the btn disabled
     const controller = this.validationController();
     if (controller) {
-      return controller.invalid || (controller.valid && !controller.dirty);
+      return (
+        controller.invalid ||
+        this.loading() ||
+        (controller.valid && !controller.touched)
+      );
     }
     return this.btnDisabled();
   }
