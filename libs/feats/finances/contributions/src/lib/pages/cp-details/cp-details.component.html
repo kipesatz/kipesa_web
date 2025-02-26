@@ -1,0 +1,86 @@
+<div class="container-fluid my-2">
+  @if (cpLoading()) {
+  <kps-loading-indicator />
+  }@else { @if (cpurpose(); as cpurpose) {
+  <div class="row row-cols-md-2">
+    <div class="col">
+      <h4>Purpose Details</h4>
+      <mat-card class="details-card">
+        <mat-card-header>
+          <mat-card-title>{{ cpurpose.title }}</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="details-grid">
+            <kps-cp-overview-details [cpurpose]="cpurpose" />
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col">
+      <h4>Purpose Stats</h4>
+
+      <div class="d-flex gap-3 flex-wrap">
+        <div class="col">
+          <mat-card class="mb-3">
+            <mat-card-header>
+              <mat-card-subtitle>
+                Target Amount:
+                {{ cpurpose.targetAmount | currency }}
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="progress-section">
+                <mat-progress-bar
+                  [value]="cpurpose.progressPercentage"
+                  [color]="progressColor()"
+                  mode="determinate"
+                ></mat-progress-bar>
+                <span class="progress-text mt-2">
+                  {{ cpurpose.collectedAmount | currency }} collected ({{
+                    cpurpose.progressPercentage
+                  }}%)
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="mb-3">
+            <mat-card-header class="d-block w-100 py-3">
+              <mat-card-title
+                class="d-flex w-100 align-items-center flex-wrap gap-3 justify-content-between"
+              >
+                <span>Total Contributions</span>
+                <span>{{ cpurpose.contributionsCount }}</span>
+              </mat-card-title>
+            </mat-card-header>
+          </mat-card>
+        </div>
+
+        <mat-card class="col">
+          <mat-card-content>
+            <kps-pie-chart
+              [data]="[
+                {
+                  name: 'Collected',
+                  value: cpurpose.collectedAmount
+                },
+                {
+                  name: 'Remaining',
+                  value: cpurpose.targetAmount - cpurpose.collectedAmount
+                }
+              ]"
+              [colors]="['#4CAF50', '#E0E0E0']"
+            ></kps-pie-chart>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  }@else {
+  <div class="w-100 d-block mx-auto">
+    <h6>No Contribution purpose found with this identifier.</h6>
+  </div>
+  }}
+</div>
