@@ -1,0 +1,18 @@
+<div class="d-flex flex-column">
+  <mat-toolbar
+    [class.mat-elevation-z2]="isScrolled"
+    [class.border-bottom]="!isScrolled"
+  >
+    <kps-iconic-button
+      icon="arrow_back"
+      btnAriaLabel="back"
+      (click)="router.navigateByUrl('../')"
+    />
+
+    <span>Back</span>
+  </mat-toolbar>
+
+  <div class="flex-grow-1 overflow-auto">
+    <router-outlet></router-outlet>
+  </div>
+</div>

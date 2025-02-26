@@ -1,0 +1,17 @@
+mat-toolbar {
+  position: sticky !important;
+  top: 0;
+  z-index: 1000;
+  background: white;
+  display: inline-flex;
+  gap: 2;
+}
+
+.mat-elevation-z2 {
+  box-shadow: 0 2px 0px -1px rgba(0, 0, 0, 0.2), 0 1px 0px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.content {
+  padding: 1rem;
+}
