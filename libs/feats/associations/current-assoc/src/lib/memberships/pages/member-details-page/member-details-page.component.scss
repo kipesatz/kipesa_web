@@ -1,0 +1,30 @@
+.avatar-circle {
+  width: 100px;
+  height: 100px;
+  background-color: #c2185b;
+  border-radius: 50%;
+  color: white;
+  font-size: 40px;
+  position: relative;
+}
+
+.add-button {
+  position: absolute !important;
+  bottom: -10px;
+  right: -10px;
+  transform: scale(0.8);
+  background-color: #e1f5fe !important;
+  color: #1976d2 !important;
+}
+
+mat-card {
+  background-color: #f8f9fa;
+}
+
+.mat-toolbar {
+  z-index: 9;
+}
+
+.contact-card {
+  min-inline-size: 400px;
+}
