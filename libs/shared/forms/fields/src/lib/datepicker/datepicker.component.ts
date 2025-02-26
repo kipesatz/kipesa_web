@@ -6,6 +6,7 @@ import {
   MatError,
   MatLabel,
   MatHint,
+  MatSuffix,
 } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import {
@@ -23,6 +24,7 @@ import { FieldErrorComponent } from '../field-error/field-error.component';
     MatInput,
     MatError,
     MatLabel,
+    MatSuffix,
     MatHint,
     ReactiveFormsModule,
     FieldErrorComponent,
