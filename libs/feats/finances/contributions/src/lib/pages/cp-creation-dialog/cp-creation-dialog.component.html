@@ -1,0 +1,38 @@
+<kps-base-dialog dialogTitle="Create Contribution Purpose">
+  <form [formGroup]="getFormGroup()" method="post" (ngSubmit)="saveCp()">
+    <!-- contents -->
+    <mat-dialog-content class="flex-grow-1 overflow-x-hidden overflow-y-auto">
+      <section>
+        <p class="d-block text-muted fs-7 my-3">
+          Contribution purpose allows members of your association to contribute
+          for a particular purpose.
+        </p>
+
+        <kps-validity-progress-checker [formGroup]="getFormGroup()" />
+        <kps-cp-form [formGroup]="getFormGroup()" />
+      </section>
+    </mat-dialog-content>
+
+    <!-- dialog footer -->
+    <kps-dialog-footer>
+      <small>* Required fields</small>
+      <div class="d-flex gap-3">
+        <kps-button
+          btnAriaLabel="cancel & exit"
+          text="Cancel & Exit"
+          variant="raised"
+          btnType="reset"
+          matDialogClose
+        ></kps-button>
+
+        <kps-button
+          btnAriaLabel="save contribution purpose"
+          text="Save Contribution Purpose"
+          [validationController]="getFormGroup()"
+          btnType="submit"
+          variant="raised"
+        ></kps-button>
+      </div>
+    </kps-dialog-footer>
+  </form>
+</kps-base-dialog>
