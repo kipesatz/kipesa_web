@@ -1,0 +1,54 @@
+<kps-data-table
+  [columns]="columns"
+  [data]="myMemberships$()"
+  [visibleColumns]="visibleColumns"
+  [tableTitle]="'My Enrolled Associations'"
+  [dataLoading]="loading$()"
+  (refreshChange)="refreshData()"
+>
+  <!-- search -->
+  <kps-search-field
+    [(searchTerm)]="searchTerm"
+    searchPlaceholder="Find associations..."
+  />
+
+  <!-- templates -->
+  <ng-template #isActiveTmpl let-element>
+    <div class="d-inline-flex gap-3 align-items-center">
+      <div
+        class="spinner-grow spinner-grow-sm"
+        [class]="element.association.isActive ? 'text-success' : 'text-danger'"
+        role="status"
+      >
+        <!-- <span class="sr-only">
+          @if (element.association.isActive) { Active }@else { InActive }
+        </span> -->
+      </div>
+
+      <span>
+        @if (element.association.isActive) { 
+          @if(currAssocId() === element.association.id) {
+            Active (Opened)
+          }@else {
+            Active
+          }
+        }@else { InActive }
+      </span>
+    </div>
+  </ng-template>
+
+  <ng-template #joinedTmpl let-element>
+    {{ element.joinedAt | date : 'short' }}
+  </ng-template>
+
+  <ng-template #openAssocTmpl let-element>
+    @if(currAssocId() !== element.association.id) {
+      <kps-iconic-button
+        icon="open_in_new"
+        btnAriaLabel="open association"
+        variant="raised"
+        (clicked)="openAssociation(element.association)"
+      />
+    }
+  </ng-template>
+</kps-data-table>
