@@ -1,1 +1,3 @@
-export const greeting = 'Hello World!';
+export * from './lib/payment-methods.routes';
+
+export * from './lib/pages';
