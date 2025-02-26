@@ -1,67 +1,38 @@
 <div class="table-container mat-elevation-z1">
   <!-- Table Tools -->
-  <mat-toolbar class="table-toolbar">
-    <div class="toolbar-left">
-      <!-- Search -->
-      <mat-form-field appearance="outline" class="search-field">
-        <mat-icon matPrefix>search</mat-icon>
-        <input
-          matInput
-          (keyup)="handleSearchKeyup($event)"
-          placeholder="Search..."
-        />
-      </mat-form-field>
-
-      <!-- Filters -->
-      <button
-        mat-icon-button
-        [matMenuTriggerFor]="filterMenu"
-        [class.active]="hasActiveFilters()"
-      >
-        <mat-icon [class.active]="hasActiveFilters()">filter_list</mat-icon>
-      </button>
-      <mat-menu #filterMenu="matMenu" class="filter-menu">
-        <div class="filter-menu-header">
-          <span>Filters</span>
-          @if (hasActiveFilters()) {
-          <button mat-button color="primary" (click)="clearFilters()">
-            Clear all
-          </button>
-          }
-        </div>
-
-        @for (filter of availableFilters(); track filter.key) {
-        <mat-expansion-panel class="filter-group">
-          <mat-expansion-panel-header>
-            <mat-panel-title>{{ filter.label }}</mat-panel-title>
-          </mat-expansion-panel-header>
-
-          @for (option of filter.options; track option.value) {
-          <mat-checkbox
-            [checked]="isFilterActive(filter, option.value)"
-            (change)="toggleFilter(filter, option.value)"
-          >
-            {{ option.label }}
-          </mat-checkbox>
-          }
-        </mat-expansion-panel>
-        }
-      </mat-menu>
+  <mat-toolbar class="table-toolbar gap-3">
+    <div class="d-flex align-items-center">
+      @if(tableTitle() !== undefined) {
+      <h4 class="table-title mb-0">{{ tableTitle() }}</h4>
+      }
     </div>
 
-    <div class="toolbar-right">
+    <div
+      class="d-flex flex-grow-1"
+      [class.justify-content-end]="tableTitle() !== undefined"
+    >
+      <!-- Search -->
+      <ng-content select="kps-search-field"></ng-content>
+    </div>
+
+    <div class="d-flex action-buttons">
       <!-- Default Tools -->
-      <button mat-icon-button (click)="refresh.emit()">
+      <button
+        mat-icon-button
+        (click)="refreshChange.emit()"
+        class="action-button"
+      >
         <mat-icon>refresh</mat-icon>
       </button>
       <button
         mat-icon-button
         [disabled]="!selection.hasValue()"
         (click)="delete.emit(selection.selected)"
+        class="action-button"
       >
         <mat-icon>delete</mat-icon>
       </button>
-      <button mat-icon-button (click)="add.emit()">
+      <button mat-icon-button (click)="add.emit()" class="action-button">
         <mat-icon>add</mat-icon>
       </button>
 
@@ -70,78 +41,84 @@
     </div>
   </mat-toolbar>
 
-  <!-- ... rest of the table implementation remains the same ... -->
+  @if (dataLoading()) {
+  <kps-loading-indicator />
+  } @else {
+  <div class="table-scroll-container">
+    <table mat-table [dataSource]="dataSource()">
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef class="checkbox-column">
+          <mat-checkbox
+            (change)="toggleAllRows()"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            color="primary"
+          >
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row" class="checkbox-column">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)"
+            color="primary"
+          >
+          </mat-checkbox>
+        </td>
+      </ng-container>
 
-  <!-- Table -->
-  <table mat-table [dataSource]="dataSource()">
-    <!-- Checkbox Column -->
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox
-          (change)="$event ? selectAll() : null"
-          [checked]="selection.hasValue() && isAllSelected()"
-          [indeterminate]="selection.hasValue() && !isAllSelected()"
+      <!-- Dynamic Columns -->
+      @for (column of columns(); track column.key) {
+      <ng-container [matColumnDef]="column.key">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [style.width]="column.width"
+          [style.text-align]="column.align"
+          class="table-header"
         >
-        </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox
-          (click)="$event.stopPropagation()"
-          (change)="$event ? selection.toggle(row) : null"
-          [checked]="selection.isSelected(row)"
+          {{ column.label }}
+          @if(column.sortable) {
+          <mat-icon class="sort-icon">unfold_more</mat-icon>
+          }
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [style.text-align]="column.align"
+          class="table-cell"
         >
-        </mat-checkbox>
-      </td>
-    </ng-container>
+          @if (column.template) { @if (isTemplateRef(column.template)) {
+          <ng-container
+            *ngTemplateOutlet="
+              column.template;
+              context: { $implicit: element, row: element }
+            "
+          ></ng-container>
+          } @else {
+          <span>{{ column.template(element) }}</span>
+          } } @else {
+          <span>{{ element[column.key] }}</span>
+          }
+        </td>
+      </ng-container>
+      }
 
-    <!-- Dynamic Columns -->
-    @for (column of columns(); track column.key) {
-
-    <ng-container [matColumnDef]="column.key">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        [style.width]="column.width"
-        [style.text-align]="column.align"
-      >
-        {{ column.label }}
-
-        @if(column.sortable) {
-        <mat-icon class="sort-icon">unfold_more</mat-icon>
-
-        }
-      </th>
-      <td mat-cell *matCellDef="let element" [style.text-align]="column.align">
-        <!-- has custom template -->
-        @if (column.template) {
-        <!-- is template ref -->
-        @if (isTemplateRef(column.template)) {
-        <ng-container
-          *ngTemplateOutlet="
-            column.template;
-            context: { $implicit: element[column.key], row: element }
-          "
-        ></ng-container>
-
-        }
-        <!-- not a template -->
-        @else {
-        <span>{{ column.template(element[column.key]) }}</span>
-        } }
-        <!-- default template -->
-        @else {
-        <span>{{ element[column.key] }}</span>
-        }
-      </td>
-    </ng-container>
-    }
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns()"
-      [class.selected]="selection.isSelected(row)"
-      (click)="selection.toggle(row)"
-    ></tr>
-  </table>
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns(); sticky: true"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns()"
+        [class.selected]="selection.isSelected(row)"
+        (click)="
+          selection.toggle(row); selectionChange.emit(selection.selected)
+        "
+        class="table-row"
+      ></tr>
+    </table>
+  </div>
+  }
 </div>
