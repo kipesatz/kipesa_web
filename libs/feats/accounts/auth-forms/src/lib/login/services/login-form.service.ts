@@ -1,9 +1,14 @@
-import { inject, Injectable } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { inject, Injectable, signal } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  NonNullableFormBuilder,
+  Validators,
+} from '@angular/forms';
 import { LoginPayload } from '@kps/data/auth';
 import { BaseFormService } from '@kps/forms';
 
-export type LoginFormGroup = FormGroup<{
+export type LoginFg = FormGroup<{
   [K in keyof LoginPayload]: FormControl<LoginPayload[K]>;
 }>;
 
@@ -14,13 +19,9 @@ export class LoginFormService extends BaseFormService<LoginPayload> {
   protected formBuilder: NonNullableFormBuilder = inject(
     NonNullableFormBuilder
   );
-  loginForm!: LoginFormGroup;
+  loginForm = signal<LoginFg>(this.buildForm());
 
-  public initForm(): void {
-    this.loginForm = this.buildForm();
-  }
-
-  protected override buildForm(): FormGroup {
+  public override buildForm(): FormGroup {
     return this.formBuilder.group({
       loginId: [
         '',

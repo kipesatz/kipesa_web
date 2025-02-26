@@ -1,8 +1,15 @@
-<form [formGroup]="getFormGroup()" class="login-form">
+<form [formGroup]="getFormGroup()" (ngSubmit)="submitForm()" class="login-form">
   <div class="w-100 d-flex justify-content-center mb-4">
-    <mat-button-toggle-group [formControl]="loginMethodControl" class="row row-cols-2">
-      <mat-button-toggle value="email" class="col">Login with Email</mat-button-toggle>
-      <mat-button-toggle value="phone" class="col">Login with Phone</mat-button-toggle>
+    <mat-button-toggle-group
+      [formControl]="loginMethodControl"
+      class="row row-cols-2"
+    >
+      <mat-button-toggle value="email" class="col"
+        >Login with Email</mat-button-toggle
+      >
+      <mat-button-toggle value="phone" class="col"
+        >Login with Phone</mat-button-toggle
+      >
     </mat-button-toggle-group>
   </div>
 
@@ -26,6 +33,7 @@
       btnAriaLabel="login"
       variant="flat"
       [isFullWidth]="true"
+      [loading]="loading$()"
       btnType="submit"
     />
   </div>
