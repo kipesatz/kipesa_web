@@ -1,0 +1,14 @@
+<div class="progress-container mb-5 d-flex gap-3 align-items-center">
+  <div class="progress-status">
+    <mat-icon [class.complete]="isComplete()">
+      {{ isComplete() ? 'check_circle' : 'pending' }}
+    </mat-icon>
+    <span>{{ progressText() }}</span>
+  </div>
+  <mat-progress-bar
+    [color]="progressColor()"
+    mode="determinate"
+    [value]="formProgress()"
+    class="flex-grow-1"
+  ></mat-progress-bar>
+</div>
