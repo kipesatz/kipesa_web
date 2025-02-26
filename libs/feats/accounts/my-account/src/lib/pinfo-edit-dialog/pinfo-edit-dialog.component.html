@@ -1,0 +1,29 @@
+<kps-base-dialog>
+  <kps-dialog-header>Change Password</kps-dialog-header>
+
+  <form
+    [formGroup]="getFormGroup()"
+    (ngSubmit)="changePassword()"
+    method="post"
+  >
+    <mat-dialog-content>
+      <kps-pinfo-edit-form [formGroup]="getFormGroup()" />
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="d-flex gap-3">
+      <kps-button
+        btnAriaLabel="cancel & exit"
+        text="Cancel & Exit"
+        btnType="reset"
+        matDialogClose
+      />
+      <kps-button
+        btnAriaLabel="update my details"
+        [validationController]="getFormGroup()"
+        text="Update my details"
+        btnType="submit"
+        variant="flat"
+      />
+    </mat-dialog-actions>
+  </form>
+</kps-base-dialog>
