@@ -4,7 +4,4 @@ export abstract class BaseFormService<T> {
   abstract buildForm(): FormGroup<{
     [K in keyof T]: FormControl<T[K]>;
   }>;
-
-  /**Perform initialization process of the form */
-  public abstract initForm(): void;
 }

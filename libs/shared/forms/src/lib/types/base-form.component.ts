@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 export interface FormProgress {
@@ -14,8 +14,6 @@ export interface FormProgress {
 })
 export abstract class BaseFormComponent {
   abstract getFormGroup(): FormGroup;
-
-  formProgressChange = output<FormProgress>();
 
   getController(controlName: string, ...parents: string[]) {
     if (parents && parents.length > 0) {
@@ -44,20 +42,5 @@ export abstract class BaseFormComponent {
     });
 
     return formData;
-  }
-
-  public calculateFormProgress(): { progress: number; valid: boolean } {
-    const form = this.getFormGroup();
-    const controls = Object.values(form.controls);
-    const totalFields = controls.length;
-    const filledFields = controls.filter(
-      (control) =>
-        control.value !== null && control.value !== '' && !control.pristine
-    ).length;
-
-    return {
-      progress: (filledFields / totalFields) * 100,
-      valid: form.valid,
-    };
   }
 }
