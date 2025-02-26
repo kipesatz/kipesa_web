@@ -1,0 +1,136 @@
+@if (!isForSomeoneElse()) {
+<h2>Add your Contribution</h2>
+}@else {
+<h2>Contribute for Someone else</h2>
+}
+
+<mat-stepper orientation="vertical" [linear]="true">
+  <mat-step label="Member Selection" [stepControl]="getController('member')">
+    @if (membershipsLoading()) {
+    <kps-loading-indicator />
+    }@else {
+    <!-- someone else -->
+    @if (isForSomeoneElse()) {
+    <div class="py-4 search-wrapper">
+      <kps-search-field
+        [(searchTerm)]="searchQuery"
+        searchPlaceholder="Search member..."
+      />
+    </div>
+
+    <mat-selection-list
+      [multiple]="false"
+      class="member-list"
+      (selectionChange)="setSelectedMember($event)"
+      [disabled]="false"
+    >
+      @for (membership of memberships(); track membership.id) {
+      <mat-list-option [value]="membership.user.id">
+        <mat-icon matListItemIcon>card_membership</mat-icon>
+        <div matListItemTitle>
+          {{ membership.user.fullName }} ({{ membership.association.name }})
+        </div>
+        <div matListItemLine>
+          {{ membership.user.email }} ({{ membership.user.phoneNumber }})
+        </div>
+      </mat-list-option>
+      }@empty {
+      <mat-list-item>Search members.</mat-list-item>
+      }
+    </mat-selection-list>
+    }
+    <!-- self contribution -->
+    @else {
+    <!-- my curr membership data -->
+    @if(myCurMembership(); as currMembership) {
+    <mat-selection-list
+      [multiple]="false"
+      [disabled]="true"
+      class="member-list"
+    >
+      <mat-list-option [value]="currMembership.user.id">
+        <mat-icon matListItemIcon>card_membership</mat-icon>
+        <div matListItemTitle>
+          {{ currMembership.user.fullName }} ({{
+            currMembership.association.name
+          }})
+        </div>
+        <div matListItemLine>
+          {{ currMembership.user.email }} ({{
+            currMembership.user.phoneNumber
+          }})
+        </div>
+      </mat-list-option>
+    </mat-selection-list>
+    } } }
+
+    <div class="step-actions">
+      <button mat-button type="button" matStepperNext [disabled]="!isStepValid(0)">
+        Next
+      </button>
+    </div>
+  </mat-step>
+
+  <mat-step label="Amount & Payment Method">
+    <div class="mt-3">
+      <kps-input-field
+        controlName="amount"
+        [controller]="getController('amount')"
+        inputType="number"
+      >
+        <mat-hint>
+          Amount should not be less than the minimal set amount which is
+          <strong>{{ contributionPurpose().minAmount }}</strong>
+        </mat-hint>
+      </kps-input-field>
+    </div>
+
+    <h5 class="mt-4">Payment Method</h5>
+    @if (payMethodsLoading()) {
+    <kps-loading-indicator />
+    }@else {
+    <mat-radio-group
+      class="payment-methods-group"
+      [formControl]="getController('paymentMethod')"
+    >
+      @for (payMethod of payMethods(); track payMethod.id) {
+      <mat-radio-button [value]="payMethod.id" class="payment-method-option">
+        <div class="payment-method-content">
+          <img
+            [src]="payMethod.providerLogo"
+            [alt]="payMethod.name"
+            class="payment-logo"
+          />
+          <span>{{ payMethod.name }}</span>
+        </div>
+      </mat-radio-button>
+      }
+    </mat-radio-group>
+    }
+
+    <div class="step-actions">
+      <button mat-button type="button" matStepperPrevious>Back</button>
+      <button mat-button type="button" matStepperNext [disabled]="!isStepValid(1)">
+        Next
+      </button>
+    </div>
+  </mat-step>
+
+  <mat-step label="Final Notes">
+    <p class="mt-3">Have any notes</p>
+
+    <kps-textarea
+      controlName="paymentMethod"
+      [controller]="getController('notes')"
+    >
+      <mat-hint>
+        Notes give you the opportunity to add any additional information about
+        this contribution.
+      </mat-hint>
+    </kps-textarea>
+
+    <div class="step-actions">
+      <button mat-button type="button" matStepperPrevious>Back</button>
+    </div>
+  </mat-step>
+</mat-stepper>

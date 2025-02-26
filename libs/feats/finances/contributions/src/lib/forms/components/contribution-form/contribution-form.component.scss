@@ -1,0 +1,39 @@
+.step-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.member-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.mat-step {
+  padding-block: 1rem;
+}
+
+.payment-methods-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.payment-method-option {
+  flex: 1 1 200px;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.payment-method-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.payment-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
