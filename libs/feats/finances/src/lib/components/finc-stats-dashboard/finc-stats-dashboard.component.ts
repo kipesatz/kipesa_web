@@ -73,7 +73,7 @@ export class FincStatsDashboardComponent implements OnInit, OnDestroy {
     return { refs, amounts };
   }
 
-  onFilterChange(filters: Record<string, unknown>) {
+  onFilterChange(_filters: Record<string, unknown>) {
     // this.reportFacade.fetchAll();
   }
 

@@ -3,7 +3,14 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^19.0.0",
-    "@angular/core": "^19.0.0"
+    "@angular/core": "^19.0.0",
+    "@angular/material": "^19.0.4",
+    "@kps/data": "0.0.1",
+    "@kps/material": "0.0.1",
+    "rxjs": "~7.8.0",
+    "@angular/animations": "~19.0.0",
+    "@angular/cdk": "^19.0.4",
+    "@angular/router": "~19.0.0"
   },
   "sideEffects": false
 }
