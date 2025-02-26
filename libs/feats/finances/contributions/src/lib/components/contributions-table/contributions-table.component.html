@@ -1,0 +1,84 @@
+<kps-data-table
+  [columns]="columns"
+  [data]="allContributions()"
+  [tableTitle]="tableTitle()"
+  [visibleColumns]="visibleColumns"
+  [dataLoading]="contributionsLoading()"
+  [availableFilters]="filters"
+  (selectionChange)="onSelectionChange($event)"
+  (refreshChange)="refreshData()"
+  (delete)="onDelete($event)"
+  (filterChange)="onFilterChange($event)"
+  (add)="addMenuTrigger.openMenu()"
+>
+  <kps-search-field
+    searchPlaceholder="Search contributions..."
+    [(searchTerm)]="searchTerm"
+    [availableFilters]="filters"
+  />
+
+  <!-- Custom Tools -->
+  <button tableTools mat-icon-button (click)="onExport()">
+    <mat-icon>download</mat-icon>
+  </button>
+
+  <!-- templates -->
+  <ng-template #memberTmpl let-element>
+    {{ element.member.fullName }} <{{ element.member.email }}>
+  </ng-template>
+
+  <ng-template #amtTmpl let-element>
+    {{ element.amount | currency }}
+  </ng-template>
+
+  <ng-template #purposeTmpl let-element>
+    {{ element.purpose.title }}
+  </ng-template>
+
+  <ng-template #payMethodTmpl let-element>
+    <mat-chip>{{ element.paymentMethod.name }}</mat-chip>
+  </ng-template>
+
+  <ng-template #statusTmpl let-element>
+    <mat-chip [class]="['badge', 'bg-' + getStatusColor(element)]">
+      {{ element.status }}
+    </mat-chip>
+  </ng-template>
+
+  <ng-template #createdTmpl let-element>
+    <span>{{ element.createdOn | date : 'fullDate' }}</span>
+  </ng-template>
+
+  <ng-template #actionsTmpl let-element>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      @if(element.status !== 'COMPLETED') { 
+      <button mat-menu-item (click)="openApprovalDialog(element)">
+        <mat-icon>check_circle</mat-icon>
+        <span>Approve Contribution</span>
+      </button>
+     }
+      <button mat-menu-item (click)="onDelete([element])">
+        <mat-icon>delete</mat-icon>
+        <span>Delete Contribution</span>
+      </button>
+    </mat-menu>
+  </ng-template>
+
+  <kps-button
+    tableTools
+    text="Add"
+    [matMenuTriggerFor]="menuRef"
+    #addMenuTrigger="matMenuTrigger"
+    btnAriaLabel="add contribution"
+  ></kps-button>
+</kps-data-table>
+
+<mat-menu #menuRef="matMenu" xPosition="before">
+  <button mat-menu-item (click)="onAdd(false)">Add your Contribution</button>
+  <button mat-menu-item (click)="onAdd(true)">
+    Contribute for other Member
+  </button>
+</mat-menu>
