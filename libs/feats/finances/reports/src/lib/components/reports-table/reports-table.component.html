@@ -1,0 +1,51 @@
+<kps-data-table
+  [columns]="columns"
+  [data]="finacialReports()"
+  tableTitle="Financial Reports"
+  [visibleColumns]="visibleColumns"
+  [availableFilters]="filters"
+  [dataLoading]="reportsLoading()"
+  (selectionChange)="onSelectionChange($event)"
+  (refreshChange)="refreshData()"
+  (delete)="onDelete($event)"
+  (filterChange)="onFilterChange($event)"
+  (add)="openGenReportDialog()"
+>
+  <kps-search-field
+    searchPlaceholder="Search reports..."
+    [(searchTerm)]="searchTerm"
+  />
+
+  <!-- templates -->
+  <ng-template #startDateTmpl let-element>
+    {{ element.startDate | date }}
+  </ng-template>
+
+  <ng-template #endDateTmpl let-element>
+    {{ element.endDate | date }}
+  </ng-template>
+
+  <ng-template #createdTmpl let-element>
+    {{ element.createdOn | date : 'medium' }}
+  </ng-template>
+
+  <ng-template #filePathTmpl let-element>
+    <a [href]="element.filePath" target="_blank"> {{ element.filePath }} </a>
+  </ng-template>
+
+  <ng-template #actionsTmpl let-element>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEdit(element)">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item (click)="onDelete([element])">
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  </ng-template>
+</kps-data-table>
