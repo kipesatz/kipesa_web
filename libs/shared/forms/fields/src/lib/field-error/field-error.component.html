@@ -18,5 +18,9 @@
   <span class="mat-body">
     {{ minError }}
   </span>
+  } @if (matchingError) {
+  <span class="mat-body">
+    {{ matchingError.message }}
+  </span>
   } }
 </section>

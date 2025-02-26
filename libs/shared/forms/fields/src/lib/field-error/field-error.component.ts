@@ -6,6 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatchingError } from '@kps/forms/validators';
 
 @Component({
   selector: 'kps-field-error',
@@ -23,6 +24,7 @@ export class FieldErrorComponent implements OnInit, OnChanges {
   minLengthError: string | null = null;
   maxLengthError: string | null = null;
   requiredError: string | null = null;
+  matchingError: MatchingError | null = null;
 
   ngOnInit(): void {
     this.checkFieldErrors();
@@ -45,26 +47,40 @@ export class FieldErrorComponent implements OnInit, OnChanges {
       if (this.checkError('minlength')) {
         const error = this.getError('minlength');
         this.minLengthError = `
-          ${this.fieldLabel()} should contain at least ${error['requiredLength']} characters.`;
+          ${this.fieldLabel()} should contain at least ${
+          error['requiredLength']
+        } characters.`;
       }
 
       // maxLengthError
       if (this.checkError('maxlength')) {
         const error = this.getError('maxlength');
         this.maxLengthError = `
-          ${this.fieldLabel()} should not be more than ${error['requiredLength']} characters.`;
+          ${this.fieldLabel()} should not be more than ${
+          error['requiredLength']
+        } characters.`;
       }
 
       // maxError
       if (this.checkError('max')) {
         const error = this.getError('max');
-        this.maxError = `${this.fieldLabel()} should not exceed ${error['max']}.`;
+        this.maxError = `${this.fieldLabel()} should not exceed ${
+          error['max']
+        }.`;
       }
 
       // minError
       if (this.checkError('min')) {
         const error = this.getError('min');
-        this.minError = `${this.fieldLabel()} should not be less than ${error['min']}.`;
+        this.minError = `${this.fieldLabel()} should not be less than ${
+          error['min']
+        }.`;
+      }
+
+      // matchingError
+      if (this.checkError('matching')) {
+        const error = this.getError('matching');
+        this.matchingError = error as unknown as MatchingError;
       }
     }
   }
