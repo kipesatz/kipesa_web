@@ -55,3 +55,75 @@ body {
     }
   }
 }
+
+.mat-tab-group.mat-mdc-tab-header {
+  position: sticky !important;
+  top: 0 !important;
+}
+
+// tabs
+.raised-tabs {
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px 8px 0 0;
+
+  ::ng-deep {
+    .mat-tab-link {
+      height: 64px;
+      padding: 0 24px;
+      opacity: 1;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.04);
+      }
+
+      &.mat-tab-label-active {
+        color: #1976d2;
+
+        .tab-icon {
+          color: #1976d2;
+        }
+      }
+    }
+  }
+
+  .tab-icon {
+    margin-right: 8px;
+    color: #666;
+  }
+
+  .tab-label {
+    font-weight: 500;
+  }
+}
+
+// Make tabs responsive
+@media (max-width: 768px) {
+  .raised-tabs {
+    ::ng-deep .mat-tab-link {
+      padding: 0 16px;
+
+      .tab-label {
+        display: none;
+      }
+
+      .tab-icon {
+        margin: 0;
+      }
+    }
+  }
+}
+
+// dialogs
+.mat-mdc-dialog-container {
+  max-block-size: unset !important;
+}
+
+// table
+.table-img-sm {
+  inline-size: 50px;
+  max-inline-size: 70px;
+  block-size: 50px;
+  object-fit: contain;
+}
