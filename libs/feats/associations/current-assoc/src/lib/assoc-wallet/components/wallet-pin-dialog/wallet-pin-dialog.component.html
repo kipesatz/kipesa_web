@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Enter PIN</h2>
+<form [formGroup]="getFormGroup()" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <kps-input-field
+      controlName="pin"
+      inputType="password"
+      [controller]="getController('pin')"
+    />
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <kps-button
+      text="Cancel"
+      btnAriaLabel="Cancel"
+      [variant]="'stroked'"
+      btnType="reset"
+      (click)="dialogRef.close()"
+    />
+
+    <kps-button
+      text="Verify"
+      btnType="submit"
+      btnAriaLabel="Verify"
+      [validationController]="getFormGroup()"
+      (click)="onSubmit()"
+    />
+  </mat-dialog-actions>
+</form>
