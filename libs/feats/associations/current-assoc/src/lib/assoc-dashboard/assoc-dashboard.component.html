@@ -1,0 +1,170 @@
+<section class="dashboard-container">
+  <!-- Members Status Section -->
+  <div class="stats-grid">
+    @if (statsLoading()) {
+    <kps-loading-indicator />
+    }@else { @if (statsData(); as membershipStats) {
+    <mat-card class="stats-card active-card">
+      <mat-card-header>
+        <mat-card-title>Active Members</mat-card-title>
+        <mat-card-subtitle class="py-3">{{
+          membershipStats.activeMemberships
+        }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+
+    <mat-card class="stats-card pending-card">
+      <mat-card-header>
+        <mat-card-title>Pending Members</mat-card-title>
+        <mat-card-subtitle class="py-3">{{
+          membershipStats.pendingMemberships
+        }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+
+    <mat-card class="stats-card rejected-card">
+      <mat-card-header>
+        <mat-card-title>Rejected Members</mat-card-title>
+        <mat-card-subtitle class="py-3">
+          {{ membershipStats.rejectedMemberships }}</mat-card-subtitle
+        >
+      </mat-card-header>
+    </mat-card>
+
+    <!-- <mat-card class="col-md-3">
+      <kps-pie-chart
+        [data]="chartData()"
+        [colors]="['#4CAF50', '#FFC107', '#E91E63']"
+      />
+    </mat-card> -->
+    }}
+  </div>
+
+  <!-- Wallet Section -->
+  <div class="wallet-section">
+    <mat-card class="wallet-card">
+      <mat-card-header>
+        <mat-icon class="wallet-icon">account_balance_wallet</mat-icon>
+        <mat-card-title>Association Wallet</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        @if (!showBalance()) {
+        <div class="pin-prompt">
+          <mat-icon class="lock-icon">lock</mat-icon>
+          <p>Balance hidden for security</p>
+          <kps-button
+            text="View Balance"
+            btnAriaLabel="view balance"
+            (click)="openPinDialog()"
+          />
+        </div>
+        }@else {
+        <div class="balance-details">
+          @if(walletData(); as wallet) {
+          <div class="balance-item">
+            <span class="balance-label">Book Balance</span>
+            <span class="balance-value">{{ wallet.bookBc | currency }}</span>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="balance-item">
+            <span class="balance-label">Credit Balance</span>
+            <span class="balance-value positive">
+              {{ wallet.creditBc | currency }}
+            </span>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="balance-item">
+            <span class="balance-label">Debit Balance</span>
+            <span class="balance-value negative">
+              {{ wallet.debitBc | currency }}
+            </span>
+          </div>
+          }
+        </div>
+
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-container">
+    <mat-card class="chart-card mb-3">
+      <mat-card-header>
+        <mat-card-title>Membership Distribution</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <kps-pie-chart
+          [data]="chartData()"
+          [colors]="['#4CAF50', '#FFC107', '#E91E63']"
+        />
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Contributions Section -->
+  <div class="d-flex flex-wrap justify-content-between gap-3 mb-3">
+    <mat-card class="col">
+      <mat-card-header>
+        <mat-card-title>Completed Contributions</mat-card-title>
+        <mat-card-subtitle>{{ 103 }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+
+    <mat-card class="col">
+      <mat-card-header>
+        <mat-card-title>Pending Contributions</mat-card-title>
+        <mat-card-subtitle>{{ 50 }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+
+    <mat-card class="col">
+      <mat-card-header>
+        <mat-card-title>Failed Contributions</mat-card-title>
+        <mat-card-subtitle>{{ 2 }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+
+    <!-- <mat-card class="col-12 mt-3">
+      <kps-pie-chart
+        [data]="chartData()"
+        [colors]="['#4CAF50', '#FFC107', '#E91E63']"
+      />
+    </mat-card> -->
+  </div>
+
+  <!-- quick actions -->
+  <mat-card class="actions-card mb-3">
+    <mat-card-header>
+      <mat-card-title>Recent Activities</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Add activity list component -->
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="col-md-6">
+    <mat-card-header>
+      <mat-card-title>Quick Actions</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="actions-grid">
+        <kps-button
+          icon="add_circle"
+          text="New Contribution"
+          btnAriaLabel="New Contribution"
+        />
+        <kps-button
+          icon="person_add"
+          text="Add Member"
+          btnAriaLabel="Add Member"
+        />
+        <kps-button
+          icon="description"
+          text="Generate Report"
+          btnAriaLabel="Generate Report"
+        />
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>
