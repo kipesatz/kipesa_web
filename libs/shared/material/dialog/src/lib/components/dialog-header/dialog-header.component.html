@@ -1,0 +1,12 @@
+<mat-toolbar mat-dialog-title class="dialog-header border-bottom">
+  <div class="mb-0 fs-7 text-muted flex-grow-1">
+    <ng-content></ng-content>
+  </div>
+  <kps-iconic-button
+    btnAriaLabel="close dialog"
+    icon="close"
+    (clicked)="closeDialog()"
+    aria-hidden="false"
+    [autofocus]="true"
+  />
+</mat-toolbar>
