@@ -3,6 +3,7 @@ export interface User {
   firstName: string;
   middleName: string | null;
   lastName: string;
+  fullName: string;
   email: string;
   phoneNumber: string;
   createdOn: string;
