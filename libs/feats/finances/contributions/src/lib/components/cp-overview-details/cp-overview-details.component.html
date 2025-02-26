@@ -1,0 +1,52 @@
+<mat-list>
+  <mat-list-item>
+    <mat-icon matListItemIcon>calendar_today</mat-icon>
+    <div matListItemTitle>Start Date</div>
+    <div matListItemLine>
+      {{ cpurpose().startDate | date }}
+    </div>
+  </mat-list-item>
+
+  <mat-list-item>
+    <mat-icon matListItemIcon>event</mat-icon>
+    <div matListItemTitle>End Date</div>
+    <div matListItemLine>
+      {{ cpurpose().endDate | date }}
+    </div>
+  </mat-list-item>
+  <mat-list-item>
+    <mat-icon matListItemIcon>event</mat-icon>
+    <div matListItemTitle>Date Created</div>
+    <div matListItemLine>
+      {{ cpurpose().createdOn | date : 'short' }}
+    </div>
+  </mat-list-item>
+
+  <mat-list-item>
+    <div matListItemTitle>Collected Contributions</div>
+    <div matListItemLine>
+      {{ cpurpose().collectedAmount | currency }}
+    </div>
+  </mat-list-item>
+
+  <mat-list-item>
+    <div matListItemTitle>Minimal Amount</div>
+    <div matListItemLine>
+      {{ cpurpose().minAmount | currency }}
+    </div>
+  </mat-list-item>
+  <mat-list-item>
+    <div matListItemTitle>Target Amount</div>
+    <div matListItemLine>
+      {{ cpurpose().targetAmount }}
+    </div>
+  </mat-list-item>
+
+  <mat-list-item class="auto-height">
+    <mat-icon matListItemIcon>description</mat-icon>
+    <div matListItemTitle>Description</div>
+    <div matListItemLine class="multiline">
+      {{ cpurpose().description }}
+    </div>
+  </mat-list-item>
+</mat-list>
