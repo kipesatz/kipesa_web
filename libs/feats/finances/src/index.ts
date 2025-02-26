@@ -1,1 +1,1 @@
-export const finances = 'finances';
+export * from './lib/finances.routes';

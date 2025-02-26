@@ -1,0 +1,119 @@
+<div class="dashboard-container">
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <h1>Financial Analytics</h1>
+    <div class="header-actions">
+      <kps-search-field
+        [searchDelay]="300"
+        [availableFilters]="dateFilters"
+        (filterChange)="onFilterChange($event)"
+      >
+      </kps-search-field>
+      <kps-button
+        icon="download"
+        text="Export Report"
+        btnAriaLabel="generate report"
+        variant="raised"
+        color="primary"
+        (click)="generateReport()"
+      />
+    </div>
+  </div>
+
+  <!-- Key Metrics Cards -->
+  @if (fincStatsLoading()) {
+  <kps-loading-indicator />
+  }@else { @if (fincStatsData(); as fincStats) {
+  <div class="metrics-grid">
+    <mat-card class="metric-card loans">
+      <mat-card-content>
+        <div class="metric-value">
+          {{ fincStats.loansDisbursed.amount | currency }}
+        </div>
+        <div class="metric-label">Total Loans Disbursed</div>
+        <div class="metric-change">+{{ calculateGrowth() }}%</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="metric-card returns">
+      <mat-card-content>
+        <div class="metric-value">
+          {{ fincStats.loansRepaid.amount | currency }}
+        </div>
+        <div class="metric-label">Total Returns</div>
+        <div class="metric-change">+{{ calculateReturnsRate() }}%</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="metric-card deposits">
+      <mat-card-content>
+        <div class="metric-value">
+          {{ fincStats.deposits.amount | currency }}
+        </div>
+        <div class="metric-label">Total Deposits</div>
+        <div class="metric-count">
+          {{ fincStats.deposits.count }} transactions
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="metric-card withdrawals">
+      <mat-card-content>
+        <div class="metric-value">
+          {{ fincStats.withdrawals.amount | currency }}
+        </div>
+        <div class="metric-label">Total Withdrawals</div>
+        <div class="metric-count">
+          {{ fincStats.withdrawals.count }} transactions
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Charts Grid -->
+  <div class="charts-grid">
+    <mat-card class="chart-card full-width w-100">
+      <mat-card-header>
+        <mat-card-title>Loans Overview</mat-card-title>
+        <mat-card-subtitle> Analysis {{ fincStats.title }} </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <kps-bar-chart
+          [xAxisData]="['Loans Disbursed', 'Loans Paid']"
+          [seriesData]="[
+            fincStats.loansDisbursed.amount,
+            fincStats.loansRepaid.amount
+          ]"
+        />  
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Cash Flow Distribution</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <kps-bar-chart
+          [xAxisData]="['Deposits', 'Withdrawals']"
+          [seriesData]="[
+            fincStats.deposits.amount,
+            fincStats.withdrawals.amount
+          ]"
+        />
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Transaction Trends</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <kps-line-chart
+          [xAxisData]="transactionsData.refs"
+          [seriesData]="transactionsData.amounts"
+        />
+      </mat-card-content>
+    </mat-card>
+  </div>
+  } }
+</div>
