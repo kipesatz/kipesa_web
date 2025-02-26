@@ -1,0 +1,68 @@
+<div class="d-flex flex-wrap gap-3">
+  <section class="col">
+    <kps-input-field
+      controlName="title"
+      [controller]="getController('title')"
+      label="Purpose Title"
+      placeholder="Enter purpose title"
+    />
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <kps-input-field
+          controlName="targetAmount"
+          [controller]="getController('targetAmount')"
+          label="Target Amount"
+          inputType="number"
+          prefix="$"
+        >
+          <mat-hint>
+            Represents the amount which is expected to be collected
+          </mat-hint>
+        </kps-input-field>
+      </div>
+      <div class="col-md-6">
+        <kps-input-field
+          controlName="minAmount"
+          [controller]="getController('minAmount')"
+          label="Minimal Contribution Amount"
+          inputType="number"
+          prefix="$"
+        >
+          <mat-hint>The minimal amount that a person can contribute</mat-hint>
+        </kps-input-field>
+      </div>
+    </div>
+
+    <div class="row row-cols-md-2">
+      <div class="col-md-6">
+        <kps-datepicker
+          controlName="startDate"
+          [controller]="getController('startDate')"
+          label="Start date"
+        />
+      </div>
+      <div class="col-md-6">
+        <kps-datepicker
+          controlName="endDate"
+          [controller]="getController('endDate')"
+          label="Deadline"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="col">
+    <kps-textarea
+      controlName="description"
+      [controller]="getController('description')"
+      label="Description"
+      placeholder="Describe the purpose of this contribution"
+    >
+      <mat-hint>
+        Explain the purpose of this contribution purpose to make more clarity to
+        the contributors
+      </mat-hint>
+    </kps-textarea>
+  </section>
+</div>
