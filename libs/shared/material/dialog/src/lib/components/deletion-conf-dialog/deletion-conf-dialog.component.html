@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Are you sure?</h2>
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+  One (1) item will be deleted from this operation.
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <kps-button
+    [btnAriaLabel]="confirmationBtnText"
+    [text]="confirmationBtnText"
+    (clicked)="closeDialog(true)"
+    btnColor="warn"
+    icon="delete"
+    variant="raised"
+  />
+  <kps-button
+    [btnAriaLabel]="cancellationnBtnText"
+    [text]="cancellationnBtnText"
+    icon="block"
+    (clicked)="closeDialog(false)"
+  />
+</mat-dialog-actions>
