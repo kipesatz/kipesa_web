@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>
+  <strong>Attention: </strong> {{ 'Switching to ' + getAssociation().name }}
+</h2>
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+  <p>
+    You are about to switch to another association. If you don't take any
+    action, the system will automatically switch in
+    <strong class="text-danger">{{ timerVal() }}s</strong>
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions class="d-inline-flex flex-nowrap gap-3">
+  <kps-button
+    btnAriaLabel="cancel"
+    text="CANCEL"
+    (clicked)="switchAssociation(false)"
+    btnColor="warn"
+  />
+  <kps-button
+    btnAriaLabel="OK"
+    text="OK"
+    variant="flat"
+    (clicked)="switchAssociation(true)"
+  ></kps-button>
+</mat-dialog-actions>
