@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { RegistrationFormGroup, RegistrationFormService } from '../../services';
+import { Component, inject, output } from '@angular/core';
+import { RegistrationFormService } from '../../services';
 import { BaseFormComponent } from '@kps/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatCheckbox } from '@angular/material/checkbox'
+import { MatCheckbox } from '@angular/material/checkbox';
 import {
   EmailFieldComponent,
   InputFieldComponent,
@@ -10,6 +10,7 @@ import {
   PhoneFieldComponent,
 } from '@kps/forms/fields';
 import { ButtonComponent } from '@kps/material/button';
+import { RegistrationPayload } from '@kps/data/auth';
 
 @Component({
   selector: 'kps-registration-form',
@@ -20,23 +21,32 @@ import { ButtonComponent } from '@kps/material/button';
     PhoneFieldComponent,
     PasswordFieldComponent,
     ButtonComponent,
-    MatCheckbox
+    MatCheckbox,
   ],
   templateUrl: './registration-form.component.html',
   styleUrl: './registration-form.component.scss',
 })
-export class RegistrationFormComponent
-  extends BaseFormComponent
-  implements OnInit
-{
-  private registrationFormService = inject(RegistrationFormService);
+export class RegistrationFormComponent extends BaseFormComponent {
+  // injections
+  private regFormService = inject(RegistrationFormService);
   public hidePassword = true;
 
-  public getFormGroup(): RegistrationFormGroup {
-    return this.registrationFormService.registrationForm;
-  }
+  // output
+  formSubmitted = output<RegistrationPayload>();
 
-  ngOnInit(): void {
-    this.registrationFormService.initForm();
+  getFormGroup = () => this.regFormService.registrationForm();
+
+  public onSubmit(): void {
+    // console.log("onsubmit is called", this.getFormGroup().value)
+    // if (this.getFormGroup().valid) {
+      const formValue = this.getFormGroup().value;
+
+      const { agreeToTerms, confirmPassword, ...registrationData } = formValue;
+      if (registrationData) {
+        this.formSubmitted.emit(registrationData as RegistrationPayload);
+      }
+
+    //   console.log("form is valid")
+    // }
   }
 }
