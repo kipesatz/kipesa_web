@@ -1,0 +1,164 @@
+<mat-stepper>
+  <!-- Basic Information Step -->
+  <mat-step label="Basic Information">
+    <div class="grid grid-cols-2 gap-4">
+      <kps-select-field
+        [controller]="getController('borrower')"
+        controlName="borrower"
+      >
+        <mat-option>First borrower</mat-option>
+      </kps-select-field>
+
+      <kps-select-field
+        [controller]="getController('loanType')"
+        controlName="loanType"
+      >
+        <mat-option>First borrower</mat-option>
+      </kps-select-field>
+
+      <kps-select-field
+        [controller]="getController('loanStatus')"
+        controlName="loanStatus"
+      >
+        <mat-option>First borrower</mat-option>
+      </kps-select-field>
+
+      <kps-input-field
+        [controller]="getController('loanPurpose')"
+        controlName="loanPurpose"
+      >
+      </kps-input-field>
+    </div>
+  </mat-step>
+
+  <!-- Amount Details Step -->
+  <mat-step label="Amount Details">
+    <div class="grid grid-cols-2 gap-4">
+      <kps-input-field
+        inputType="number"
+        [controller]="getController('disbursedAmount')"
+        controlName="disbursedAmount"
+      >
+      </kps-input-field>
+
+      <kps-input-field
+        inputType="number"
+        [controller]="getController('totalAmountDue')"
+        controlName="totalAmountDue"
+      >
+      </kps-input-field>
+
+      <kps-input-field
+        inputType="number"
+        [controller]="getController('interestRate')"
+        controlName="interestRate"
+      >
+      </kps-input-field>
+
+      <kps-input-field
+        inputType="number"
+        [controller]="getController('totalInterest')"
+        controlName="totalInterest"
+      >
+      </kps-input-field>
+
+      <kps-input-field
+        inputType="number"
+        [controller]="getController('loanFee')"
+        controlName="loanFee"
+      >
+      </kps-input-field>
+
+      <kps-input-field
+        inputType="number"
+        [controller]="getController('remainingBalance')"
+        controlName="remainingBalance"
+      >
+      </kps-input-field>
+    </div>
+  </mat-step>
+
+  <!-- Repayment Details Step -->
+  <mat-step label="Repayment Details">
+    <div class="grid grid-cols-2 gap-4">
+      <kps-select-field
+        [controller]="getController('repaymentFrequency')"
+        controlName="borrower"
+        label="Repayment Frequency"
+      >
+        <mat-option>Repayment frequency</mat-option>
+      </kps-select-field>
+
+      <kps-input-field
+        inputType="number"
+        [controller]="getController('lastRepaymentAmount')"
+        controlName="lastRepaymentAmount"
+      >
+      </kps-input-field>
+
+      <kps-input-field
+        inputType="number"
+        [controller]="getController('nextRepaymentAmount')"
+        controlName="nextRepaymentAmount"
+      >
+      </kps-input-field>
+    </div>
+  </mat-step>
+
+  <!-- Dates Step -->
+  <mat-step label="Important Dates">
+    <div class="grid grid-cols-2 gap-4">
+      <kps-datepicker
+        [controller]="getController('issueDate')"
+        controlName="issueDate"
+      >
+      </kps-datepicker>
+
+      <kps-datepicker
+        [controller]="getController('dueDate')"
+        controlName="dueDate"
+      >
+      </kps-datepicker>
+
+      <kps-datepicker
+        [controller]="getController('closureDate')"
+        controlName="closureDate"
+      >
+      </kps-datepicker>
+
+      <kps-datepicker
+        [controller]="getController('defaultDate')"
+        controlName="defaultDate"
+      >
+      </kps-datepicker>
+
+      <kps-datepicker
+        [controller]="getController('lastRepaymentDate')"
+        controlName="lastRepaymentDate"
+      >
+      </kps-datepicker>
+
+      <kps-datepicker
+        [controller]="getController('nextRepaymentDate')"
+        controlName="nextRepaymentDate"
+      >
+      </kps-datepicker>
+    </div>
+  </mat-step>
+
+  <!-- Additional Information Step -->
+  <mat-step label="Additional Information">
+    <div class="grid grid-cols-1 gap-4">
+      <kps-editor
+        [control]="getController('notes')"
+        label="Notes"
+        [maxLength]="15000"
+      >
+      </kps-editor>
+    </div>
+  </mat-step>
+</mat-stepper>
+
+<div class="mt-4">
+  <kps-validity-progress-checker [formGroup]="getFormGroup()" />
+</div>
