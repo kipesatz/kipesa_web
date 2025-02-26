@@ -1,0 +1,186 @@
+<!-- Header Toolbar -->
+<mat-toolbar class="page-header">
+  <h1 class="header-text">My Personal Information</h1>
+  <div class="toolbar-actions">
+    <kps-iconic-button
+      icon="edit"
+      matTooltip="Edit Profile"
+      btnAriaLabel="Edit Profile"
+      (clicked)="openEditProfileDialog()"
+    />
+    <kps-iconic-button
+      icon="lock"
+      matTooltip="Change Password"
+      btnAriaLabel="Change Password"
+      (clicked)="openPasswordDialog()"
+    />
+  </div>
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+@if (loading$()) {
+<kps-loading-indicator />
+}@else {
+<!-- auth user exists -->
+@if (authUser$(); as authUser) {
+<div class="container-fluid">
+  <!-- pinfo -->
+  <section class="p-sm-3 p-4 mb-3">
+    <div class="d-inline-flex gap-sm-3 gap-4 align-items-center mb-4">
+      <div class="position-relative">
+        <div
+          class="avatar-circle d-flex align-items-center justify-content-center"
+        >
+          {{ authUser.initials }}
+          <button mat-mini-fab color="primary" class="add-button">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+      <!-- Member Name -->
+      <h2>{{ authUser.fullName }}</h2>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex gap-4">
+      @for (button of actionButtons; track $index) {
+      <a [href]="button.link" class="text-decoration-none text-center">
+        <button mat-mini-fab color="basic" class="mb-2">
+          <mat-icon>{{ button.icon }}</mat-icon>
+        </button>
+        <div class="text-muted small">{{ button.label }}</div>
+      </a>
+      }
+    </div>
+  </section>
+
+  <!-- Contact Details Card -->
+  <mat-card class="mb-4 contact-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Primary details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list dense>
+        <mat-list-item>
+          <h3 matListItemTitle>Full Name</h3>
+          <mat-icon matListItemIcon class="text-primary">person</mat-icon>
+          <span matListItemLine> {{ authUser.fullName }} </span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <h3 matListItemTitle>National ID</h3>
+          <mat-icon matListItemIcon class="text-primary">
+            fingerprint
+          </mat-icon>
+          <div matListItemLine>
+            @if(authUser.nationalId) {
+            <span> {{ authUser.nationalId }} </span>
+            }@else {
+            <button mat-button color="primary">
+              <mat-icon>cake</mat-icon>
+              Add National ID
+            </button>
+            }
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 matListItemTitle>Occupation</h3>
+          <mat-icon matListItemIcon class="text-primary">
+            engineering
+          </mat-icon>
+
+          <div matListItemLine>
+            @if(authUser.occupation) {
+            <span> {{ authUser.occupation }} </span>
+            }@else {
+            <button mat-button color="primary">
+              <mat-icon>cake</mat-icon>
+              Add your Occupation
+            </button>
+            }
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mb-4 contact-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Contact details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <h3 matListItemTitle>Email Address</h3>
+          <mat-icon matListItemIcon class="text-primary">contact_mail</mat-icon>
+          <span matListItemLine> {{ authUser.email }} </span>
+        </mat-list-item>
+        <mat-list-item>
+          <h3 matListItemTitle>Phone Contact</h3>
+          <mat-icon matListItemIcon class="text-primary"
+            >contact_phone</mat-icon
+          >
+
+          <div matListItemLine>
+            @if(authUser.phoneNumber) {
+            <span> {{ authUser.phoneNumber }} </span>
+
+            }@else {
+            <button mat-button color="primary">
+              <mat-icon>contact_phone</mat-icon>
+              Add Phone Number
+            </button>
+            }
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <h3 matListItemTitle>Date of Birth</h3>
+          <mat-icon matListItemIcon class="text-primary"> cake </mat-icon>
+          <div matListItemLine>
+            @if (!authUser.dob) {
+            <span></span>
+            {{ authUser.dob | date : 'shortDate' }}
+            }@else {
+            <button mat-button color="primary">
+              <mat-icon>cake</mat-icon>
+              Add birthday
+            </button>
+            }
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <h3 matListItemTitle>Physical Address</h3>
+          <mat-icon matListItemIcon class="text-primary"
+            >location_city</mat-icon
+          >
+          <div matListItemLine>
+            @if (authUser.address) {
+            <span>{{ authUser.address }}</span>
+            }@else {
+            <button mat-button color="primary">
+              <mat-icon>contact_mail</mat-icon>
+              Add Address
+            </button>
+            }
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- History Section -->
+  <div>
+    <h3 class="d-flex align-items-center">
+      History
+      <mat-icon class="ms-2" matTooltip="My activity history">info</mat-icon>
+    </h3>
+    <div class="text-muted">
+      <p>Last Login • {{ authUser.lastLogin | date : 'longDate' }}</p>
+      <p>Added to Kipesa • {{ authUser.dateJoined | date : 'longDate' }}</p>
+    </div>
+  </div>
+</div>
+} }
