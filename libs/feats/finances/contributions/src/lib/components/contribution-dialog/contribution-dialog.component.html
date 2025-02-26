@@ -1,0 +1,82 @@
+<kps-base-dialog dialogTitle="Add Contribution">
+  <form [formGroup]="getFormGroup()" (ngSubmit)="addContribution()" method="post">
+    <mat-dialog-content>
+      <!-- Main content -->
+      <div class="flex-grow-1 overflow-auto bg-light">
+        <div class="container-fluid h-100">
+          @if (cpLoading()) {
+          <kps-loading-indicator />
+          }@else {
+          <div class="row h-100 flex-wrap-reverse">
+            <!-- Right Column - Overview -->
+            <div class="col-lg-4 bg-light border-start">
+              <div class="purpose-overview mb-4">
+                <h3>Purpose Overview</h3>
+                <kps-cp-overview-details [cpurpose]="cpurpose" />
+              </div>
+
+              <div class="contributors-section">
+                <h4>Recent Contributors</h4>
+                <mat-list>
+                  @for (contribution of contributions(); track contribution.id)
+                  {
+                  <mat-list-item>
+                    <mat-icon matListItemAvatar class="mat-18"
+                      >verified_user</mat-icon
+                    >
+                    <div matListItemLine>
+                      {{ contribution.member.fullName }}
+                    </div>
+                    <div matListItemLine class="text-muted">
+                      {{ contribution.amount | currency }}
+                    </div>
+                  </mat-list-item>
+                  }
+                </mat-list>
+
+                <kps-button
+                  text="View All Contributors"
+                  btnAriaLabel="view all contributors"
+                  (click)="viewAllContributors()"
+                />
+              </div>
+            </div>
+
+            <!-- Left Column - Form -->
+            <div class="col-lg-8 d-flex justify-content-start">
+              <div class="d-block">
+                <kps-contribution-form
+                  [contributionPurpose]="cpurpose"
+                  [isForSomeoneElse]="isForOther"
+                  [formGroup]="getFormGroup()"
+                />
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </mat-dialog-content>
+
+    <kps-dialog-footer>
+      <small>* Required fields</small>
+
+      <div class="d-flex gap-3">
+        <kps-button
+          text="Cancel & Exit"
+          btnAriaLabel="cancel & exit"
+          [btnColor]="undefined"
+          matDialogClose
+        ></kps-button>
+
+        <kps-button
+          text="Contribute"
+          btnType="submit"
+          btnAriaLabel="confirm contribution"
+          [validationController]="getFormGroup()"
+          variant="flat"
+        ></kps-button>
+      </div>
+    </kps-dialog-footer>
+  </form>
+</kps-base-dialog>
