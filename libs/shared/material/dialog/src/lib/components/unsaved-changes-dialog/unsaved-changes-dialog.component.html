@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Unsaved Changes</h1>
+
+<mat-dialog-content>
+  <p>You have unsaved changes! If you leave, your changes will be lost.</p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <!-- stay -->
+  <kps-button
+    btnAriaLabel="stay editing"
+    text="Stay"
+    (clicked)="stayEditing()"
+  />
+
+  <!-- leave -->
+  <kps-button
+    btnAriaLabel="confirm exit"
+    text="Leave"
+    btnColor="warn"
+    (clicked)="confirmExit()"
+  />
+</mat-dialog-actions>
