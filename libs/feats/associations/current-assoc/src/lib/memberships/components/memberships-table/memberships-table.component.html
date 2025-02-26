@@ -1,0 +1,67 @@
+<kps-data-table
+  [columns]="columns"
+  [data]="allMemberships()"
+  [tableTitle]="tableTitle()"
+  [visibleColumns]="visibleColumns"
+  [availableFilters]="[]"
+  (selectionChange)="onSelectionChange($event)"
+  (refreshChange)="refreshData()"
+  (delete)="rejectRequest($event)"
+  (filterChange)="onFilterChange($event)"
+  (add)="onAdd()"
+>
+  <kps-search-field
+    [(searchTerm)]="searchTerm"
+    searchPlaceholder="Search members"
+  />
+
+  <!-- column templates -->
+  <ng-template #memberTemplate let-element>
+    <a [routerLink]="['../', element.id]">
+      {{ element.user.fullName }}
+    </a>
+  </ng-template>
+  <ng-template #phoneTmpl let-element>
+    {{ element.user.phoneNumber }}
+  </ng-template>
+  <ng-template #emailTmpl let-element>
+    {{ element.user.email }}
+  </ng-template>
+
+  <ng-template #statusTemplate let-element>
+    <mat-chip [color]="getStatusColor(element.status)">
+      {{ element.status }}
+    </mat-chip>
+  </ng-template>
+
+  <ng-template #roleTemplate let-element>
+    {{ element.role.name }}
+  </ng-template>
+  <ng-template #joinedTmpl let-element>
+    {{ element.joinedAt | date : 'mediumDate' }}
+  </ng-template>
+
+  <ng-template #actionsTemplate let-element>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['../', element.id]">
+        <mat-icon>edit</mat-icon>
+        <span>View Details</span>
+      </button>
+
+      @if (element.status==='PENDING') {
+      <button mat-menu-item (click)="rejectRequest([element])">
+        <mat-icon>delete</mat-icon>
+        <span>Reject this Request</span>
+      </button>
+      }
+    </mat-menu>
+  </ng-template>
+
+  <!-- Custom Tools -->
+  <button tableTools mat-icon-button (click)="onExport()">
+    <mat-icon>download</mat-icon>
+  </button>
+</kps-data-table>
