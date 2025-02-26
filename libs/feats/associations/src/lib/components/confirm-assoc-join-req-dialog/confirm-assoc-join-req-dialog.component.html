@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Confirm Association Join Request</h2>
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+  <div>
+    <span class="h6">Are you sure you want to join</span>
+    <span class="h5"> {{ dialogData.association.name }} </span>
+  </div>
+
+  <section class="my-3">
+    <h3 class="h5">About</h3>
+    <p>{{ dialogData.association.description }}</p>
+  </section>
+</mat-dialog-content>
+
+<mat-dialog-actions class="d-inline-flex flex-nowrap gap-3">
+  <kps-button
+    btnAriaLabel="cancel"
+    text="CANCEL"
+    (clicked)="dialogRef.close()"
+    btnColor="warn"
+  />
+  <kps-button
+    btnAriaLabel="OK, Send Request"
+    text="OK, Send Request"
+    variant="flat"
+    (clicked)="confirmJoinRequest()"
+  ></kps-button>
+</mat-dialog-actions>
