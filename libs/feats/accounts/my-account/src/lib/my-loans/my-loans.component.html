@@ -1,0 +1,10 @@
+<kps-data-table
+  [columns]="columns"
+  [data]="loans"
+  [visibleColumns]="visibleColumns"
+  [tableTitle]="'My Loans'"
+  [dataLoading]="loading"
+  [availableFilters]="filters"
+  (refreshChange)="loadLoans()"
+  (filterChange)="handleFilterChange($event)"
+/>
