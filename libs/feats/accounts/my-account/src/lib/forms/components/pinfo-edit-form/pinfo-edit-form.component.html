@@ -1,0 +1,44 @@
+<div class="d-flex flex-wrap gap-3">
+  <div class="col">
+    <kps-input-field
+      [controller]="getController('firstName')"
+      controlName="firstName"
+    />
+  </div>
+  <div class="col">
+    <kps-input-field
+      [controller]="getController('middleName')"
+      controlName="middleName"
+    />
+  </div>
+  <div class="col">
+    <kps-input-field
+      [controller]="getController('lastName')"
+      controlName="lastName"
+    />
+  </div>
+</div>
+
+<kps-datepicker
+  [controller]="getController('dob')"
+  controlName="dob"
+  customLabel="Birth Date"
+/>
+
+<kps-input-field
+  [controller]="getController('nationalId')"
+  controlName="nationalId"
+  customLabel="National ID (NIDA)"
+/>
+
+<kps-input-field
+  [controller]="getController('occupation')"
+  controlName="occupation"
+  customLabel="Your Occupation"
+/>
+
+<kps-input-field
+  [controller]="getController('address')"
+  controlName="address"
+  customLabel="Physical Address"
+/>
