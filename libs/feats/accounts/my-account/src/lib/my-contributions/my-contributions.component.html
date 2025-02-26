@@ -1,0 +1,39 @@
+<kps-data-table
+  [columns]="tableCols()"
+  [data]="myContributions$()"
+  [visibleColumns]="visibleColumns"
+  [tableTitle]="'All of My Contributions for ' + currAssocName()"
+  [dataLoading]="loading$()"
+  (refreshChange)="refreshData()"
+>
+  <kps-search-field
+    searchPlaceholder="Search contributions..."
+    [(searchTerm)]="searchTerm"
+  />
+
+  <!-- Custom Tools -->
+  <kps-iconic-button tableTools icon="download" btnAriaLabel="export data" />
+
+  <!-- templates -->
+  <ng-template #amtTmpl let-element>
+    {{ element.amount | currency }}
+  </ng-template>
+
+  <ng-template #statusTmpl let-element>
+    {{ element.status }}
+  </ng-template>
+
+  <ng-template #payMethodTmpl let-element>
+    <img
+      [ngSrc]="element.paymentMethod.providerLogo"
+      alt="payment provider logo"
+      width="50"
+      height="50"
+      class="table-img-sm"
+    />
+  </ng-template>
+
+  <ng-template #createdTmpl let-element>
+    {{ element.createdOn | date : 'long' }}
+  </ng-template>
+</kps-data-table>
