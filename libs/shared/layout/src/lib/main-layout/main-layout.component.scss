@@ -1,32 +1,40 @@
+$sidenav-minimal-width: 65px;
+$sidenav-expanded-width: 250px;
+
 .sidenav-container {
   height: 100vh;
 }
 
-.sidenav {
-  inline-size: 60px;
-  transition: inline-size 0.3s ease;
-  border-inline-end: 1px #ccc solid;
-  border-radius: 0px;
+// Important: These are the key styles for proper sidenav width control
+::ng-deep .mat-drawer {
+  transition: width 0.3s ease;
 
-  &.expanded {
-    inline-size: 250px;
+  &.sidenav-expanded {
+    width: $sidenav-expanded-width !important;
   }
+}
+
+.sidenav {
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
 }
 
 .logo-container {
   padding: 16px;
   text-align: center;
+  background: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  z-index: 1;
 
   img {
-    inline-size: 200px;
-    block-size: 60px;
-    object-fit: cover;
-    object-position: center center;
+    width: calc($sidenav-expanded-width - 50px);
+    height: calc($sidenav-minimal-width - 25px);
+    object-fit: contain;
     transition: all 0.3s ease;
 
     &.small {
-      max-inline-size: 40px;
+      width: 40px;
+      height: 40px;
     }
   }
 }
@@ -42,19 +50,29 @@
 
 .mat-nav-list {
   .mat-list-item {
-    mat-icon {
-      margin-inline-end: 16px;
-
-      &:last-child {
-        margin-inline-start: auto;
-        margin-inline-end: 0;
-      }
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
     }
   }
 }
 
 .active-link {
-  background: rgba(0, 0, 0, 0.04);
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  font-weight: 500;
+}
+
+.sidenav-footer {
+  position: sticky;
+  bottom: 0;
+  padding: 8px;
+  background: #fff;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+
+  kps-iconic-button,
+  kps-button {
+    display: block;
+    width: 100%;
+  }
 }
 
 .top-nav {
