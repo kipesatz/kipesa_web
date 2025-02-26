@@ -1,0 +1,31 @@
+.summary-card {
+  min-width: 200px;
+  flex: 1;
+}
+
+.memberships-card {
+  min-width: 300px;
+  flex: 1;
+}
+
+mat-card {
+  mat-card-content {
+    min-height: 300px;
+
+    canvas {
+      height: 250px;
+    }
+  }
+}
+
+.text-primary {
+  color: #1976d2;
+}
+
+.text-warning {
+  color: #fb8c00;
+}
+
+.text-success {
+  color: #43a047;
+}
