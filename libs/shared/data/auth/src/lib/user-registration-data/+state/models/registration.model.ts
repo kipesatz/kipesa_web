@@ -4,6 +4,6 @@ export interface RegistrationPayload {
   firstName: string;
   lastName: string;
   password: string;
-  confirmPassword: string;
-  agreeToTerms: boolean;
 }
+
+export type RegistrationResponse = Omit<RegistrationPayload, 'password'>;
