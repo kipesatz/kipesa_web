@@ -1,0 +1,73 @@
+<kps-data-table
+  [columns]="columns"
+  [data]="allCps()"
+  tableTitle="Contribution Purposes"
+  [visibleColumns]="visibleColumns"
+  [availableFilters]="[]"
+  [dataLoading]="cpsLoading()"
+  (selectionChange)="onSelectionChange($event)"
+  (refreshChange)="refreshData()"
+  (delete)="onDelete($event)"
+  (filterChange)="onFilterChange($event)"
+  (add)="onAdd()"
+>
+  <kps-search-field
+    [(searchTerm)]="searchTerm"
+    searchPlaceholder="Search purposes..."
+  />
+
+  <!-- Custom Tools -->
+  <button tableTools mat-icon-button (click)="onExport()">
+    <mat-icon>download</mat-icon>
+  </button>
+
+  <!-- column templates -->
+  <ng-template #titleTemplate let-element>
+    <a [routerLink]="['./', element.id, 'details']"> {{ element.title }} </a>
+  </ng-template>
+
+  <ng-template #targetAmtTmpl let-element>
+    <span>
+      {{ element.targetAmount | currency }}
+    </span>
+  </ng-template>
+
+  <ng-template #progressTmpl let-element>
+    <mat-progress-bar
+      [value]="element.progressPercentage"
+      mode="determinate"
+    ></mat-progress-bar>
+  </ng-template>
+
+  <ng-template #createdTmpl let-element>
+    <span>{{ element.createdOn | date : 'mediumDate' }}</span>
+  </ng-template>
+
+  <ng-template #startDateTmpl let-element>
+    <span>{{ element.startDate | date : 'mediumDate' }}</span>
+  </ng-template>
+
+  <ng-template #endDateTmpl let-element>
+    <span>{{ element.endDate | date : 'mediumDate' }}</span>
+  </ng-template>
+
+  <ng-template #actionsTemplate let-element>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEdit(element)">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item (click)="onDelete([element])">
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+      <button mat-menu-item [routerLink]="['./', element.id, 'details']">
+        <mat-icon>delete</mat-icon>
+        <span>View Details </span>
+      </button>
+    </mat-menu>
+  </ng-template>
+</kps-data-table>
