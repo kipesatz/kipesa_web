@@ -8,24 +8,13 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-  MatTableDataSource,
-  MatTableModule,
-} from '@angular/material/table';
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatToolbar } from '@angular/material/toolbar';
-import { MatFormField } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
-import {
-  MatExpansionPanel,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle,
-} from '@angular/material/expansion';
-import { MatInput } from '@angular/material/input';
 import { NgTemplateOutlet } from '@angular/common';
+import { LoadingIndicatorComponent } from '@kps/material/progress';
 
 export interface TableColumn {
   key: string;
@@ -48,20 +37,11 @@ export interface TableFilter {
   imports: [
     NgTemplateOutlet,
     MatToolbar,
-    MatFormField,
-    MatInput,
     MatIcon,
-    MatMenu,
-    MatMenuTrigger,
-    MatButton,
     MatIconButton,
     MatTableModule,
     MatCheckbox,
-
-    // expansion
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
+    LoadingIndicatorComponent,
   ],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss',
@@ -72,11 +52,12 @@ export class DataTableComponent<T> {
   data = input<T[]>([]);
   visibleColumns = input<string[]>([]);
   availableFilters = input<TableFilter[]>([]);
+  tableTitle = input<string>();
+  dataLoading = input<boolean>(false);
 
   // Outputs
   selectionChange = output<T[]>();
-  search = output<string>();
-  refresh = output<void>();
+  refreshChange = output<void>();
   delete = output<T[]>();
   add = output<void>();
   filterChange = output<Record<string, unknown>>();
@@ -84,7 +65,6 @@ export class DataTableComponent<T> {
   // Local state
   dataSource = signal(new MatTableDataSource<T>([]));
   selection = new SelectionModel<T>(true, []);
-  searchSubject = new Subject<string>();
   activeFilters = signal<Record<string, unknown>>({});
 
   // Computed values
@@ -98,11 +78,6 @@ export class DataTableComponent<T> {
         return source;
       });
     });
-
-    // Handle search debouncing
-    this.searchSubject
-      .pipe(debounceTime(300), distinctUntilChanged())
-      .subscribe((value) => this.search.emit(value));
   }
 
   // Filter methods
@@ -119,15 +94,6 @@ export class DataTableComponent<T> {
     this.filterChange.emit(this.activeFilters());
   }
 
-  handleSearchKeyup($event: KeyboardEvent): void {
-    const inputEl = $event.target as HTMLInputElement | null;
-    if (inputEl) {
-      this.searchSubject.next(inputEl.value);
-    } else {
-      console.log('Unexpected event target', $event.target);
-    }
-  }
-
   isFilterActive(filter: TableFilter, value: unknown): boolean {
     return this.activeFilters()[filter.key] === value;
   }
@@ -141,15 +107,26 @@ export class DataTableComponent<T> {
     return Object.keys(this.activeFilters()).length > 0;
   }
 
+  selectAll(): void {
+    const data = this.dataSource().data;
+    data.forEach((item) => this.selection.select(item));
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource().data.length;
     return numSelected === numRows && numRows > 0;
   }
 
-  selectAll(): void {
-    const data = this.dataSource().data;
-    data.forEach((item) => this.selection.select(item));
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      this.dataSource().data.forEach((row) => this.selection.select(row));
+    }
+    this.selectionChange.emit(this.selection.selected);
   }
 
   isTemplateRef(value: unknown): value is TemplateRef<unknown> {
