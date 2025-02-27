@@ -38,6 +38,7 @@
       "@kps/charts/line": ["libs/shared/charts/line/src/index.ts"],
       "@kps/charts/pie": ["libs/shared/charts/pie/src/index.ts"],
       "@kps/core": ["libs/shared/core/src/index.ts"],
+      "@kps/core/datetime": ["libs/shared/core/datetime/src/index.ts"],
       "@kps/core/router": ["libs/shared/core/router/src/index.ts"],
       "@kps/data": ["libs/shared/data/src/index.ts"],
       "@kps/data/accounts": ["libs/shared/data/accounts/src/index.ts"],
