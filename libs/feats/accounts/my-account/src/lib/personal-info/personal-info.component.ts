@@ -34,7 +34,6 @@ import { PinfoEditDialogComponent } from '../pinfo-edit-dialog/pinfo-edit-dialog
     IconicButtonComponent,
     DatePipe,
     CommonModule,
-    MatDivider,
     LoadingIndicatorComponent,
     MatListModule,
   ],
