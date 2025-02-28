@@ -1,1 +1,1 @@
-export const core = '@kps/core';
+export const coreLib = 'core';

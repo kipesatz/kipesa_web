@@ -1,5 +1,6 @@
 export interface FincStats {
   title: string;
+  timeRange: string;
   startDate: string;
   endDate: string;
   loansDisbursed: {

@@ -15,7 +15,8 @@
     "@angular/router": "~19.0.0",
     "@angular/cdk": "^19.0.4",
     "dayjs": "^1.11.13",
-    "@kps/charts": "0.0.1"
+    "@kps/charts": "0.0.1",
+    "ngx-echarts": "^19.0.0"
   },
   "sideEffects": false
 }
