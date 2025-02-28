@@ -1,0 +1,81 @@
+:host {
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.filters-section {
+  width: 300px; // adjust as needed
+  min-width: 300px; // adjust as needed
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+  padding-left: 1rem;
+}
+
+.report-container {
+  padding: 20px;
+  // max-width: 1200px;
+  margin: 0 auto;
+}
+
+.report-header {
+  margin-bottom: 24px;
+  text-align: center;
+  padding: 20px;
+}
+
+.charts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.chart-card {
+  padding: 16px;
+}
+
+.chart {
+  height: 400px;
+  width: 100%;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.summary-card {
+  padding: 16px;
+
+  mat-card-title {
+    margin-bottom: 16px;
+    color: #333;
+  }
+}
+
+.summary-item {
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+
+  h3 {
+    margin: 0 0 8px 0;
+    color: #666;
+  }
+
+  p {
+    margin: 4px 0;
+    color: #333;
+  }
+}
+
+.loans {
+  border-left: 4px solid #1976d2;
+}
+
+.transactions {
+  border-left: 4px solid #43a047;
+}

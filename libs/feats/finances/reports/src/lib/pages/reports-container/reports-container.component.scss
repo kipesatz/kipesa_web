@@ -1,0 +1,11 @@
+.container-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tab-panel {
+  flex: 1;
+  overflow: hidden;
+}
