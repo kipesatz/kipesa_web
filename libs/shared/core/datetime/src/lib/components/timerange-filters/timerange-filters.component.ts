@@ -19,13 +19,12 @@ import {
   MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
-import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
-import { BaseFormComponent } from '@kps/forms';
 import { TimeRangeFormService } from '../../services';
 import { TIME_RANGE_CHOICES, TimeRange, TimeRangeChoice } from '../../types';
-import { Subscription } from 'rxjs';
+import { DateRangeFormComponent } from '../date-range-form.component';
 
 dayjs.extend(isSameOrAfter);
 
@@ -53,85 +52,24 @@ dayjs.extend(isSameOrAfter);
   styleUrl: './timerange-filters.component.scss',
 })
 export class TimerangeFiltersComponent
-  extends BaseFormComponent
+  extends DateRangeFormComponent
   implements OnInit, OnDestroy
 {
   timeRangeChoices: TimeRangeChoice[] = inject(TIME_RANGE_CHOICES);
   private timeRangeFormService = inject(TimeRangeFormService);
 
   applyFiltersChange = output<TimeRange>();
-  private subscriptions = new Subscription();
 
   getFormGroup = () => this.timeRangeFormService.timeRangeForm();
 
   ngOnInit(): void {
-    // Listen to timeRange changes to enable/disable date fields
-    this.subscriptions.add(
-      this.getFormGroup()
-        .get('timeRange')
-        ?.valueChanges.subscribe((value) => {
-          if (value === 'CUSTOM') {
-            this.getFormGroup().controls.startDate?.enable();
-            this.getFormGroup().controls.endDate?.enable();
-            this.getFormGroup()
-              .get('startDate')
-              ?.setValidators([Validators.required]);
-            this.getFormGroup().controls.endDate?.setValidators([
-              Validators.required,
-            ]);
-          } else {
-            this.getFormGroup().controls.startDate?.disable();
-            this.getFormGroup().controls.endDate?.disable();
-            this.getFormGroup().controls.startDate?.clearValidators();
-            this.getFormGroup().controls.endDate?.clearValidators();
-          }
-          this.getFormGroup().controls.startDate?.updateValueAndValidity();
-          this.getFormGroup().controls.endDate?.updateValueAndValidity();
-        })
-    );
-
-    // Add listener for start date changes
-    this.subscriptions.add(
-      this.getFormGroup().controls.startDate?.valueChanges.subscribe(
-        (startDate) => {
-          const endDateControl = this.getFormGroup().get('endDate');
-          if (startDate && endDateControl?.value) {
-            // If end date is earlier than start date, clear it
-            if (dayjs(endDateControl.value).isBefore(dayjs(startDate))) {
-              endDateControl.setValue(null);
-            }
-          }
-        }
-      )
-    );
+    this.setupDateRangeControls(this.getFormGroup());
   }
-
-  // Method to filter out dates before start date
-  filterEndDate = (date: Date | null): boolean => {
-    const startDate = this.getFormGroup().controls.startDate?.value;
-    if (!startDate || !date) {
-      return true;
-    }
-    return dayjs(date).isSameOrAfter(dayjs(startDate), 'day');
-  };
 
   applyFilters(): void {
     if (this.getFormGroup().valid) {
-      const formValue = this.getFormGroup().getRawValue();
-
-      // Format dates if they exist
-      if (formValue.startDate) {
-        formValue.startDate = dayjs(formValue.startDate).format('YYYY-MM-DD');
-      }
-      if (formValue.endDate) {
-        formValue.endDate = dayjs(formValue.endDate).format('YYYY-MM-DD');
-      }
-
-      this.applyFiltersChange.emit(formValue);
+      const formattedValues = this.getFormattedDateRangeValues<TimeRange>();
+      if (formattedValues) this.applyFiltersChange.emit(formattedValues);
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 }
