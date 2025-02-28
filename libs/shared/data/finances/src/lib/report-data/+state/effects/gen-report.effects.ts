@@ -15,7 +15,9 @@ export class GenerateReportEffects extends EffectBase {
       ofType(reportActions.generateReport),
       switchMap(({ payload }) =>
         this.apiService.generateReport(payload).pipe(
-          map((report) => reportActions.generateReportSuccess({ report })),
+          map((reportData) =>
+            reportActions.generateReportSuccess({ reportData })
+          ),
           catchError((error) =>
             of(
               reportActions.generateReportFailure({

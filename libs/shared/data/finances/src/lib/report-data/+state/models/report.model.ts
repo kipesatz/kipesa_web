@@ -1,6 +1,6 @@
 import { Association } from '@kps/data/associations';
 
-export interface FinancialReport  {
+export interface FinancialReport {
   id: string;
   createdOn: string;
   lastEditedOn: string;
@@ -20,7 +20,9 @@ export interface FinancialReport  {
   depositsAmount: number;
 }
 
-export interface FincReportGenPayload
-  extends Pick<FinancialReport , 'timeRange' | 'startDate' | 'endDate'> {
-  association: string;
+export interface ReportGenPayload {
+  timeRange: string;
+  startDate: string | null;
+  endDate: string | null;
+  save: boolean;
 }

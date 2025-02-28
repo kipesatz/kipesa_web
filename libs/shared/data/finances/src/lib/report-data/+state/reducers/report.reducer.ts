@@ -4,9 +4,9 @@ import {
   KipesaEntityState,
   initEntityState,
   mutateLoadMany,
-  mutateAddOne,
   mutateLoadOne,
   mutateDeleteOne,
+  mutateAddOne,
 } from '@kps/data/core';
 import { reportActions } from '../actions';
 import { FinancialReport } from '../models';
@@ -32,8 +32,8 @@ export const reducer = createReducer(
   on(reportActions.generateReport, (state) =>
     mutateAddOne('dispatch', state, adapter)
   ),
-  on(reportActions.generateReportSuccess, (state, { report }) =>
-    mutateAddOne('success', state, adapter, report)
+  on(reportActions.generateReportSuccess, (state, { reportData }) =>
+    mutateAddOne('success', state, adapter, reportData)
   ),
   on(reportActions.generateReportFailure, (state, { error }) =>
     mutateAddOne('failure', state, adapter, undefined, error)

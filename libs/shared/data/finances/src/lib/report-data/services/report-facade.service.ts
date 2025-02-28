@@ -1,7 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FincReportGenPayload, fromReport, reportActions } from '../+state';
+import { ReportGenPayload, fromReport, reportActions } from '../+state';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ export class ReportFacadeService {
     this.store.dispatch(reportActions.deleteReport({ id }));
   }
 
-  generateReport(payload: FincReportGenPayload): void {
+  generateReport(payload: ReportGenPayload): void {
     this.store.dispatch(reportActions.generateReport({ payload }));
   }
 }

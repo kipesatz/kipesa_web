@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Queryset } from '@kps/data/core';
 import { Observable } from 'rxjs';
 import { BaseAssocFinancesApiFactoryService } from '../../services';
-import { FinancialReport, FincReportGenPayload } from '../+state';
+import { FinancialReport, ReportGenPayload } from '../+state';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +28,8 @@ export class ReportDataService extends BaseAssocFinancesApiFactoryService {
     return this.get<Queryset<FinancialReport>>('/latest/stats', queryParams);
   }
 
-  generateReport(payload: FincReportGenPayload): Observable<FinancialReport> {
-    return this.post<FinancialReport, FincReportGenPayload>(
+  generateReport(payload: ReportGenPayload): Observable<FinancialReport> {
+    return this.post<FinancialReport, ReportGenPayload>(
       '/generate',
       payload
     );

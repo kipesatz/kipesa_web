@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { FinancialReport, FincReportGenPayload } from '../models';
+import { FinancialReport, ReportGenPayload } from '../models';
 import { HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Queryset } from '@kps/data/core';
 
@@ -15,8 +15,8 @@ export const reportActions = createActionGroup({
     'Load Report': props<{ id: string }>(),
     'Load Report success': props<{ report: FinancialReport }>(),
     'Load Report failure': props<{ error: HttpErrorResponse }>(),
-    'Generate Report': props<{ payload: FincReportGenPayload }>(),
-    'Generate Report success': props<{ report: FinancialReport }>(),
+    'Generate Report': props<{ payload: ReportGenPayload }>(),
+    'Generate Report success': props<{ reportData: FinancialReport }>(),
     'Generate Report failure': props<{ error: HttpErrorResponse }>(),
     'Delete Report': props<{ id: string }>(),
     'Delete Report Success': emptyProps(),
