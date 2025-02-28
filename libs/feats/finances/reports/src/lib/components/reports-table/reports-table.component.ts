@@ -20,6 +20,7 @@ import {
   TableColumn,
   TableFilter,
 } from '@kps/material/table';
+import { ReportGenDialogComponent } from '../report-gen-dialog/report-gen-dialog.component';
 
 @Component({
   selector: 'kps-reports-table',
@@ -151,6 +152,6 @@ export class ReportsTableComponent implements OnInit {
   }
 
   openGenReportDialog() {
-    // this.matDialog.open(PayMethodCreationDialogComponent);
+    this.matDialog.open(ReportGenDialogComponent);
   }
 }
