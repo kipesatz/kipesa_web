@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input } from '@angular/core';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'kps-stat-card',
-  imports: [CommonModule],
+  imports: [MatCard, MatCardContent, MatIcon],
   templateUrl: './stat-card.component.html',
   styleUrl: './stat-card.component.scss',
 })
-export class StatCardComponent {}
+export class StatCardComponent {
+  icon = input.required<string>();
+  label = input.required<string>();
+  value = input.required<unknown>();
+}
