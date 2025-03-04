@@ -1,7 +1,12 @@
 <mat-card class="stat-card">
   <mat-card-content>
     <div class="d-flex align-items-center">
-      <mat-icon class="stat-icon">{{ icon() }}</mat-icon>
+      <mat-icon
+        class="stat-icon"
+        [class]="[colorClass() ? 'text-' + colorClass() : '']"
+      >
+        {{ icon() }}
+      </mat-icon>
       <div class="ms-3">
         <h6 class="mb-1">{{ label() }}</h6>
         <h3 class="mb-0">{{ value() }}</h3>

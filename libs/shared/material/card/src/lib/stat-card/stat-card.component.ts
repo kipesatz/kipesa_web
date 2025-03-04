@@ -10,6 +10,7 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class StatCardComponent {
   icon = input.required<string>();
+  colorClass = input<string | undefined>(undefined)
   label = input.required<string>();
   value = input.required<unknown>();
 }
