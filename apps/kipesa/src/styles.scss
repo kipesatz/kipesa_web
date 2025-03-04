@@ -24,22 +24,19 @@ body {
   }
 }
 
+.mat-sidenav {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
 .side-dialog-end {
   right: 0 !important;
-
-  .mat-mdc-dialog-container {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-  }
 }
 
 .side-dialog-start {
   left: 0 !important;
-
-  .mat-mdc-dialog-container {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-  }
 }
 
 .mat-mdc-list-item {
@@ -126,4 +123,10 @@ body {
   max-inline-size: 70px;
   block-size: 50px;
   object-fit: contain;
+}
+
+// badge
+.badge {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
 }
