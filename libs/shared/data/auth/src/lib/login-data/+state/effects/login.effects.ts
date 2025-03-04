@@ -35,7 +35,7 @@ export class LoginEffects extends EffectBase {
         ofType(loginActions.loginSuccess),
         tap(({ tokens }) => {
           this.storageService.setItem(this.tokenKey, tokens); // store authToken
-          this.router.navigateByUrl('/dashboards/myDashboard'); // to login
+          this.router.navigateByUrl('/myAccount/dashboard'); // to login
         })
       );
     },

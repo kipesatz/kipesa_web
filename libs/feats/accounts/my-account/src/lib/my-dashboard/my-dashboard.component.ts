@@ -28,7 +28,7 @@ import { Subscription } from 'rxjs';
 import dayjs from 'dayjs';
 
 @Component({
-  selector: 'kps-user-dashboard',
+  selector: 'kps-my-dashboard',
   standalone: true,
   imports: [
     MatToolbar,
@@ -48,10 +48,10 @@ import dayjs from 'dayjs';
     BarChartComponent,
     StatCardComponent,
   ],
-  templateUrl: './user-dashboard.component.html',
-  styleUrl: './user-dashboard.component.scss',
+  templateUrl: './my-dashboard.component.html',
+  styleUrl: './my-dashboard.component.scss',
 })
-export class UserDashboardComponent implements OnInit {
+export class MyDashboardComponent implements OnInit {
   myMembershipsFacade = inject(MembershipFacadeService);
   private actions$ = inject(Actions);
 

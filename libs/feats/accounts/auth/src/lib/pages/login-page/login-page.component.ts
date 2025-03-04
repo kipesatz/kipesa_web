@@ -38,7 +38,7 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     // check if authenticated
     if (this.authCheckService.isAuthenticated()) {
-      this.router.navigateByUrl('/dashboards/myDashboard');
+      this.router.navigateByUrl('/myAccount/dashboard');
     }
   }
 }

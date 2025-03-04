@@ -19,7 +19,7 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class MyAccountContainerComponent {
   links = [
-    { path: 'Dashboard', label: 'My Dashboard', icon: 'dashboard' },
+    { path: 'dashboard', label: 'My Dashboard', icon: 'dashboard' },
     { path: 'personalInfo', label: 'Personal Info', icon: 'person' },
     { path: 'enrollments', label: 'Enrolled Associations', icon: 'groups' },
     {

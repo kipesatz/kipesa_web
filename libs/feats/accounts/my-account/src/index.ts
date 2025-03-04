@@ -10,49 +10,50 @@ export const myAccountRoutes: Routes = [
     component: MyAccountContainerComponent,
     children: [
       {
+        path: 'dashboard',
+        title: 'My Dashboard',
+        providers: [importProvidersFrom(ContributionDataModule)],
+        loadComponent: () =>
+          import('./lib/my-dashboard/my-dashboard.component').then(
+            (cmp) => cmp.MyDashboardComponent
+          ),
+      },
+      {
         path: 'personalInfo',
+        title: 'Personal Info',
+        providers: [importProvidersFrom(AuthUserDataModule)],
         loadComponent: () =>
           import('./lib/personal-info/personal-info.component').then(
             (cmp) => cmp.PersonalInfoComponent
           ),
-        title: 'Personal Info',
-        providers: [importProvidersFrom(AuthUserDataModule)],
-      },
-      {
-        path: 'personalInfo',
-        loadComponent: () =>
-          import('./lib/user-dashboard/user-dashboard.component').then(
-            (cmp) => cmp.UserDashboardComponent
-          ),
-        title: 'My Dashboard',
       },
       {
         path: 'enrollments',
+        title: 'My Enrollments',
         loadComponent: () =>
           import(
             './lib/my-assoc-enrollments/my-assoc-enrollments.component'
           ).then((cmp) => cmp.MyAssocEnrollmentsComponent),
-        title: 'My Enrollments',
       },
       {
         path: 'contributions',
+        title: 'My Contributions',
+        providers: [importProvidersFrom(ContributionDataModule)],
         loadComponent: () =>
           import('./lib/my-contributions/my-contributions.component').then(
             (cmp) => cmp.MyContributionsComponent
           ),
-        title: 'My Contributions',
-        providers: [importProvidersFrom(ContributionDataModule)],
       },
       {
         path: 'depts',
+        title: 'My Loans',
         loadComponent: () =>
           import('./lib/my-loans/my-loans.component').then(
             (cmp) => cmp.MyLoansComponent
           ),
-        title: 'My Loans',
       },
-      { path: '', redirectTo: 'personalInfo', pathMatch: 'full' },
-      { path: '**', redirectTo: 'personalInfo', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 ];

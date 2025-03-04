@@ -104,6 +104,11 @@ export class MainLayoutComponent implements OnInit {
       label: 'My Account',
       children: [
         {
+          icon: 'dashboard',
+          label: 'My Dashboard',
+          route: '/myAccount/dashboard',
+        },
+        {
           icon: 'person',
           label: 'Personal Info',
           route: '/myAccount/personalInfo',
