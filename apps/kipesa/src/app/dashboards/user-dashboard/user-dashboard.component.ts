@@ -25,6 +25,8 @@ import { ContributionFacadeService } from '@kps/data/finances';
 import { Actions, ofType } from '@ngrx/effects';
 import { Subscription } from 'rxjs';
 
+import dayjs from 'dayjs';
+
 @Component({
   selector: 'kps-user-dashboard',
   standalone: true,
@@ -59,7 +61,7 @@ export class UserDashboardComponent implements OnInit {
   private subscriptions = new Subscription();
 
   // data
-  contributionsLoading = this.contributionFacade.loading
+  contributionsLoading = this.contributionFacade.loading;
 
   ngOnInit(): void {
     this.myMembershipsFacade.fetchMyMemberships();
@@ -80,21 +82,6 @@ export class UserDashboardComponent implements OnInit {
   totalContributions = 250000;
   activeLoans = 2;
 
-  // Line chart for contributions
-  contributionsChartData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    datasets: [
-      {
-        label: 'Contributions',
-        data: [65, 59, 80, 81, 56, 55],
-        fill: true,
-        tension: 0.4,
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      },
-    ],
-  };
-
   lineChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -104,22 +91,24 @@ export class UserDashboardComponent implements OnInit {
   };
 
   contributionsChartConfig = computed<ChartConfig>(() => ({
-    title: 'Cash Flow Trends',
-    subtitle: 'Monthly Income vs Expenses',
+    title: 'My Contribution Trends',
     series: [
       {
-        name: 'Income',
+        name: 'Amount',
         type: 'line',
         data: this.contributionFacade
           .allContributions()
-          .map((d) => ({ x: d.contributionDate, y: d.amount })),
+          .map((d) => ({
+            x: dayjs(d.createdOn).format('MMM D, YYYY'),
+            y: d.amount,
+          })),
         color: '#4CAF50',
         smooth: true,
         areaStyle: { opacity: 0.1 },
       },
     ],
     xAxis: {
-      name: 'Transaction Ref',
+      name: 'Contribution Date',
       type: 'category',
     },
     yAxis: {
