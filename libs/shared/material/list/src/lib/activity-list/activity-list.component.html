@@ -1,1 +1,16 @@
-<p>activity-list works!</p>
+@if (loading()) {
+<kps-loading-indicator />
+}@else {
+<mat-list>
+  @for (activity of activities(); track $index) {
+  <mat-list-item>
+    <mat-icon matListItemIcon>
+      {{ getIconForType(activity.type) }}
+    </mat-icon>
+    <div matListItemTitle>{{ activity.description }}</div>
+    <div matListItemLine>{{ activity.timestamp | date : 'short' }}</div>
+  </mat-list-item>
+  }
+</mat-list>
+
+}
