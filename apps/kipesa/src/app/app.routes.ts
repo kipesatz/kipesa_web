@@ -36,11 +36,6 @@ export const appRoutes: Route[] = [
             title: 'My Account',
           },
           {
-            path: 'dashboards',
-            loadChildren: () =>
-              import('./dashboards').then((m) => m.dashboardRoutes),
-          },
-          {
             path: 'finances',
             title: 'Finances',
             loadChildren: () =>

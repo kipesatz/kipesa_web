@@ -100,17 +100,6 @@ export class MainLayoutComponent implements OnInit {
 
   menuItems: MenuItem[] = [
     {
-      icon: 'dashboard',
-      label: 'Dashboards',
-      children: [
-        {
-          icon: 'account_circle',
-          label: 'My Dashboard',
-          route: '/dashboards/myDashboard',
-        },
-      ],
-    },
-    {
       icon: 'person',
       label: 'My Account',
       children: [

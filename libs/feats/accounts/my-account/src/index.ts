@@ -19,6 +19,14 @@ export const myAccountRoutes: Routes = [
         providers: [importProvidersFrom(AuthUserDataModule)],
       },
       {
+        path: 'personalInfo',
+        loadComponent: () =>
+          import('./lib/user-dashboard/user-dashboard.component').then(
+            (cmp) => cmp.UserDashboardComponent
+          ),
+        title: 'My Dashboard',
+      },
+      {
         path: 'enrollments',
         loadComponent: () =>
           import(
