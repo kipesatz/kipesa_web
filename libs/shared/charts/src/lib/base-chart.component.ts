@@ -19,12 +19,12 @@ import { NgxEchartsModule } from 'ngx-echarts';
   styles: `
       :host {
       display: block;
-      width: 100%;
-      height: 300px;
+      inline-size: 100%;
+      block-size: 400px;
     }
     .chart {
-      width: 100%;
-      height: 100%;
+      inline-size: 100%;
+      block-size: 100%;
     }
   `,
 })

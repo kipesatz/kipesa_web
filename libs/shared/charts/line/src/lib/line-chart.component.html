@@ -1,0 +1,10 @@
+<div class="chart-container" [class.loading]="loading">
+  <div
+    echarts
+    [options]="chartOptions"
+    [loading]="loading()"
+    [theme]="theme"
+    [style.height.px]="height()"
+    class="chart"
+  ></div>
+</div>
