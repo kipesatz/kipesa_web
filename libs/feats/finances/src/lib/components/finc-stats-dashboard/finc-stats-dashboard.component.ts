@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { TableFilter } from '@kps/material/table';
 import {
   fincStatsActions,
@@ -16,6 +16,7 @@ import { BarChartComponent } from '@kps/charts/bar';
 import { LineChartComponent } from '@kps/charts/line';
 import { Subscription } from 'rxjs';
 import { Actions, ofType } from '@ngrx/effects';
+import { ChartConfig } from '@kps/charts';
 
 @Component({
   selector: 'kps-finc-stats-dashboard',
@@ -43,6 +44,8 @@ export class FincStatsDashboardComponent implements OnInit, OnDestroy {
   fincStatsLoading = this.fincStatsFacade.loading;
   fincStatsError = this.fincStatsFacade.error;
 
+  transactionsLoading = this.transactionFacade.loading
+
   private subscriptions = new Subscription();
 
   protected dateFilters: TableFilter[] = [
@@ -62,7 +65,6 @@ export class FincStatsDashboardComponent implements OnInit, OnDestroy {
   ];
 
   protected chartData = this.dashboardService.fincStatsChartData();
-
   get transactionsData() {
     const refs = this.transactionFacade
       .transactions()
@@ -72,6 +74,31 @@ export class FincStatsDashboardComponent implements OnInit, OnDestroy {
       .map((transaction) => transaction.amount);
     return { refs, amounts };
   }
+
+  transactionsChartConfig  = computed<ChartConfig>(() => ({
+    title: 'Cash Flow Trends',
+    subtitle: 'Monthly Income vs Expenses',
+    series: [
+      {
+        name: 'Income',
+        type: 'line',
+        data: this.transactionFacade.transactions().map((d) => ({ x: d.transactionRef, y: d.amount })),
+        color: '#4CAF50',
+        smooth: true,
+        areaStyle: { opacity: 0.1 },
+      },
+    ],
+    xAxis: {
+      name: 'Transaction Ref',
+      type: 'category',
+    },
+    yAxis: {
+      name: 'Amount',
+      type: 'value',
+    },
+  }));
+
+
 
   onFilterChange(_filters: Record<string, unknown>) {
     // this.reportFacade.fetchAll();

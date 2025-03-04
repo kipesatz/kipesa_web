@@ -84,7 +84,7 @@
             fincStats.loansDisbursed.amount,
             fincStats.loansRepaid.amount
           ]"
-        />  
+        />
       </mat-card-content>
     </mat-card>
 
@@ -109,8 +109,9 @@
       </mat-card-header>
       <mat-card-content>
         <kps-line-chart
-          [xAxisData]="transactionsData.refs"
-          [seriesData]="transactionsData.amounts"
+          [config]="transactionsChartConfig()"
+          [height]="400"
+          [loading]="transactionsLoading()"
         />
       </mat-card-content>
     </mat-card>

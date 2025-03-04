@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import {
   MatCard,
   MatCardActions,
@@ -9,14 +9,21 @@ import {
 } from '@angular/material/card';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MembershipFacadeService } from '@kps/data/associations';
+import {
+  MembershipActions,
+  MembershipFacadeService,
+} from '@kps/data/associations';
 import { ButtonComponent, IconicButtonComponent } from '@kps/material/button';
 import { RouterLink } from '@angular/router';
-import { MatIcon } from '@angular/material/icon';
 import { CurrencyPipe } from '@angular/common';
 import { LineChartComponent } from '@kps/charts/line';
 import { PieChartComponent } from '@kps/charts/pie';
 import { BarChartComponent } from '@kps/charts/bar';
+import { StatCardComponent } from '@kps/material/card';
+import { ChartConfig } from '@kps/charts';
+import { ContributionFacadeService } from '@kps/data/finances';
+import { Actions, ofType } from '@ngrx/effects';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'kps-user-dashboard',
@@ -32,23 +39,38 @@ import { BarChartComponent } from '@kps/charts/bar';
     ButtonComponent,
     MatTooltip,
     MatCardActions,
-    MatIcon,
     RouterLink,
     CurrencyPipe,
     LineChartComponent,
     PieChartComponent,
     BarChartComponent,
-],
+    StatCardComponent,
+  ],
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss',
 })
 export class UserDashboardComponent implements OnInit {
   myMembershipsFacade = inject(MembershipFacadeService);
+  private actions$ = inject(Actions);
+
   myMemberships = this.myMembershipsFacade.memberships;
   totalMemberships = this.myMembershipsFacade.totalMemberships;
+  private contributionFacade = inject(ContributionFacadeService);
+  private subscriptions = new Subscription();
+
+  // data
+  contributionsLoading = this.contributionFacade.loading
 
   ngOnInit(): void {
     this.myMembershipsFacade.fetchMyMemberships();
+
+    this.subscriptions.add(
+      this.actions$
+        .pipe(ofType(MembershipActions.loadMyMembershipsSuccess))
+        .subscribe(() => {
+          this.contributionFacade.fetchSelfContributions();
+        })
+    );
   }
 
   refreshDashboard(): void {
@@ -61,53 +83,83 @@ export class UserDashboardComponent implements OnInit {
   // Line chart for contributions
   contributionsChartData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    datasets: [{
-      label: 'Contributions',
-      data: [65, 59, 80, 81, 56, 55],
-      fill: true,
-      tension: 0.4,
-      borderColor: 'rgb(75, 192, 192)',
-      backgroundColor: 'rgba(75, 192, 192, 0.2)'
-    }]
+    datasets: [
+      {
+        label: 'Contributions',
+        data: [65, 59, 80, 81, 56, 55],
+        fill: true,
+        tension: 0.4,
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      },
+    ],
   };
 
   lineChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { display: false }
-    }
+      legend: { display: false },
+    },
   };
+
+  contributionsChartConfig = computed<ChartConfig>(() => ({
+    title: 'Cash Flow Trends',
+    subtitle: 'Monthly Income vs Expenses',
+    series: [
+      {
+        name: 'Income',
+        type: 'line',
+        data: this.contributionFacade
+          .allContributions()
+          .map((d) => ({ x: d.contributionDate, y: d.amount })),
+        color: '#4CAF50',
+        smooth: true,
+        areaStyle: { opacity: 0.1 },
+      },
+    ],
+    xAxis: {
+      name: 'Transaction Ref',
+      type: 'category',
+    },
+    yAxis: {
+      name: 'Amount',
+      type: 'value',
+    },
+  }));
 
   // Doughnut chart for loans
   loansChartData = {
     labels: ['Active', 'Paid', 'Pending'],
-    datasets: [{
-      data: [2, 3, 1],
-      backgroundColor: [
-        'rgba(255, 159, 64, 0.8)',
-        'rgba(75, 192, 192, 0.8)',
-        'rgba(54, 162, 235, 0.8)'
-      ]
-    }]
+    datasets: [
+      {
+        data: [2, 3, 1],
+        backgroundColor: [
+          'rgba(255, 159, 64, 0.8)',
+          'rgba(75, 192, 192, 0.8)',
+          'rgba(54, 162, 235, 0.8)',
+        ],
+      },
+    ],
   };
 
   // Bar chart for contributions per association
   contributionsPerAssociationData = {
     labels: ['Assoc 1', 'Assoc 2', 'Assoc 3', 'Assoc 4'],
-    datasets: [{
-      label: 'Contributions',
-      data: [45000, 35000, 25000, 20000],
-      backgroundColor: 'rgba(54, 162, 235, 0.8)'
-    }]
+    datasets: [
+      {
+        label: 'Contributions',
+        data: [45000, 35000, 25000, 20000],
+        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+      },
+    ],
   };
 
   barChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { display: false }
-    }
+      legend: { display: false },
+    },
   };
-
 }

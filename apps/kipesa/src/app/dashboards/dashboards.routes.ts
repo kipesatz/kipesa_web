@@ -1,4 +1,6 @@
+import { importProvidersFrom } from '@angular/core';
 import { Routes } from '@angular/router';
+import { ContributionDataModule } from '@kps/data/finances';
 
 export const dashboardRoutes: Routes = [
   {
@@ -8,6 +10,7 @@ export const dashboardRoutes: Routes = [
         (c) => c.UserDashboardComponent
       );
     },
+    providers: [importProvidersFrom(ContributionDataModule)],
   },
   { path: '', redirectTo: 'myDashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'myDashboard', pathMatch: 'full' },

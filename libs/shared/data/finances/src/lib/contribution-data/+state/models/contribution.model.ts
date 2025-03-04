@@ -8,7 +8,6 @@ export interface Contribution {
   transactionRef: string;
   amount: number;
   paymentMethod: string;
-  contributionDate: string;
   status: string;
   createdOn: string;
   lastEditedOn: string;

@@ -14,3 +14,17 @@
     }
   }
 }
+
+.highlight-card {
+  background: linear-gradient(to right, #f8f9fa, #ffffff);
+}
+
+.large-progress-bar {
+  height: 12px;
+  border-radius: 6px;
+}
+
+.progress-stats {
+  gap: 1rem;
+  display: flex;
+}

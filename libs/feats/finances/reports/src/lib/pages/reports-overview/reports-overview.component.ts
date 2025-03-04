@@ -8,6 +8,7 @@ import { FincStatsFacadeService } from '@kps/data/finances';
 import { LoadingIndicatorComponent } from '@kps/material/progress';
 import { TimeRange, TimerangeFiltersComponent } from '@kps/core/datetime';
 import { RouterService } from '@kps/core/router';
+import { PieChartComponent } from '@kps/charts/pie';
 
 @Component({
   selector: 'kps-reports-overview',
@@ -20,6 +21,7 @@ import { RouterService } from '@kps/core/router';
     ButtonComponent,
     LoadingIndicatorComponent,
     TimerangeFiltersComponent,
+    PieChartComponent,
   ],
   templateUrl: './reports-overview.component.html',
   styleUrl: './reports-overview.component.scss',
@@ -32,8 +34,23 @@ export class ReportsOverviewComponent implements OnInit {
   fincStats = this.fincStatsFacade.fincStats;
   statsLoading = this.fincStatsFacade.loading;
 
+  pieChartData = [
+    {
+      value: this.fincStats()?.loansDisbursed.amount ?? 0,
+      name: 'Loans Disbursed',
+    },
+    {
+      value: this.fincStats()?.loansRepaid.amount ?? 0,
+      name: 'Loans Repaid',
+    },
+    {
+      value: this.fincStats()?.withdrawals.amount ?? 0,
+      name: 'Withdrawals',
+    },
+    { value: this.fincStats()?.deposits.amount ?? 0, name: 'Deposits' },
+  ];
+
   barChartOption: any;
-  pieChartOption: any;
 
   ngOnInit() {
     this.fincStatsFacade.loadFincStats();
@@ -92,64 +109,6 @@ export class ReportsOverviewComponent implements OnInit {
             this.fincStats()?.loansRepaid.amount ?? 0,
             this.fincStats()?.withdrawals.amount ?? 0,
             this.fincStats()?.deposits.amount ?? 0,
-          ],
-        },
-      ],
-    };
-
-    this.pieChartOption = {
-      title: {
-        text: 'Transaction Distribution',
-        left: 'center',
-      },
-      tooltip: {
-        trigger: 'item',
-        formatter: '{a} <br/>{b}: {c} ({d}%)',
-      },
-      legend: {
-        top: '10%',
-        orient: 'vertical',
-        left: 'left',
-      },
-      series: [
-        {
-          name: 'Amount Distribution',
-          type: 'pie',
-          radius: ['40%', '70%'],
-          avoidLabelOverlap: false,
-          itemStyle: {
-            borderRadius: 10,
-            borderColor: '#fff',
-            borderWidth: 2,
-          },
-          label: {
-            show: false,
-            position: 'center',
-          },
-          emphasis: {
-            label: {
-              show: true,
-              fontSize: '20',
-              fontWeight: 'bold',
-            },
-          },
-          labelLine: {
-            show: false,
-          },
-          data: [
-            {
-              value: this.fincStats()?.loansDisbursed.amount ?? 0,
-              name: 'Loans Disbursed',
-            },
-            {
-              value: this.fincStats()?.loansRepaid.amount ?? 0,
-              name: 'Loans Repaid',
-            },
-            {
-              value: this.fincStats()?.withdrawals.amount ?? 0,
-              name: 'Withdrawals',
-            },
-            { value: this.fincStats()?.deposits.amount ?? 0, name: 'Deposits' },
           ],
         },
       ],

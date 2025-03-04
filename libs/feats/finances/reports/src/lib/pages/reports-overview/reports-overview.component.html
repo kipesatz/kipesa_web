@@ -29,7 +29,12 @@
         </mat-card>
 
         <mat-card class="chart-card">
-          <div echarts [options]="pieChartOption" class="chart"></div>
+          <kps-pie-chart
+            [data]="pieChartData"
+            chartTitle="Transaction Distribution"
+            seriesName="Amount Distribution"
+          />
+          <!-- <div echarts [options]="pieChartOption" class="chart"></div> -->
         </mat-card>
       </div>
 

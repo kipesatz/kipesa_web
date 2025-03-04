@@ -16,42 +16,28 @@
   class="d-flex flex-column gap-3 my-3 overflow-y-auto overflow-x-hidden p-2"
 >
   <!-- Summary Cards Row -->
-  <div class="d-flex gap-3 flex-wrap">
-    <mat-card class="summary-card">
-      <mat-card-content>
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="text-muted">Total Contributions</div>
-            <h2 class="mb-0">{{ totalContributions | currency }}</h2>
-          </div>
-          <mat-icon class="text-primary">savings</mat-icon>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="summary-card">
-      <mat-card-content>
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="text-muted">Active Loans</div>
-            <h2 class="mb-0">{{ activeLoans }}</h2>
-          </div>
-          <mat-icon class="text-warning">account_balance</mat-icon>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="summary-card">
-      <mat-card-content>
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="text-muted">Enrolled Associations</div>
-            <h2 class="mb-0">{{ totalMemberships() }}</h2>
-          </div>
-          <mat-icon class="text-success">groups</mat-icon>
-        </div>
-      </mat-card-content>
-    </mat-card>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <kps-stat-card
+        icon="savings"
+        label="Total Contributions"
+        [value]="totalContributions | currency"
+      />
+    </div>
+    <div class="col">
+      <kps-stat-card
+        icon="account_balance"
+        label="Active Loans"
+        [value]="activeLoans | currency"
+      />
+    </div>
+    <div class="col">
+      <kps-stat-card
+        icon="groups"
+        label="Enrolled Associations"
+        [value]="totalMemberships()"
+      />
+    </div>
   </div>
 
   <!-- Charts Row -->
@@ -64,14 +50,10 @@
       </mat-card-header>
       <mat-card-content>
         <kps-line-chart
-          [seriesData]="[65, 59, 80, 81, 56, 55]"
-          [xAxisData]="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']"
+          [config]="contributionsChartConfig()"
+          [loading]="contributionsLoading()"
+          [height]="400"
         />
-        <!-- <canvas baseChart
-          [data]="contributionsChartData"
-          [options]="lineChartOptions"
-          [type]="'line'">
-        </canvas> -->
       </mat-card-content>
     </mat-card>
 
@@ -82,16 +64,14 @@
       </mat-card-header>
       <mat-card-content>
         <kps-pie-chart
+          chartTitle="Loans Distribution as per Status"
+          seriesName="Distribution per Status"
           [data]="[
             { name: 'One', value: 1 },
             { name: 'Three', value: 3 },
             { name: 'Two', value: 2 }
           ]"
         />
-        <!-- <canvas baseChart
-          [data]="loansChartData"
-          [type]="'doughnut'">
-        </canvas> -->
       </mat-card-content>
     </mat-card>
   </div>
@@ -108,11 +88,6 @@
           [xAxisData]="contributionsPerAssociationData.labels"
           [seriesData]="[45000, 35000, 25000, 20000]"
         />
-        <!-- <canvas baseChart
-          [data]="contributionsPerAssociationData"
-          [options]="barChartOptions"
-          [type]="'bar'">
-        </canvas> -->
       </mat-card-content>
     </mat-card>
 
@@ -163,68 +138,3 @@
     </mat-card>
   </div>
 </section>
-
-<!-- <mat-toolbar
-  aria-label="my dashboard"
-  class="d-flex align-items-center flex-no-wrap gap-3 justify-content-between bg-white"
->
-  <small>My Dashboard</small>
-
-  <kps-iconic-button
-    icon="refresh"
-    matTooltip="Refresh dashboard data"
-    btnAriaLabel="refresh dashboard data"
-    (clicked)="refreshDashboard()"
-  />
-</mat-toolbar>
-
-<section
-  class="d-flex gap-3 my-3 flex-wrap flex-grow-1 overflow-y-auto overflow-x-hidden p-2"
->
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>My Memberships</mat-card-title>
-      <mat-card-subtitle>Total: {{ totalMemberships() }} </mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content class="mt-3">
-      <small class="mb-3">Latest Association Memberships:</small>
-
-      <table class="table table-responsive table-light">
-        <tbody class="tbody">
-          @for (membership of myMemberships(); track membership.id; let
-          indx=$index) {
-          <tr>
-            <td>{{ indx + 1 + '. ' }}</td>
-            <td>
-              <a
-                [routerLink]="['/associations', membership.association.id]"
-                class="text-decoration-none"
-              >
-                {{ membership.association.name }}
-              </a>
-            </td>
-            <td>
-              <small class="badge bg-primary">{{ membership.role.name }}</small>
-            </td>
-            <td>
-              @if(membership.status === 'PENDING') {
-              <small class="badge bg-warning">{{ membership.status }}</small>
-
-              }@else if (membership.status === 'REJECTED') {
-              <small class="badge bg-danger">{{ membership.status }}</small>
-
-              }@else {
-              <small class="badge bg-success">{{ membership.status }}</small>
-              }
-            </td>
-          </tr>
-          }
-        </tbody>
-      </table>
-    </mat-card-content>
-    <mat-card-actions align="start">
-      <kps-button text="View all" btnAriaLabel="view all" />
-    </mat-card-actions>
-  </mat-card>
-</section> -->

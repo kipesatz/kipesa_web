@@ -4,7 +4,6 @@ import {
   MatCard,
   MatCardHeader,
   MatCardTitle,
-  MatCardSubtitle,
   MatCardContent,
 } from '@angular/material/card';
 import { MatProgressBar } from '@angular/material/progress-bar';
@@ -14,6 +13,9 @@ import { PieChartComponent } from '@kps/charts/pie';
 import { CpOverviewDetailsComponent } from '../../components';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingIndicatorComponent } from '@kps/material/progress';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { StatCardComponent } from '@kps/material/card'
 
 @Component({
   selector: 'kps-cp-details',
@@ -23,13 +25,16 @@ import { LoadingIndicatorComponent } from '@kps/material/progress';
     MatCard,
     MatCardHeader,
     MatCardTitle,
-    MatCardSubtitle,
+    // MatCardSubtitle,
     MatCardContent,
     MatProgressBar,
     CurrencyPipe,
     PieChartComponent,
     LoadingIndicatorComponent,
     CpOverviewDetailsComponent,
+    StatCardComponent,
+    MatButton,
+    MatIcon,
   ],
   templateUrl: './cp-details.component.html',
   styleUrls: ['./cp-details.component.scss'],
@@ -68,5 +73,13 @@ export class CpDetailsComponent implements OnInit {
         this.cpFacade.dispatchFetchOne(this.cpId);
       }
     }
+  }
+
+  onContribute() {
+    // Implement contribution dialog/form opening logic
+  }
+
+  refreshCpDetails(): void {
+    // TODO: Add implementation of reloading
   }
 }

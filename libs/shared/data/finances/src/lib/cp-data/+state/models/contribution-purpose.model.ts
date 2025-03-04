@@ -12,7 +12,10 @@ export interface ContributionPurpose {
   description: string;
   collectedAmount: number;
   contributionsCount: number;
+  avgContribution: number;
   progressPercentage: number;
+  monthlyGrowth: number;
+  remainingTime: string;
   createdOn: string;
   lastEditedOn: string;
 }
