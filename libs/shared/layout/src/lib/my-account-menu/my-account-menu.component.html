@@ -1,0 +1,32 @@
+<kps-iconic-button
+  icon="account_circle_outline"
+  btnAriaLabel="my account"
+  [matMenuTriggerFor]="menuRef"
+  matTooltip="My Account"
+  variant="flat"
+  btnColor="warn"
+/>
+
+<mat-menu #menuRef="matMenu">
+  <p class="px-3 my-1">{{ 'Hello, Alex Urassa' }}</p>
+
+  <mat-divider />
+
+  <mat-nav-list style="min-inline-size: 250px" class="px-2">
+    <mat-list-item [routerLink]="['/myAccount', 'personalInfo']">
+      <mat-icon matListItemIcon class="mat-18">account_box</mat-icon>
+      <span matListItemTitle>My Personal Info</span>
+    </mat-list-item>
+    <mat-list-item [routerLink]="['/myAccount', 'personalInfo']">
+      <mat-icon matListItemIcon class="mat-18">groups</mat-icon>
+      <span matListItemTitle>My Enrollments</span>
+    </mat-list-item>
+
+    <mat-divider />
+
+    <mat-list-item (click)="logoutUser()">
+      <mat-icon matListItemIcon color="warn" class="mat-18">logout</mat-icon>
+      <span matListItemTitle>Logout</span>
+    </mat-list-item>
+  </mat-nav-list>
+</mat-menu>
