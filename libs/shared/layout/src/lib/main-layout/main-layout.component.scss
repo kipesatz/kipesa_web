@@ -1,6 +1,7 @@
 $sidenav-minimal-width: 65px;
 $sidenav-expanded-width: 250px;
 
+
 .sidenav-container {
   height: 100vh;
 }
@@ -14,92 +15,7 @@ $sidenav-expanded-width: 250px;
   }
 }
 
-.sidenav {
+.app-sidenav {
   border-right: 1px solid rgba(0, 0, 0, 0.12);
-  background: #fff;
-}
-
-.logo-container {
-  padding: 16px;
-  text-align: center;
-  background: #fff;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  z-index: 1;
-
-  img {
-    width: calc($sidenav-expanded-width - 50px);
-    height: calc($sidenav-minimal-width - 25px);
-    object-fit: contain;
-    transition: all 0.3s ease;
-
-    &.small {
-      width: 40px;
-      height: 40px;
-    }
-  }
-}
-
-.back-nav {
-  height: 48px;
-  background: transparent;
-
-  button {
-    margin-inline-end: 8px;
-  }
-}
-
-.mat-nav-list {
-  padding: 0px !important;
-
-  .mat-list-item {
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
-    }
-  }
-}
-
-.active-link {
-  background-color: rgba(0, 0, 0, 0.08) !important;
-  font-weight: 500;
-}
-
-.sidenav-footer {
-  position: sticky;
-  bottom: 0;
-  padding: 8px;
-  background: #fff;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-
-  kps-iconic-button,
-  kps-button {
-    display: block;
-    width: 100%;
-  }
-}
-
-.sidenav-group {
-  margin-block-end: 1rem;
-  border-bottom: 1px #ccc solid;
-  padding: 8px 0;
-
-  .sidenav-group-header {
-    display: inline-flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    overflow: elipsis;
-    gap: 10px;
-    padding: 0.25rem 1rem;
-    width: 100%;
-
-    .sidenav-group-title {
-      margin: 0px !important;
-      font-size: 15px !important;
-      text-transform: uppercase;
-    }
-
-    .sidenav-group-title,
-    .mat-icon {
-      color: #385ebb;
-    }
-  }
+  // background: #fff;
 }

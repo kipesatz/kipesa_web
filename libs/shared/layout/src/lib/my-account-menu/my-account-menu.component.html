@@ -1,11 +1,14 @@
-<kps-iconic-button
-  icon="account_circle_outline"
-  btnAriaLabel="my account"
-  [matMenuTriggerFor]="menuRef"
-  matTooltip="My Account"
-  variant="flat"
-  btnColor="warn"
-/>
+<div class="d-inline-flex align-items-center flex-nowrap">
+  <kps-iconic-button
+    icon="account_circle_outline"
+    btnAriaLabel="my account"
+    [matMenuTriggerFor]="menuRef"
+    matTooltip="My Account"
+    variant="flat"
+    btnColor="warn"
+  />
+  <span class="short-name"> {{ shortName() }} </span>
+</div>
 
 <mat-menu #menuRef="matMenu">
   <p class="px-3 my-1">{{ 'Hello, Alex Urassa' }}</p>

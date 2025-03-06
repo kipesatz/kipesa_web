@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
 import {
   MatListItem,
   MatListItemIcon,
@@ -22,6 +23,7 @@ import { IconicButtonComponent } from '@kps/material/button';
     MatNavList,
     MatListItem,
     MatListItemIcon,
+    MatIcon,
     MatListItemTitle,
   ],
   templateUrl: './my-account-menu.component.html',
@@ -29,6 +31,7 @@ import { IconicButtonComponent } from '@kps/material/button';
 })
 export class MyAccountMenuComponent {
   private logoutFacade = inject(LogoutFacadeService);
+  shortName = signal('Alex');
 
   logoutUser(): void {
     this.logoutFacade.dispatchLogout();
