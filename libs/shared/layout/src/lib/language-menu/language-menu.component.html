@@ -1,0 +1,28 @@
+<button
+  mat-button
+  aria-label="Change language"
+  [matTooltip]="'Change language'"
+  [matMenuTriggerFor]="languageMenu"
+>
+  <div class="d-flex align-items-center flex-nowrap gap-1">
+    <mat-icon>language</mat-icon>
+    <div>{{ getCurrentLanguage() }}</div>
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </div>
+</button>
+
+<mat-menu #languageMenu="matMenu">
+  <h6 class="px-3">Change language</h6>
+  <button mat-menu-item (click)="changeLanguage('en')">
+    <mat-icon>🇺🇸</mat-icon>
+    <span>English</span>
+  </button>
+  <button mat-menu-item (click)="changeLanguage('fr')">
+    <mat-icon>🇫🇷</mat-icon>
+    <span>Français</span>
+  </button>
+  <button mat-menu-item (click)="changeLanguage('pt')">
+    <mat-icon>🇵🇹</mat-icon>
+    <span>Português</span>
+  </button>
+</mat-menu>
