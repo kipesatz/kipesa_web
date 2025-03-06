@@ -49,6 +49,8 @@ $sidenav-expanded-width: 250px;
 }
 
 .mat-nav-list {
+  padding: 0px !important;
+
   .mat-list-item {
     &:hover {
       background-color: rgba(0, 0, 0, 0.04);
@@ -75,13 +77,29 @@ $sidenav-expanded-width: 250px;
   }
 }
 
-.top-nav {
+.sidenav-group {
+  margin-block-end: 1rem;
   border-bottom: 1px #ccc solid;
-  position: sticky;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 3;
-  flex-wrap: nowrap;
+  padding: 8px 0;
+
+  .sidenav-group-header {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow: elipsis;
+    gap: 10px;
+    padding: 0.25rem 1rem;
+    width: 100%;
+
+    .sidenav-group-title {
+      margin: 0px !important;
+      font-size: 15px !important;
+      text-transform: uppercase;
+    }
+
+    .sidenav-group-title,
+    .mat-icon {
+      color: #385ebb;
+    }
+  }
 }

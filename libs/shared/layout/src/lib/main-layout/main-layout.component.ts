@@ -11,7 +11,6 @@ import {
 } from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
 import {
-  MatList,
   MatListItem,
   MatListItemIcon,
   MatListItemMeta,
@@ -19,32 +18,16 @@ import {
   MatNavList,
 } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
-import {
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { ButtonComponent } from '@kps/material/button';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { IconicButtonComponent } from '@kps/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { AuthCheckService, LogoutFacadeService } from '@kps/data/auth';
-import { MatDivider } from '@angular/material/divider';
-import {
-  ActivatedAssociationService,
-  Association,
-  MembershipFacadeService,
-} from '@kps/data/associations';
-import { MatDialog } from '@angular/material/dialog';
-import { AssocSwitchDialogComponent } from '../assoc-switch-dialog/assoc-switch-dialog.component';
-import { LoadingIndicatorComponent } from '@kps/material/progress';
-import { CommonModule } from '@angular/common';
+import { AuthCheckService } from '@kps/data/auth';
+import { ActivatedAssociationService } from '@kps/data/associations';
+import { AppBarComponent } from '../app-bar/app-bar.component';
 
 @Component({
   selector: 'kps-main-layout',
   imports: [
-    CommonModule,
     // sidenav
     MatSidenavContainer,
     MatSidenav,
@@ -53,24 +36,18 @@ import { CommonModule } from '@angular/common';
     MatToolbar,
     // lists
     MatNavList,
-    MatList,
     MatListItem,
     MatListItemIcon,
     MatListItemTitle,
     MatListItemMeta,
-    // menu
-    MatMenu,
-    MatMenuTrigger,
     // other
     RouterLink,
     RouterOutlet,
     RouterLinkActive,
     MatIcon,
-    MatIconButton,
-    ButtonComponent,
+    IconicButtonComponent,
     MatTooltip,
-    MatDivider,
-    LoadingIndicatorComponent,
+    AppBarComponent,
   ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',
@@ -87,16 +64,8 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class MainLayoutComponent implements OnInit {
-
   authCheck = inject(AuthCheckService);
   activatedAssocService = inject(ActivatedAssociationService);
-  private membershipsFacade = inject(MembershipFacadeService);
-  private logoutFacade = inject(LogoutFacadeService);
-  private matDialog = inject(MatDialog);
-  private router = inject(Router);
-
-  myMemberships = this.membershipsFacade.memberships;
-  myMembershipsLoading = this.membershipsFacade.loading;
 
   menuItems: MenuItem[] = [
     {
@@ -249,35 +218,5 @@ export class MainLayoutComponent implements OnInit {
       this.isExpanded.set(true);
       this.isMinimal.set(false);
     }
-  }
-
-  triggerAssocSwitchDialog(association: Association): void {
-    const dialogRef = this.matDialog.open(AssocSwitchDialogComponent, {
-      data: { association },
-    });
-
-    dialogRef.afterClosed().subscribe((shouldSwitch: boolean) => {
-      if (shouldSwitch) {
-        // switch to selected
-        this.activatedAssocService.switchCurAssoc(association);
-
-        // navigate to assoc dashboard
-        this.router.navigate(['/associations', association.id, 'dashboard']);
-      }
-    });
-  }
-
-  fetchMemberships(): void {
-    // not loading & have less than one membership
-    if (
-      !this.myMembershipsLoading() &&
-      this.membershipsFacade.totalMemberships() < 1
-    ) {
-      this.membershipsFacade.fetchMyMemberships();
-    }
-  }
-
-  logoutUser(): void {
-    this.logoutFacade.dispatchLogout();
   }
 }

@@ -11,7 +11,7 @@
       <!-- Logo Section -->
       <div class="logo-container position-sticky top-0">
         <img
-          src="kipesa_logo.jpeg"
+          src="kipesa_logo11.png"
           [class.small]="!isExpanded()"
           alt="Kipesa Logo"
         />
@@ -19,166 +19,135 @@
 
       <!-- menu items -->
       <div class="flex-grow-1 overflow-x-hidden overflow-y-scroll">
-        <!-- Back Navigation -->
-        @if (navigationStack().length) {
-        <mat-toolbar class="back-nav">
-          <button mat-icon-button matTooltip="Go back" (click)="navigateBack()">
-            <mat-icon>arrow_back</mat-icon>
-          </button>
-          @if (isExpanded()) {
-          <span>{{ submenuLabel }}</span>
+        <div class="sidenav-group">
+          <div class="sidenav-group-header">
+            <mat-icon>hub</mat-icon>
+            <h6 class="sidenav-group-title">core services</h6>
+          </div>
+
+          <!-- Back Navigation -->
+          @if (navigationStack().length) {
+          <mat-toolbar class="back-nav">
+            <kps-iconic-button
+              btnAriaLabel="go back"
+              icon="arrow_back"
+              matTooltip="Go back"
+              (click)="navigateBack()"
+            />
+            @if (isExpanded()) {
+            <p class="fs-6 m-0">{{ submenuLabel }}</p>
+            }
+          </mat-toolbar>
           }
-        </mat-toolbar>
-        }
-        <!-- Menu Items -->
-        <div [@slideInOut]>
+          <!-- Menu Items -->
+          <div [@slideInOut]>
+            <mat-nav-list>
+              @for (item of currentLevel(); track $index) {
+              <a
+                mat-list-item
+                [routerLink]="item.route"
+                (click)="!item.route && navigateToSubMenu(item)"
+                routerLinkActive="active-link"
+                [routerLinkActiveOptions]="{ exact: false }"
+              >
+                <!-- icon -->
+                @if (item.icon) {
+                <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+                }
+
+                <!-- expanded -->
+                @if (isExpanded()) {
+                <span matListItemTitle> {{ item.label }} </span>
+                }
+
+                <!-- children & expanded -->
+                @if (item.children && isExpanded()) {
+                <div matListItemMeta>
+                  <mat-icon>chevron_right</mat-icon>
+                </div>
+                }
+              </a>
+              }
+            </mat-nav-list>
+          </div>
+        </div>
+
+        <!-- updates -->
+        <div class="sidenav-group">
+          <div class="sidenav-group-header">
+            <mat-icon>update</mat-icon>
+            <h6 class="sidenav-group-title">Updates</h6>
+          </div>
+
           <mat-nav-list>
-            @for (item of currentLevel(); track $index) {
             <a
               mat-list-item
-              [routerLink]="item.route"
-              (click)="!item.route && navigateToSubMenu(item)"
+              [routerLink]="['/updates', 'smsInbox']"
               routerLinkActive="active-link"
               [routerLinkActiveOptions]="{ exact: false }"
             >
-              <!-- icon -->
-              @if (item.icon) {
-              <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-              }
-
-              <!-- expanded -->
-              @if (isExpanded()) {
-              <span matListItemTitle> {{ item.label }} </span>
-              }
-
-              <!-- children & expanded -->
-              @if (item.children && isExpanded()) {
-              <div matListItemMeta>
-                <mat-icon>chevron_right</mat-icon>
-              </div>
-              }
+              <mat-icon matListItemIcon>sms</mat-icon>
+              <span matListItemTitle>SMS Inbox</span>
             </a>
-            }
+            <a
+              mat-list-item
+              [routerLink]="['/updates', 'smsInbox']"
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: false }"
+            >
+              <mat-icon matListItemIcon>notifications</mat-icon>
+              <span matListItemTitle>In-App Notifications</span>
+            </a>
+          </mat-nav-list>
+        </div>
+
+        <!-- updates -->
+        <div class="sidenav-group">
+          <div class="sidenav-group-header">
+            <!-- <mat-icon>update</mat-icon> -->
+            <h6 class="sidenav-group-title">More Services</h6>
+          </div>
+
+          <mat-nav-list>
+            <a
+              mat-list-item
+              [routerLink]="['/updates', 'smsInbox']"
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: false }"
+            >
+              <mat-icon matListItemIcon>calendar_month_outline</mat-icon>
+              <span matListItemTitle>Events</span>
+            </a>
+            <a
+              mat-list-item
+              [routerLink]="['/updates', 'smsInbox']"
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: false }"
+            >
+              <mat-icon matListItemIcon>meeting_room</mat-icon>
+              <span matListItemTitle>Group Meetings</span>
+            </a>
+            <a
+              mat-list-item
+              [routerLink]="['/updates', 'smsInbox']"
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: false }"
+            >
+              <mat-icon matListItemIcon>help_center_outline</mat-icon>
+              <span matListItemTitle>Help Center</span>
+            </a>
           </mat-nav-list>
         </div>
       </div>
 
       <div class="sidenav-footer">
-        <small>&copy; Kipesa</small>
+        <p class="fs-medium">&copy; Kipesa 2025</p>
       </div>
     </section>
   </mat-sidenav>
 
   <mat-sidenav-content class="d-flex flex-column overflow-hidden">
-    <mat-toolbar class="top-nav">
-      <div class="d-inline-flex align-items-center flex-nowrap gap-2">
-        <button mat-icon-button (click)="sidenav.toggle()">
-          <mat-icon>menu</mat-icon>
-        </button>
-
-        <!-- association -->
-        <div class="d-flex gap-2 flex-nowrap align-items-center">
-          @if (activatedAssocService.getName() !== null) {
-          <span> {{ activatedAssocService.getName() }} </span>
-          }
-
-          <kps-button
-            text="SWITCH"
-            btnAriaLabel="switch association"
-            matTooltip="Switch Association"
-            [matMenuTriggerFor]="associationsMenu"
-            (clicked)="fetchMemberships()"
-          />
-
-          <!-- assoc menu -->
-          <mat-menu #associationsMenu="matMenu">
-            <h5 class="p-3 h6 mb-0">Enrolled Associations</h5>
-            @if (myMembershipsLoading()) {
-            <kps-loading-indicator />
-            } @else {
-            <mat-list>
-              @for (membership of myMemberships(); track membership.id) {
-              <mat-list-item
-                class="d-inline-flex align-items-center gap-3 flex-nowrap"
-              >
-                <span matListItemTitle>
-                  {{ membership.association.name }}
-                </span>
-                <kps-button
-                  matListItemMeta
-                  text="SWITCH"
-                  btnAriaLabel="switch"
-                  [btnDisabled]="
-                    membership.association.name ===
-                    activatedAssocService.getName()
-                  "
-                  (click)="triggerAssocSwitchDialog(membership.association)"
-                />
-              </mat-list-item>
-              }
-            </mat-list>
-            }
-          </mat-menu>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-end align-items-center gap-2">
-        @if(authCheck.isAnonymous()) {
-        <div
-          class="rounded border bg-white d-flex align-items-center gap-1 p-1"
-        >
-          <kps-button
-            text="Register"
-            [btnLink]="['/accounts', 'auth', 'register']"
-            btnAriaLabel="register"
-          />
-          <kps-button
-            text="Login"
-            [btnLink]="['/accounts', 'auth', 'login']"
-            btnAriaLabel="login"
-            variant="stroked"
-          />
-        </div>
-        }@else if (authCheck.isAuthenticated()) {
-        <!-- my-account menu btn -->
-        <kps-button
-          icon="account_circle"
-          text="My Account"
-          btnAriaLabel="my account"
-          [matMenuTriggerFor]="menuRef"
-          matTooltip="My Account"
-          variant="flat"
-          btnColor="warn"
-        />
-
-        <mat-menu #menuRef="matMenu">
-          <p class="px-3 my-1">{{ 'Hello, Alex Urassa' }}</p>
-
-          <mat-divider />
-
-          <mat-nav-list style="min-inline-size: 250px" class="px-2">
-            <mat-list-item [routerLink]="['/myAccount', 'personalInfo']">
-              <mat-icon matListItemIcon class="mat-18">account_box</mat-icon>
-              <span matListItemTitle>My Personal Info</span>
-            </mat-list-item>
-            <mat-list-item [routerLink]="['/myAccount', 'personalInfo']">
-              <mat-icon matListItemIcon class="mat-18">groups</mat-icon>
-              <span matListItemTitle>My Association Enrollments</span>
-            </mat-list-item>
-
-            <mat-divider />
-
-            <mat-list-item (click)="logoutUser()">
-              <mat-icon matListItemIcon color="warn" class="mat-18"
-                >logout</mat-icon
-              >
-              <span matListItemTitle>Logout</span>
-            </mat-list-item>
-          </mat-nav-list>
-        </mat-menu>
-        }
-      </div>
-    </mat-toolbar>
+    <kps-app-bar (toggleSidenavChange)="sidenav.toggle()" />
 
     <section class="flex-grow-1 overflow-auto">
       <router-outlet></router-outlet>
