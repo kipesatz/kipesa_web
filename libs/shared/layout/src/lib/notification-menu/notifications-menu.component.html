@@ -1,0 +1,21 @@
+<button
+  mat-icon-button
+  btnAriaLabel="Notifications"
+  [matMenuTriggerFor]="notificationsMenu"
+  matTooltip="Notifications"
+>
+  <mat-icon>notifications</mat-icon>
+  <span
+    class="notification-badge"
+    [matBadge]="notificationsCount()"
+    matBadgeColor="warn"
+  ></span>
+</button>
+
+<mat-menu
+  #notificationsMenu="matMenu"
+  [overlapTrigger]="false"
+  [hasBackdrop]="false"
+>
+  <p class="p-3">Notifications will appear here</p>
+</mat-menu>
