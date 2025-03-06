@@ -1,0 +1,34 @@
+<kps-button
+  text="SWITCH"
+  btnAriaLabel="switch association"
+  matTooltip="Switch Association"
+  [matMenuTriggerFor]="associationsMenu"
+  (clicked)="fetchMemberships()"
+/>
+
+<!-- assoc menu -->
+<mat-menu #associationsMenu="matMenu">
+  <h5 class="p-3 h6 mb-0">Enrolled Associations</h5>
+  @if (myMembershipsLoading()) {
+  <kps-loading-indicator />
+  } @else {
+  <mat-list>
+    @for (membership of myMemberships(); track membership.id) {
+    <mat-list-item class="d-inline-flex align-items-center gap-3 flex-nowrap">
+      <span matListItemTitle>
+        {{ membership.association.name }}
+      </span>
+      <kps-button
+        matListItemMeta
+        text="SWITCH"
+        btnAriaLabel="switch"
+        [btnDisabled]="
+          membership.association.name === activatedAssocService.getName()
+        "
+        (click)="triggerAssocSwitchDialog(membership.association)"
+      />
+    </mat-list-item>
+    }
+  </mat-list>
+  }
+</mat-menu>

@@ -1,0 +1,13 @@
+:host {
+  position: sticky;
+  top: 0;
+}
+
+.top-nav {
+  border-bottom: 1px #ccc solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3;
+  flex-wrap: nowrap;
+}
