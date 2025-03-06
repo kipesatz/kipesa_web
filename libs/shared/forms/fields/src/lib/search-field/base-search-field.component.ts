@@ -31,10 +31,10 @@ export class BaseSearchFieldComponent {
   protected curRoute = inject(ActivatedRoute);
 
   // signals
-  searchPlaceholder: InputSignal<string> = input<string>('Search here...');
+  searchPlaceholder: InputSignal<string> = input<string>('Search...');
   /**Duration in milliseconds to delay before detecting changes in the search input */
   searchDelay: InputSignal<number> = input<number>(500);
-  showFilterMenu = input<boolean>(true)
+  showFilterMenu = input<boolean>(false)
   filterChange = output<void>()
 
   /**Release the latest search value from search input after each milliseconds specified in `searchDelay` */

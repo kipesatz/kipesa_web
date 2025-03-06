@@ -14,7 +14,10 @@
     <button
       mat-icon-button
       class="clear-btn"
-      [class.visible]="searchController.dirty && searchController.value !== ''"
+      [class.btn-visible]="
+        searchController.dirty && searchController.value !== ''
+      "
+      (click)="searchController.reset()"
     >
       <mat-icon> close </mat-icon>
     </button>
@@ -25,7 +28,9 @@
       mat-icon-button
       aria-label="filters"
     >
-      <mat-icon>filter_list</mat-icon>
+      <mat-icon>
+        {{ showFilterMenu() ? 'filter_list' : 'filter_list_off' }}
+      </mat-icon>
     </button>
   </span>
 </div>
