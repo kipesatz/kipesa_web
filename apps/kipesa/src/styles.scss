@@ -130,3 +130,23 @@ body {
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
 }
+
+// scrollbars
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px; // For horizontal scrollbars
+}
+
+::-webkit-scrollbar-track {
+  background: #e4e5e7;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7289da; // Blue scrollbar
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5865f2; // Lighter blue on hover
+}
