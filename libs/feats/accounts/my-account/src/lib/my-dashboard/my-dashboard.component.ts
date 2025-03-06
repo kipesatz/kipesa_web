@@ -96,12 +96,10 @@ export class MyDashboardComponent implements OnInit {
       {
         name: 'Amount',
         type: 'line',
-        data: this.contributionFacade
-          .allContributions()
-          .map((d) => ({
-            x: dayjs(d.createdOn).format('MMM D, YYYY'),
-            y: d.amount,
-          })),
+        data: this.contributionFacade.allContributions().map((d) => ({
+          x: dayjs(d.createdOn).format('MMM D, YYYY'),
+          y: d.amount,
+        })),
         color: '#4CAF50',
         smooth: true,
         areaStyle: { opacity: 0.1 },

@@ -1,11 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { LoginFormComponent } from '@kps/accounts/auth-forms';
-import {
-  MatCard,
-  MatCardHeader,
-  MatCardContent,
-  MatCardMdImage,
-} from '@angular/material/card';
+import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
 import { Router, RouterLink } from '@angular/router';
 import {
   AuthCheckService,
@@ -21,7 +16,6 @@ import {
     MatCardHeader,
     RouterLink,
     MatCardContent,
-    MatCardMdImage,
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',

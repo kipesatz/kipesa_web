@@ -7,7 +7,6 @@ import {
 } from '@angular/forms';
 import { RegistrationPayload } from '@kps/data/auth';
 import { BaseFormService } from '@kps/forms';
-import { matchValidator } from '@kps/forms/validators';
 
 interface RegFormMap extends RegistrationPayload {
   confirmPassword: string;
@@ -61,7 +60,7 @@ export class RegistrationFormService extends BaseFormService<RegFormMap> {
         agreeToTerms: this.builder.control<boolean>(false, [
           Validators.requiredTrue,
         ]),
-      },
+      }
       // { validators: matchValidator('password', 'confirmPassword') }
     );
   }

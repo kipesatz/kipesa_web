@@ -1,22 +1,29 @@
-<div class="d-flex justify-content-center py-5">
-  <mat-card class="bg-white mat-elevation-z5 p-3">
-    <img
-      matCardImageMedium
-      src="kipesa_logo.jpeg"
-      alt="Kipesa Logo"
-      class="d-block mx-auto"
-    />
+<div class="login-container">
+  <mat-card class="login-card">
+    <div class="logo-container">
+      <img
+        src="kipesa_logo11.png"
+        width="180px"
+        height="auto"
+        alt="Kipesa Logo"
+        class="logo"
+      />
+    </div>
 
-    <mat-card-header class="my-4">
-      <h3 class="h3 text-capitalize mx-auto">Login to your Account</h3>
+    <mat-card-header class="d-flex flex-column">
+      <h1 class="login-title">Welcome Back</h1>
+      <p class="login-subtitle">Please login to your account</p>
     </mat-card-header>
 
     <mat-card-content>
-      <kps-login-form (loginChange)="dispatchLoginAttempt($event)" />
+      <kps-login-form
+        class="login-form"
+        (loginChange)="dispatchLoginAttempt($event)"
+      />
 
-      <div class="d-block my-3">
-        <span>I don't have account?</span>
-        <a [routerLink]="['../', 'register']" class="fw-bold text-decoration-none ps-1">Register</a>
+      <div class="register-prompt">
+        <span>Don't have an account?</span>
+        <a [routerLink]="['../', 'register']">Create Account</a>
       </div>
     </mat-card-content>
   </mat-card>

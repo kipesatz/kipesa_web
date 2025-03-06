@@ -29,12 +29,12 @@ import { LoginFacadeService, LoginPayload } from '@kps/data/auth';
 })
 export class LoginFormComponent extends BaseFormComponent implements OnInit {
   private loginFormService = inject(LoginFormService);
-  private loginFacade = inject(LoginFacadeService)
+  private loginFacade = inject(LoginFacadeService);
 
   // outputs
   loginChange = output<LoginPayload>();
 
-  loading$ = this.loginFacade.loading
+  loading$ = this.loginFacade.loading;
   public hidePassword = true;
   public loginMethodControl = new FormControl<'email' | 'phone'>('phone');
 

@@ -1,26 +1,36 @@
-<div class="d-flex justify-content-center py-5">
-  <mat-card class="bg-white mat-elevation-z5 p-3">
-    <img
-      matCardImageMedium
-      src="kipesa_logo.jpeg"
-      alt="Kipesa Logo"
-      class="d-block mx-auto"
-    />
-
-    <mat-card-header class="my-4">
-      <h3 class="h3 text-capitalize mx-auto">get started with kipesa</h3>
-    </mat-card-header>
-
+<div class="auth-container">
+  <mat-card class="auth-card">
     <mat-card-content>
-      <kps-registration-form (formSubmitted)="registerUser($event)" />
+      <div class="registration-content">
+        <div class="branding-column">
+          <div class="logo-container">
+            <img
+              src="kipesa_logo11.png"
+              alt="Kipesa Logo"
+              class="company-logo"
+              width="180px"
+              height="auto"
+            />
+          </div>
+          <div class="auth-header">
+            <h3 class="auth-title">Create a free Account NOW</h3>
+            <p class="auth-subtitle">
+              Discover best way to manage financial institutions today.
+            </p>
+          </div>
+        </div>
 
-      <div class="d-block my-3">
-        <span>I have account?</span>
-        <a
-          [routerLink]="['../', 'login']"
-          class="fw-bold text-decoration-none ps-1"
-          >Login</a
-        >
+        <div class="form-column">
+          <kps-registration-form
+            (formSubmitted)="registerUser($event)"
+            class="auth-form"
+          />
+
+          <div class="auth-prompt">
+            <span>I have account?</span>
+            <a [routerLink]="['../', 'login']">Login</a>
+          </div>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>

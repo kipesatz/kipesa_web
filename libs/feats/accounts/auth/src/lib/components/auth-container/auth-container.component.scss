@@ -15,3 +15,49 @@ mat-toolbar {
 .content {
   padding: 1rem;
 }
+
+.auth-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background-color: var(--toolbar-bg, #ffffff);
+  border-bottom: 1px solid var(--toolbar-border, #e0e0e0);
+  transition: all 0.3s ease;
+
+  &.mat-elevation-z2 {
+    backdrop-filter: blur(10px);
+    background-color: var(--toolbar-bg-scrolled, rgba(255, 255, 255, 0.95));
+  }
+}
+
+.toolbar-left,
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toolbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .toolbar-logo {
+    height: 32px;
+    width: auto;
+  }
+}
+
+.page-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+:host-context(.dark-theme) {
+  .auth-toolbar {
+    --toolbar-bg: #1e1e1e;
+    --toolbar-border: #333333;
+    --toolbar-bg-scrolled: rgba(30, 30, 30, 0.95);
+  }
+}

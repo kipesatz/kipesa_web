@@ -47,7 +47,7 @@ export const appRoutes: Route[] = [
             loadChildren: () =>
               import('@kps/associations').then((m) => m.associationsRoutes),
           },
-          { path: '**', redirectTo: 'dashboards' },
+          { path: '**', redirectTo: 'myAccount' },
         ],
       },
       { path: '**', redirectTo: 'accounts' },

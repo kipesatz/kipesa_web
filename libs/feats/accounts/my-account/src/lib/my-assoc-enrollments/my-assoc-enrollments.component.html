@@ -26,13 +26,9 @@
       </div>
 
       <span>
-        @if (element.association.isActive) { 
-          @if(currAssocId() === element.association.id) {
-            Active (Opened)
-          }@else {
-            Active
-          }
-        }@else { InActive }
+        @if (element.association.isActive) { @if(currAssocId() ===
+        element.association.id) { Active (Opened) }@else { Active } }@else {
+        InActive }
       </span>
     </div>
   </ng-template>
@@ -43,12 +39,12 @@
 
   <ng-template #openAssocTmpl let-element>
     @if(currAssocId() !== element.association.id) {
-      <kps-iconic-button
-        icon="open_in_new"
-        btnAriaLabel="open association"
-        variant="raised"
-        (clicked)="openAssociation(element.association)"
-      />
+    <kps-iconic-button
+      icon="open_in_new"
+      btnAriaLabel="open association"
+      variant="raised"
+      (clicked)="openAssociation(element.association)"
+    />
     }
   </ng-template>
 </kps-data-table>

@@ -39,12 +39,12 @@ export class RegistrationFormComponent extends BaseFormComponent {
   public onSubmit(): void {
     // console.log("onsubmit is called", this.getFormGroup().value)
     // if (this.getFormGroup().valid) {
-      const formValue = this.getFormGroup().value;
+    const formValue = this.getFormGroup().value;
 
-      const { agreeToTerms, confirmPassword, ...registrationData } = formValue;
-      if (registrationData) {
-        this.formSubmitted.emit(registrationData as RegistrationPayload);
-      }
+    const { agreeToTerms, confirmPassword, ...registrationData } = formValue;
+    if (registrationData) {
+      this.formSubmitted.emit(registrationData as RegistrationPayload);
+    }
 
     //   console.log("form is valid")
     // }

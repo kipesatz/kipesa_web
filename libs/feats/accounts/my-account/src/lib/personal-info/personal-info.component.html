@@ -74,12 +74,12 @@
               </mat-icon>
               <div matListItemLine>
                 @if(authUser.nationalId) {
-                  <span> {{ authUser.nationalId }} </span>
+                <span> {{ authUser.nationalId }} </span>
                 }@else {
-                  <button mat-button color="primary">
-                    <mat-icon>cake</mat-icon>
-                    Add National ID
-                  </button>
+                <button mat-button color="primary">
+                  <mat-icon>cake</mat-icon>
+                  Add National ID
+                </button>
                 }
               </div>
             </mat-list-item>
@@ -91,12 +91,12 @@
 
               <div matListItemLine>
                 @if(authUser.occupation) {
-                  <span> {{ authUser.occupation }} </span>
+                <span> {{ authUser.occupation }} </span>
                 }@else {
-                  <button mat-button color="primary">
-                    <mat-icon>cake</mat-icon>
-                    Add your Occupation
-                  </button>
+                <button mat-button color="primary">
+                  <mat-icon>cake</mat-icon>
+                  Add your Occupation
+                </button>
                 }
               </div>
             </mat-list-item>
@@ -114,24 +114,26 @@
           <mat-list>
             <mat-list-item>
               <h3 matListItemTitle>Email Address</h3>
-              <mat-icon matListItemIcon class="text-primary">contact_mail</mat-icon>
+              <mat-icon matListItemIcon class="text-primary"
+                >contact_mail</mat-icon
+              >
               <span matListItemLine> {{ authUser.email }} </span>
             </mat-list-item>
             <mat-list-item>
               <h3 matListItemTitle>Phone Contact</h3>
               <mat-icon matListItemIcon class="text-primary"
-              >contact_phone</mat-icon
+                >contact_phone</mat-icon
               >
 
               <div matListItemLine>
                 @if(authUser.phoneNumber) {
-                  <span> {{ authUser.phoneNumber }} </span>
+                <span> {{ authUser.phoneNumber }} </span>
 
                 }@else {
-                  <button mat-button color="primary">
-                    <mat-icon>contact_phone</mat-icon>
-                    Add Phone Number
-                  </button>
+                <button mat-button color="primary">
+                  <mat-icon>contact_phone</mat-icon>
+                  Add Phone Number
+                </button>
                 }
               </div>
             </mat-list-item>
@@ -141,13 +143,13 @@
               <mat-icon matListItemIcon class="text-primary"> cake </mat-icon>
               <div matListItemLine>
                 @if (!authUser.dob) {
-                  <span></span>
-                  {{ authUser.dob | date : 'shortDate' }}
+                <span></span>
+                {{ authUser.dob | date : 'shortDate' }}
                 }@else {
-                  <button mat-button color="primary">
-                    <mat-icon>cake</mat-icon>
-                    Add birthday
-                  </button>
+                <button mat-button color="primary">
+                  <mat-icon>cake</mat-icon>
+                  Add birthday
+                </button>
                 }
               </div>
             </mat-list-item>
@@ -155,16 +157,16 @@
             <mat-list-item>
               <h3 matListItemTitle>Physical Address</h3>
               <mat-icon matListItemIcon class="text-primary"
-              >location_city</mat-icon
+                >location_city</mat-icon
               >
               <div matListItemLine>
                 @if (authUser.address) {
-                  <span>{{ authUser.address }}</span>
+                <span>{{ authUser.address }}</span>
                 }@else {
-                  <button mat-button color="primary">
-                    <mat-icon>contact_mail</mat-icon>
-                    Add Address
-                  </button>
+                <button mat-button color="primary">
+                  <mat-icon>contact_mail</mat-icon>
+                  Add Address
+                </button>
                 }
               </div>
             </mat-list-item>
@@ -173,9 +175,6 @@
       </mat-card>
     </div>
   </div>
-
-
-
 
   <!-- History Section -->
   <div>

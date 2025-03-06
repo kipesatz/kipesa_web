@@ -1,6 +1,10 @@
-<form [formGroup]="getFormGroup()" (ngSubmit)="onSubmit()" class="registration-form">
-
-  <div class="d-flex flex-row gap-2 flex-wrap-sm">
+<form
+  [formGroup]="getFormGroup()"
+  (ngSubmit)="onSubmit()"
+  class="registration-form"
+>
+  <div class="form-section">
+    <h5>Your valid names</h5>
     <kps-input-field
       [controller]="getController('firstName')"
       controlName="firstName"
@@ -11,37 +15,47 @@
     />
   </div>
 
-  <kps-email-field
-  [controller]="getController('email')"
-  controlName="email"
-/>
-
-  <kps-phone-field [(phoneString)]="getFormGroup().controls.phoneNumber.value" />
-
-  <kps-password-field
-    [controller]="getController('password')"
-    controlName="password"
-  />
-
-  <kps-password-field
-    [controller]="getController('confirmPassword')"
-    controlName="confirmPassword"
-  />
-
-  <mat-checkbox [formControl]="getController('agreeToTerms')" color="primary" class="d-block my-3">
-    <span>Agree to</span>
-    <a href="" class="px-1">Terms</a>
-    <span class="px-1">and</span>
-    <a href="" class="px-1">Conditions</a>
-  </mat-checkbox>
-
-  <div class="d-block">
-    <kps-button
-      text="Register Account"
-      btnAriaLabel="register account"
-      variant="flat"
-      [isFullWidth]="true"
-      btnType="submit"
+  <div class="form-section">
+    <h5>Contact information</h5>
+    <kps-email-field
+      [controller]="getController('email')"
+      controlName="email"
+    />
+    <kps-phone-field
+      [(phoneString)]="getFormGroup().controls.phoneNumber.value"
+      controlName="phone"
     />
   </div>
+
+  <div class="form-section">
+    <h5>Account Security</h5>
+    <kps-password-field
+      [controller]="getController('password')"
+      controlName="password"
+      [passwordVisible]="hidePassword"
+    />
+    <kps-password-field
+      [controller]="getController('confirmPassword')"
+      controlName="confirmPassword"
+      label="Confirm Password"
+      [passwordVisible]="hidePassword"
+    />
+  </div>
+
+  <mat-checkbox
+    [formControl]="getController('agreeToTerms')"
+    controlName="agreeToTerms"
+    color="primary"
+  >
+    I agree to the Terms and Conditions
+  </mat-checkbox>
+
+  <kps-button
+    btnType="submit"
+    [validationController]="getFormGroup()"
+    btnAriaLabel="Register"
+    variant="flat"
+    text="Register"
+    [isFullWidth]="true"
+  />
 </form>

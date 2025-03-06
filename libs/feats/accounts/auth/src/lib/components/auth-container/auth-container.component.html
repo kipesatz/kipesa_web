@@ -1,18 +1,56 @@
-<div class="d-flex flex-column">
-  <mat-toolbar
-    [class.mat-elevation-z2]="isScrolled"
-    [class.border-bottom]="!isScrolled"
-  >
-    <kps-iconic-button
-      icon="arrow_back"
-      btnAriaLabel="back"
-      (click)="router.navigateByUrl('../')"
-    />
+<div class="d-flex flex-column h-100 overflow-hidden">
+  <mat-toolbar class="auth-toolbar" [class.mat-elevation-z2]="isScrolled">
+    <div class="toolbar-left">
+      <kps-iconic-button
+        icon="arrow_back"
+        btnAriaLabel="back"
+        (click)="router.navigateByUrl('../')"
+      />
+      <span class="page-title">{{ getCurrentPageTitle() }}</span>
+    </div>
 
-    <span>Back</span>
+    <div class="toolbar-center">
+      <img src="kipesa_logo11.png" alt="Kipesa Logo" class="toolbar-logo" />
+    </div>
+
+    <div class="toolbar-right">
+      <kps-iconic-button
+        icon="help_outline"
+        btnAriaLabel="Help"
+        [matTooltip]="'Need help?'"
+        (click)="openHelpDialog()"
+      />
+      <kps-iconic-button
+        icon="language"
+        btnAriaLabel="Change language"
+        [matTooltip]="'Change language'"
+        [matMenuTriggerFor]="languageMenu"
+      />
+      <kps-iconic-button
+        icon="brightness_6"
+        btnAriaLabel="Toggle theme"
+        [matTooltip]="'Toggle dark mode'"
+        (click)="toggleTheme()"
+      />
+    </div>
   </mat-toolbar>
 
-  <div class="flex-grow-1 overflow-auto">
+  <mat-menu #languageMenu="matMenu">
+    <button mat-menu-item (click)="changeLanguage('en')">
+      <mat-icon>🇺🇸</mat-icon>
+      <span>English</span>
+    </button>
+    <button mat-menu-item (click)="changeLanguage('fr')">
+      <mat-icon>🇫🇷</mat-icon>
+      <span>Français</span>
+    </button>
+    <button mat-menu-item (click)="changeLanguage('pt')">
+      <mat-icon>🇵🇹</mat-icon>
+      <span>Português</span>
+    </button>
+  </mat-menu>
+
+  <div class="flex-grow-1 overflow-x-hidden overflow-y-auto">
     <router-outlet></router-outlet>
   </div>
 </div>

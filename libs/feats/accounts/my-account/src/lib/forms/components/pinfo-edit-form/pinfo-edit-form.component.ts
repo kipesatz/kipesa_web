@@ -11,7 +11,6 @@ import { DatepickerComponent, InputFieldComponent } from '@kps/forms/fields';
   styleUrl: './pinfo-edit-form.component.scss',
 })
 export class PinfoEditFormComponent extends BaseFormComponent {
-
-  formGroup = input.required<PinfoEditFg>()
-  getFormGroup = () => this.formGroup()
+  formGroup = input.required<PinfoEditFg>();
+  getFormGroup = () => this.formGroup();
 }
