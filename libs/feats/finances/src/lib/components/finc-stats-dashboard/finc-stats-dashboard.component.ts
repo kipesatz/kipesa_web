@@ -7,7 +7,6 @@ import {
 } from '@kps/data/finances';
 import { MatCardModule } from '@angular/material/card';
 import { CurrencyPipe } from '@angular/common';
-import { SearchFieldComponent } from '@kps/forms/fields';
 import { ButtonComponent } from '@kps/material/button';
 import { LoadingIndicatorComponent } from '@kps/material/progress';
 import { RouterService } from '@kps/core/router';
@@ -22,7 +21,6 @@ import { ChartConfig } from '@kps/charts';
   selector: 'kps-finc-stats-dashboard',
   imports: [
     MatCardModule,
-    SearchFieldComponent,
     ButtonComponent,
     CurrencyPipe,
     LoadingIndicatorComponent,

@@ -1,4 +1,12 @@
-import { Component, effect, inject, OnInit, signal, TemplateRef, viewChild } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  OnInit,
+  signal,
+  TemplateRef,
+  viewChild,
+} from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
 import { MatChip } from '@angular/material/chips';
@@ -7,14 +15,18 @@ import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { RouterService } from '@kps/core/router';
 import { LoanFacadeService } from '@kps/data/finances';
-import { SearchFieldComponent } from '@kps/forms/fields';
-import { DataTableComponent, TableColumn, TableFilter } from '@kps/material/table';
+import { AnimatedSearchFieldComponent } from '@kps/forms/fields';
+import {
+  DataTableComponent,
+  TableColumn,
+  TableFilter,
+} from '@kps/material/table';
 
 @Component({
   selector: 'kps-loans-tbl',
   imports: [
     DataTableComponent,
-    SearchFieldComponent,
+    AnimatedSearchFieldComponent,
     MatIcon,
     MatChip,
     MatIconButton,

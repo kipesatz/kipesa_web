@@ -1,0 +1,31 @@
+<div
+  class="search-bar"
+  [class.expanded]="searchController.dirty && searchController.value !== ''"
+>
+  <span class="prefix-icon">
+    <mat-icon>search</mat-icon>
+  </span>
+  <input
+    type="text"
+    [formControl]="searchController"
+    [placeholder]="searchPlaceholder()"
+  />
+  <span class="search-suffix">
+    <button
+      mat-icon-button
+      class="clear-btn"
+      [class.visible]="searchController.dirty && searchController.value !== ''"
+    >
+      <mat-icon> close </mat-icon>
+    </button>
+
+    <button
+      class="filters-btn"
+      [disabled]="!showFilterMenu()"
+      mat-icon-button
+      aria-label="filters"
+    >
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </span>
+</div>

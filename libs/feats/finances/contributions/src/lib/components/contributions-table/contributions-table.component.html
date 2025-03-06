@@ -14,7 +14,6 @@
   <kps-search-field
     searchPlaceholder="Search contributions..."
     [(searchTerm)]="searchTerm"
-    [availableFilters]="filters"
   />
 
   <!-- Custom Tools -->
@@ -54,12 +53,12 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      @if(element.status !== 'COMPLETED') { 
+      @if(element.status !== 'COMPLETED') {
       <button mat-menu-item (click)="openApprovalDialog(element)">
         <mat-icon>check_circle</mat-icon>
         <span>Approve Contribution</span>
       </button>
-     }
+      }
       <button mat-menu-item (click)="onDelete([element])">
         <mat-icon>delete</mat-icon>
         <span>Delete Contribution</span>

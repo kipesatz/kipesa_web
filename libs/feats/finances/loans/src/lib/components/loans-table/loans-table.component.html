@@ -10,10 +10,11 @@
   (delete)="onDelete($event)"
   (filterChange)="onFilterChange($event)"
 >
-  <kps-search-field
+  <!-- <kps-search-field
     searchPlaceholder="Search loans.."
     [(searchTerm)]="searchTerm"
-  />
+  /> -->
+  <kps-animated-search-field />
 
   <!-- templates -->
   <ng-template #createdTmpl let-element>

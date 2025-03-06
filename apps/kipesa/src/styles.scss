@@ -150,3 +150,11 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #5865f2; // Lighter blue on hover
 }
+
+:root {
+  --search-bg: #2c2f33;
+  --search-border: #40444b;
+  --search-initial-width: 200px;
+  --search-expanded-width: 300px;
+  --search-transition-duration: 0.3s;
+}
