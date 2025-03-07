@@ -74,6 +74,7 @@
       "@kps/material/snack-bar": [
         "libs/shared/material/snack-bar/src/index.ts"
       ],
+      "@kps/material/stepper": ["libs/shared/material/stepper/src/index.ts"],
       "@kps/material/table": ["libs/shared/material/table/src/index.ts"]
     }
   },
