@@ -28,6 +28,9 @@
       "@kps/admin": ["libs/feats/admin/src/index.ts"],
       "@kps/admin/settings": ["libs/feats/admin/settings/src/index.ts"],
       "@kps/assoc-settings": ["libs/feats/assoc-settings/src/index.ts"],
+      "@kps/assoc-settings/loan-products": [
+        "libs/feats/assoc-settings/loan-products/src/index.ts"
+      ],
       "@kps/associations": ["libs/feats/associations/src/index.ts"],
       "@kps/associations/current-assoc": [
         "libs/feats/associations/current-assoc/src/index.ts"
