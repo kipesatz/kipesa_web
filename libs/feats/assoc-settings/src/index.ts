@@ -1,1 +1,1 @@
-export * from './lib/assoc-settings/assoc-settings.component';
+export * from './lib/assoc-settings-dialog/assoc-settings-dialog.component';
