@@ -22,6 +22,12 @@ export const appRoutes: Route[] = [
           import('@kps/accounts').then((m) => m.accountsRoutes),
       },
       {
+        path: 'assocSettings',
+        title: 'Association Settings',
+        loadChildren: () =>
+          import('@kps/assoc-settings').then((m) => m.assocSettingsRoutes),
+      },
+      {
         path: '',
         component: MainLayoutComponent,
         children: [

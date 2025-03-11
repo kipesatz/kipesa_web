@@ -27,7 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideNativeDateAdapter(),
     provideRouter(appRoutes),
-    provideAnimationsAsync(),
+    provideAnimationsAsync('animations'),
     provideStore(),
     provideEffects(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),

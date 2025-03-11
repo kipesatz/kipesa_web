@@ -1,4 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --search-bg: #2c2f33;
+  --search-border: #40444b;
+  --search-initial-width: 200px;
+  --search-expanded-width: 300px;
+  --search-transition-duration: 0.6s;
+}
 
 html,
 body {
@@ -131,9 +137,17 @@ body {
   font-size: 0.9rem;
 }
 
+// titles
+.kps-title-md {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #060607;
+}
+
 // scrollbars
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
   height: 8px; // For horizontal scrollbars
 }
 
@@ -149,12 +163,4 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #5865f2; // Lighter blue on hover
-}
-
-:root {
-  --search-bg: #2c2f33;
-  --search-border: #40444b;
-  --search-initial-width: 200px;
-  --search-expanded-width: 300px;
-  --search-transition-duration: 0.6s;
 }
