@@ -18,6 +18,7 @@
 
     <div class="d-flex action-buttons">
       <!-- Default Tools -->
+      @if(defaultVisibleTools().includes('refresh')) {
       <button
         mat-icon-button
         (click)="refreshChange.emit()"
@@ -25,6 +26,7 @@
       >
         <mat-icon>refresh</mat-icon>
       </button>
+      } @if(defaultVisibleTools().includes('delete')) {
       <button
         mat-icon-button
         [disabled]="!selection.hasValue()"
@@ -33,9 +35,11 @@
       >
         <mat-icon>delete</mat-icon>
       </button>
+      } @if(defaultVisibleTools().includes('add')) {
       <button mat-icon-button (click)="add.emit()" class="action-button">
         <mat-icon>add</mat-icon>
       </button>
+      }
 
       <!-- Custom Tools -->
       <ng-content select="[tableTools]"></ng-content>
@@ -110,6 +114,22 @@
         mat-header-row
         *matHeaderRowDef="displayedColumns(); sticky: true"
       ></tr>
+
+      <tr *matNoDataRow>
+        <td [attr.colspan]="displayedColumns().length" class="no-records-cell">
+          <div class="no-records-container">
+            <img
+              src="/no-record-found.png"
+              alt="No records found"
+              class="no-records-image"
+            />
+            <h3 class="no-records-title">No Records Found</h3>
+            <p class="no-records-text">
+              There are no items to display at this time.
+            </p>
+          </div>
+        </td>
+      </tr>
       <tr
         mat-row
         *matRowDef="let row; columns: displayedColumns()"

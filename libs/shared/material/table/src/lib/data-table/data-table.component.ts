@@ -8,7 +8,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatNoDataRow, MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
@@ -35,19 +35,20 @@ export interface TableFilter {
 @Component({
   selector: 'kps-data-table',
   imports: [
-    NgTemplateOutlet,
     MatToolbar,
     MatIcon,
     MatIconButton,
     MatTableModule,
     MatCheckbox,
     LoadingIndicatorComponent,
+    MatNoDataRow,
   ],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss',
 })
 export class DataTableComponent<T> {
   // Inputs
+  defaultVisibleTools = input<string[]>(['refresh', 'add', 'delete']);
   columns = input<TableColumn[]>([]);
   data = input<T[]>([]);
   visibleColumns = input<string[]>([]);
