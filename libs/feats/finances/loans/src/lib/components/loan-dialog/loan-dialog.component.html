@@ -1,1 +1,29 @@
-<p>loan-dialog works!</p>
+<kps-base-dialog>
+  <kps-dialog-header>Create New Loan Request</kps-dialog-header>
+
+  <form [formGroup]="getFormGroup()" (ngSubmit)="createLoan()" method="post">
+    <kps-loan-form
+      [loanFg]="getFormGroup()"
+      [(selectedMember)]="selectedMember"
+    />
+
+    <kps-dialog-footer>
+      <kps-button
+        btnAriaLabel="cancel & close"
+        text="Cancel & Close"
+        variant="raised"
+        btnType="reset"
+        matDialogClose
+      />
+      <kps-button
+        btnAriaLabel="cancel & close"
+        text="Submit Loan Request"
+        btnType="submit"
+        variant="flat"
+        [validationController]="getFormGroup()"
+        [loading]="loansLoading()"
+        [isFullWidth]="true"
+      />
+    </kps-dialog-footer>
+  </form>
+</kps-base-dialog>

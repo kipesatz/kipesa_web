@@ -1,164 +1,154 @@
-<mat-stepper>
-  <!-- Basic Information Step -->
-  <mat-step label="Basic Information">
-    <div class="grid grid-cols-2 gap-4">
-      <kps-select-field
-        [controller]="getController('borrower')"
-        controlName="borrower"
-      >
-        <mat-option>First borrower</mat-option>
-      </kps-select-field>
+<kps-stepper
+  orientation="vertical"
+  sidebarPosition="left"
+  theme="light"
+  logo="New Loan Request"
+  title="Client Loan Request Information"
+  description="Please enter CAREFULLY your member Loan Request information."
+  [linear]="true"
+>
+  <kps-stepper-step
+    label="Member Selection"
+    description="Select the member applying for the loan."
+  >
+    <ng-template kpsStepContent>
+      <kps-autocomplete-field
+        [options]="memberships()"
+        [displayWith]="displayMemberFn"
+        label="Select Member"
+        placeholder="Start typing a name..."
+        [controller]="getController('member')"
+        [errorMessage]="'Please select a valid member'"
+        [(selectedOption)]="selectedMember"
+        [(searchTerm)]="memberSearchTerm"
+      ></kps-autocomplete-field>
 
-      <kps-select-field
-        [controller]="getController('loanType')"
-        controlName="loanType"
-      >
-        <mat-option>First borrower</mat-option>
-      </kps-select-field>
+      @if (selectedMember(); as selectedMember) {
+      <kps-member-preview-card [member]="selectedMember" />
+      }
 
-      <kps-select-field
-        [controller]="getController('loanStatus')"
-        controlName="loanStatus"
-      >
-        <mat-option>First borrower</mat-option>
-      </kps-select-field>
+      <div kpsStepFooter>
+        <kps-fantasy-button kpsStepperNext>Next</kps-fantasy-button>
+      </div>
+    </ng-template>
+  </kps-stepper-step>
 
+  <!-- Personal Information Step -->
+  <kps-stepper-step
+    label="Preliminary information"
+    description="Enter the loan purpose, loan amount, loan product."
+  >
+    <ng-template kpsStepContent>
       <kps-input-field
         [controller]="getController('loanPurpose')"
         controlName="loanPurpose"
       >
+        <mat-hint>
+          The reason as to why the applicant is applying the loan
+        </mat-hint>
       </kps-input-field>
-    </div>
-  </mat-step>
-
-  <!-- Amount Details Step -->
-  <mat-step label="Amount Details">
-    <div class="grid grid-cols-2 gap-4">
+      <!-- princial -->
       <kps-input-field
+        [controller]="getController('loanAmount')"
+        controlName="loanAmount"
         inputType="number"
-        [controller]="getController('disbursedAmount')"
-        controlName="disbursedAmount"
       >
+        <mat-hint> Amount the applicant is applying for </mat-hint>
       </kps-input-field>
 
-      <kps-input-field
-        inputType="number"
-        [controller]="getController('totalAmountDue')"
-        controlName="totalAmountDue"
-      >
-      </kps-input-field>
-
-      <kps-input-field
-        inputType="number"
-        [controller]="getController('interestRate')"
-        controlName="interestRate"
-      >
-      </kps-input-field>
-
-      <kps-input-field
-        inputType="number"
-        [controller]="getController('totalInterest')"
-        controlName="totalInterest"
-      >
-      </kps-input-field>
-
-      <kps-input-field
-        inputType="number"
-        [controller]="getController('loanFee')"
-        controlName="loanFee"
-      >
-      </kps-input-field>
-
-      <kps-input-field
-        inputType="number"
-        [controller]="getController('remainingBalance')"
-        controlName="remainingBalance"
-      >
-      </kps-input-field>
-    </div>
-  </mat-step>
-
-  <!-- Repayment Details Step -->
-  <mat-step label="Repayment Details">
-    <div class="grid grid-cols-2 gap-4">
       <kps-select-field
-        [controller]="getController('repaymentFrequency')"
-        controlName="borrower"
-        label="Repayment Frequency"
+        [controller]="getController('loanProduct')"
+        controlName="loanProduct"
+        appearance="fill"
       >
-        <mat-option>Repayment frequency</mat-option>
+        @for (loanProduct of loanProducts(); track loanProduct.id) {
+        <mat-option [value]="loanProduct.id">
+          {{ loanProduct.name }}
+        </mat-option>
+        }
       </kps-select-field>
 
-      <kps-input-field
-        inputType="number"
-        [controller]="getController('lastRepaymentAmount')"
-        controlName="lastRepaymentAmount"
-      >
-      </kps-input-field>
+      <div kpsStepFooter>
+        <kps-fantasy-button kpsStepperPrev>Previous</kps-fantasy-button>
+        <kps-fantasy-button kpsStepperNext>Next</kps-fantasy-button>
+      </div>
+    </ng-template>
+  </kps-stepper-step>
 
-      <kps-input-field
-        inputType="number"
-        [controller]="getController('nextRepaymentAmount')"
-        controlName="nextRepaymentAmount"
-      >
-      </kps-input-field>
-    </div>
-  </mat-step>
+  <kps-stepper-step
+    label="Loan Terms"
+    description="Loan Terms, Currency and Payment Frequency"
+  >
+    <ng-template kpsStepContent>
+      <div class="d-flex gap-3 flex-wrap">
+        <kps-input-field
+          [controller]="getController('loanTermYears')"
+          controlName="loanTermYears"
+          inputType="number"
+        >
+          <mat-hint
+            >The number of years that a loan is expected to end</mat-hint
+          >
+        </kps-input-field>
 
-  <!-- Dates Step -->
-  <mat-step label="Important Dates">
-    <div class="grid grid-cols-2 gap-4">
-      <kps-datepicker
-        [controller]="getController('issueDate')"
-        controlName="issueDate"
-      >
-      </kps-datepicker>
+        <kps-input-field
+          [controller]="getController('loanTermMonths')"
+          controlName="loanTermMonths"
+          inputType="number"
+        >
+          <mat-hint>
+            Months to add on years, Eg. If a loan term take 1 year and 3 months
+          </mat-hint>
+        </kps-input-field>
+      </div>
 
-      <kps-datepicker
-        [controller]="getController('dueDate')"
-        controlName="dueDate"
-      >
-      </kps-datepicker>
+      <div class="d-flex gap-3 flex-wrap">
+        <kps-select-field
+          [controller]="getController('currency')"
+          controlName="currency"
+        >
+          @for (country of allowedCountryCurrencies; track $index) {
+          <mat-option [value]="country.currencyCode">
+            {{ country.name }} ({{ country.currencyCode }})
+          </mat-option>
+          }
+        </kps-select-field>
 
-      <kps-datepicker
-        [controller]="getController('closureDate')"
-        controlName="closureDate"
-      >
-      </kps-datepicker>
+        <kps-select-field
+          [controller]="getController('paymentFrequency')"
+          controlName="paymentFrequency"
+        >
+          @for (paymentFrequency of paymentFrequencies; track $index) {
+          <mat-option [value]="paymentFrequency.name">
+            {{ paymentFrequency.value }}
+          </mat-option>
+          }
+        </kps-select-field>
+      </div>
 
-      <kps-datepicker
-        [controller]="getController('defaultDate')"
-        controlName="defaultDate"
-      >
-      </kps-datepicker>
+      <div kpsStepFooter>
+        <kps-fantasy-button kpsStepperPrev>Previous</kps-fantasy-button>
+        <kps-fantasy-button kpsStepperNext>Next</kps-fantasy-button>
+      </div>
+    </ng-template>
+  </kps-stepper-step>
 
-      <kps-datepicker
-        [controller]="getController('lastRepaymentDate')"
-        controlName="lastRepaymentDate"
-      >
-      </kps-datepicker>
-
-      <kps-datepicker
-        [controller]="getController('nextRepaymentDate')"
-        controlName="nextRepaymentDate"
-      >
-      </kps-datepicker>
-    </div>
-  </mat-step>
-
-  <!-- Additional Information Step -->
-  <mat-step label="Additional Information">
-    <div class="grid grid-cols-1 gap-4">
+  <!-- notes -->
+  <kps-stepper-step
+    label="Additional Notes"
+    description="Additional notes about the loan request"
+  >
+    <ng-template kpsStepContent>
       <kps-editor
-        [control]="getController('notes')"
+        [controller]="getController('notes')"
         label="Notes"
         [maxLength]="15000"
       >
       </kps-editor>
-    </div>
-  </mat-step>
-</mat-stepper>
 
-<div class="mt-4">
-  <kps-validity-progress-checker [formGroup]="getFormGroup()" />
-</div>
+      <div kpsStepFooter>
+        <kps-fantasy-button kpsStepperPrev>Previous</kps-fantasy-button>
+      </div>
+    </ng-template>
+  </kps-stepper-step>
+</kps-stepper>

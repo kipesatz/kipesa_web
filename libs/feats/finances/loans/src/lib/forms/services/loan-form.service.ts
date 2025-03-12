@@ -3,7 +3,7 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  FormBuilder,
+  NonNullableFormBuilder,
 } from '@angular/forms';
 import { Loan, LoanPayload } from '@kps/data/finances';
 import { BaseFormService } from '@kps/forms';
@@ -15,72 +15,39 @@ export type LoanFg = FormGroup<{
 @Injectable({
   providedIn: 'root',
 })
-export class ContributionFormService implements BaseFormService<LoanPayload> {
-  private fb = inject(FormBuilder);
+export class LoanFormService implements BaseFormService<LoanPayload> {
+  private nfb = inject(NonNullableFormBuilder);
 
   loanForm = signal<LoanFg>(this.buildForm());
 
   public buildForm(): LoanFg {
-    return this.fb.group({
-      borrower: this.fb.nonNullable.control('', {
+    return this.nfb.group({
+      member: this.nfb.control('', {
         validators: [Validators.required],
       }),
-      closureDate: this.fb.nonNullable.control('', {
+      loanProduct: this.nfb.control('', {
         validators: [Validators.required],
       }),
-      totalAmountDue: this.fb.nonNullable.control(0.0, {
+      loanAmount: this.nfb.control(0.0, {
         validators: [Validators.required, Validators.min(0)],
       }),
-      disbursedAmount: this.fb.nonNullable.control(0.0, {
+      loanPurpose: this.nfb.control('', {
+        validators: [Validators.required, Validators.maxLength(300)],
+      }),
+      currency: this.nfb.control('', {
+        validators: [Validators.required, Validators.maxLength(300)],
+      }),
+      notes: this.nfb.control('', {
+        validators: [Validators.required],
+      }),
+      loanTermYears: this.nfb.control(1, {
         validators: [Validators.required, Validators.min(0)],
       }),
-      totalInterest: this.fb.nonNullable.control(0.0, {
+      loanTermMonths: this.nfb.control(1, {
         validators: [Validators.required, Validators.min(0)],
       }),
-      interestRate: this.fb.nonNullable.control(0.0, {
-        validators: [Validators.required, Validators.min(0)],
-      }),
-      lastRepaymentAmount: this.fb.nonNullable.control(0.0, {
-        validators: [Validators.required, Validators.min(0)],
-      }),
-      nextRepaymentAmount: this.fb.nonNullable.control(0.0, {
-        validators: [Validators.required, Validators.min(0)],
-      }),
-      loanFee: this.fb.nonNullable.control(0.0, {
-        validators: [Validators.required, Validators.min(0)],
-      }),
-      remainingBalance: this.fb.nonNullable.control(0.0, {
-        validators: [Validators.required, Validators.min(0)],
-      }),
-      repaymentFrequency: this.fb.nonNullable.control('', {
-        validators: [Validators.required],
-      }),
-      loanPurpose: this.fb.nonNullable.control('', {
-        validators: [Validators.required],
-      }),
-      loanStatus: this.fb.nonNullable.control('', {
-        validators: [Validators.required],
-      }),
-      loanType: this.fb.nonNullable.control('', {
-        validators: [Validators.required],
-      }),
-      defaultDate: this.fb.nonNullable.control('', {
-        validators: [Validators.required],
-      }),
-      lastRepaymentDate: this.fb.nonNullable.control('', {
-        validators: [Validators.required],
-      }),
-      nextRepaymentDate: this.fb.nonNullable.control('', {
-        validators: [Validators.required],
-      }),
-      dueDate: this.fb.nonNullable.control('', {
-        validators: [Validators.required],
-      }),
-      issueDate: this.fb.nonNullable.control('', {
-        validators: [Validators.required],
-      }),
-      notes: this.fb.control<string | null>(null, {
-        validators: [Validators.maxLength(15000)],
+      paymentFrequency: this.nfb.control('', {
+        validators: [Validators.required, Validators.maxLength(300)],
       }),
     });
   }
@@ -89,7 +56,8 @@ export class ContributionFormService implements BaseFormService<LoanPayload> {
     if (loan) {
       this.loanForm().patchValue({
         ...loan,
-        borrower: loan.borrower.id,
+        member: loan.member.id,
+        loanProduct: loan.loanProduct.id,
       });
     }
   }

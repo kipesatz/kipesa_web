@@ -7,20 +7,20 @@ import {
   TemplateRef,
   viewChild,
 } from '@angular/core';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
-import { MatChip } from '@angular/material/chips';
-import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { RouterService } from '@kps/core/router';
 import { LoanFacadeService } from '@kps/data/finances';
 import { AnimatedSearchFieldComponent } from '@kps/forms/fields';
-import {
-  DataTableComponent,
-  TableColumn,
-  TableFilter,
-} from '@kps/material/table';
+import { DataTableComponent, TableColumn } from '@kps/material/table';
+import { BaseDialogService } from '@kps/material/dialog';
+import { LoanDialogComponent } from '../loan-dialog/loan-dialog.component';
+import { ButtonComponent } from '@kps/material/button';
+
+import { UserAvatarComponent } from '@kps/accounts/user';
+import { LoanStatusBadgeComponent } from '../loan-status-badge/loan-status-badge.component';
 
 @Component({
   selector: 'kps-loans-tbl',
@@ -28,13 +28,13 @@ import {
     DataTableComponent,
     AnimatedSearchFieldComponent,
     MatIcon,
-    MatChip,
     MatIconButton,
     MatMenu,
-    MatMenuItem,
     MatMenuTrigger,
-    DatePipe,
     CurrencyPipe,
+    ButtonComponent,
+    UserAvatarComponent,
+    LoanStatusBadgeComponent,
   ],
   templateUrl: './loans-table.component.html',
   styles: ``,
@@ -48,7 +48,7 @@ export class LoansTableComponent implements OnInit {
   // injections
   private facadeService = inject(LoanFacadeService);
   private routerService = inject(RouterService);
-  private matDialog = inject(MatDialog);
+  private dialogService = inject(BaseDialogService);
 
   // data sources
   loans = this.facadeService.loans;
@@ -57,76 +57,69 @@ export class LoansTableComponent implements OnInit {
   transactionsCount = this.facadeService.loansCount;
 
   // custom templates
-  createdTmpl = viewChild.required<TemplateRef<unknown>>('createdTmpl');
-  transTypeTmpl = viewChild.required<TemplateRef<unknown>>('transTypeTmpl');
-  transStatusTmpl = viewChild.required<TemplateRef<unknown>>('transStatusTmpl');
-  amtTmpl = viewChild.required<TemplateRef<unknown>>('amtTmpl');
+  memberTmpl = viewChild.required<TemplateRef<unknown>>('memberTmpl');
+  loanStatusTmpl = viewChild.required<TemplateRef<unknown>>('loanStatusTmpl');
+  loanTermTmpl = viewChild.required<TemplateRef<unknown>>('loanTermTmpl');
+  loanAmtTmpl = viewChild.required<TemplateRef<unknown>>('loanAmtTmpl');
+  paidAmtTmpl = viewChild.required<TemplateRef<unknown>>('paidAmtTmpl');
   actionsTmpl = viewChild.required<TemplateRef<unknown>>('actionsTmpl');
 
   columns: TableColumn[] = [];
   visibleColumns = [
-    'createdOn',
-    'transactionRef',
-    'transactionStatus',
-    'transactionType',
-    'transactionNature',
-    'amount',
-    'source',
-    'transactionChannel',
+    'member',
+    'loanNumber',
+    'loanProduct',
+    'loanAmount',
+    'paidAmount',
+    'loanTerm',
+    'loanStatus',
+    'paymentFrequency',
     'actions',
   ];
-  filters: TableFilter[] = [];
   searchTerm = signal<string>('');
+
+  openAddLoanWindow() {
+    this.dialogService.openDefault(LoanDialogComponent, { minWidth: '850px' });
+  }
 
   ngOnInit() {
     // Define columns after templates are available
     this.columns = [
-      { key: 'source', label: 'Source' },
-      { key: 'transactionChannel', label: 'Channel' },
-      { key: 'transactionRef', label: 'Reference' },
-      { key: 'transactionNature', label: 'Nature' },
-      { key: 'timeRange', label: 'Time Range' },
+      { key: 'loanNumber', label: 'Loan Number' },
       {
-        key: 'createdOn',
-        label: 'Created',
-        template: this.createdTmpl(),
+        key: 'loanProduct',
+        label: 'Loan Product',
+        template: (value: any) => value.loanProduct.name,
       },
+      { key: 'member', label: 'Member', template: this.memberTmpl() },
+      { key: 'paymentFrequency', label: 'Payment Frequency' },
       {
-        key: 'transactionStatus',
-        label: 'Status',
-        template: this.transStatusTmpl(),
-      },
-      {
-        key: 'transactionType',
-        label: 'Type',
-        template: this.transTypeTmpl(),
-      },
-      {
-        key: 'amount',
+        key: 'loanAmount',
         label: 'Amount',
-        template: this.amtTmpl(),
+        template: this.loanAmtTmpl(),
         sortable: true,
       },
-
+      {
+        key: 'paidAmount',
+        label: 'Amount',
+        template: this.paidAmtTmpl(),
+        sortable: true,
+      },
+      { key: 'loanTerm', label: 'Loan Term', template: this.loanTermTmpl() },
+      {
+        key: 'loanStatus',
+        label: 'Status',
+        template: this.loanStatusTmpl(),
+      },
       {
         key: 'actions',
         label: 'Actions',
         template: this.actionsTmpl(),
-        sortable: true,
       },
     ];
 
     // fetch cps
-    this.facadeService.fetchAll();
-  }
-
-  onEdit(row: unknown) {
-    console.log('Edit:', row);
-  }
-
-  onFilterChange(filters: Record<string, unknown>) {
-    console.log('Active filters:', filters);
-    // Implement filter logic
+    this.facadeService.fetchAssocMembersLoans();
   }
 
   onSelectionChange(selected: unknown[]) {
@@ -137,13 +130,9 @@ export class LoansTableComponent implements OnInit {
     this.routerService
       .updateRouterState({ q: this.searchTerm() })
       .then(() =>
-        this.facadeService.fetchAll(this.routerService.getAsHttpParams())
+        this.facadeService.fetchAssocMembersLoans(
+          this.routerService.getAsHttpParams()
+        )
       );
-  }
-
-  onDelete(items: unknown[]) {
-    // Implement delete logic
-    console.log('items to delete are');
-    console.table(items);
   }
 }

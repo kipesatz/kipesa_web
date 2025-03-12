@@ -1,51 +1,60 @@
 <kps-data-table
   [columns]="columns"
   [data]="loans()"
-  tableTitle="Association Loans"
+  tableTitle="All Members Loans and Loan Applications"
   [visibleColumns]="visibleColumns"
-  [availableFilters]="filters"
+  [defaultVisibleTools]="['refresh', 'delete']"
   [dataLoading]="loansLoading()"
   (selectionChange)="onSelectionChange($event)"
   (refreshChange)="refreshData()"
-  (delete)="onDelete($event)"
-  (filterChange)="onFilterChange($event)"
 >
-  <!-- <kps-search-field
-    searchPlaceholder="Search loans.."
+  <kps-animated-search-field
     [(searchTerm)]="searchTerm"
-  /> -->
-  <kps-animated-search-field />
+    searchPlaceholder="Search loans..."
+  />
+
+  <!-- table tool -->
+  <kps-button
+    tableTools
+    btnAriaLabel="Loan Settings"
+    text="Loan Settings"
+    variant="raised"
+  />
+  <kps-button
+    tableTools
+    btnAriaLabel="Create Loan"
+    text="Create Loan"
+    variant="raised"
+    (clicked)="openAddLoanWindow()"
+  />
 
   <!-- templates -->
-  <ng-template #createdTmpl let-element>
-    {{ element.createdOn | date : 'medium' }}
+  <ng-template #memberTmpl let-element>
+    <kps-user-avatar [user]="element.member.user" />
   </ng-template>
 
-  <ng-template #transTypeTmpl let-element>
-    <mat-chip>{{ element.transactionType }}</mat-chip>
+  <ng-template #loanStatusTmpl let-element>
+    <kps-loan-status-badge [status]="element.loanStatus" />
   </ng-template>
 
-  <ng-template #transStatusTmpl let-element>
-    <mat-chip>{{ element.transactionStatus }}</mat-chip>
+  <ng-template #loanTermTmpl let-element>
+    @if (element.loanTermMonths > 0) {
+    {{ element.loanTermYears }} Yrs {{ element.loanTermMonths }} Mths }@else {
+    {{ element.loanTermYears }} Yrs }
   </ng-template>
 
-  <ng-template #amtTmpl let-element>
-    {{ element.amount | currency : element.currency }}
+  <ng-template #loanAmtTmpl let-element>
+    {{ element.loanAmount | currency : element.currency }}
+  </ng-template>
+
+  <ng-template #paidAmtTmpl let-element>
+    {{ element.paidAmount | currency : element.currency }}
   </ng-template>
 
   <ng-template #actionsTmpl let-element>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
+    <button mat-icon-button [matMenuTriggerFor]="actionsMenu">
       <mat-icon>more_vert</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="onEdit(element)">
-        <mat-icon>edit</mat-icon>
-        <span>Edit</span>
-      </button>
-      <button mat-menu-item (click)="onDelete([element])">
-        <mat-icon>delete</mat-icon>
-        <span>Delete</span>
-      </button>
-    </mat-menu>
+    <mat-menu #actionsMenu></mat-menu>
   </ng-template>
 </kps-data-table>
