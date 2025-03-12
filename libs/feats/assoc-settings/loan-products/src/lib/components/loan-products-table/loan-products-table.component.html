@@ -1,0 +1,51 @@
+<kps-data-table
+  [columns]="columns"
+  [data]="loanProducts()"
+  tableTitle="Manage Loan Products"
+  [visibleColumns]="visibleColumns"
+  [defaultVisibleTools]="['refresh', 'delete']"
+  [availableFilters]="filters"
+  [dataLoading]="loanProductsLoading()"
+  (selectionChange)="onSelectionChange($event)"
+  (refreshChange)="refreshData()"
+  (filterChange)="onFilterChange($event)"
+>
+  <kps-animated-search-field
+    [(searchTerm)]="searchTerm"
+    searchPlaceholder="Search loan products..."
+  />
+
+  <!-- table tool -->
+  <kps-button
+    tableTools
+    btnAriaLabel="configure new"
+    text="Configure New"
+    variant="raised"
+    (clicked)="openAddLoanProductDialog()"
+  />
+
+  <!-- templates -->
+  <ng-template #minAmtTmpl let-element>
+    {{ element.minAmount | currency }}
+  </ng-template>
+
+  <ng-template #maxAmtTmpl let-element>
+    {{ element.minAmount | currency }}
+  </ng-template>
+
+  <ng-template #actionsTmpl let-element>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEdit(element)">
+        <mat-icon>edit</mat-icon>
+        <span>Modify Settings</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  </ng-template>
+</kps-data-table>

@@ -1,0 +1,31 @@
+<kps-base-dialog>
+  <kps-dialog-header>Configure New Loan Product</kps-dialog-header>
+
+  <form
+    [formGroup]="getFormGroup()"
+    (ngSubmit)="saveLoanProduct()"
+    method="post"
+  >
+    <kps-loan-product-form [loanProductFg]="getFormGroup()" />
+
+    <kps-dialog-footer class="d-flex gap-3">
+      <kps-button
+        btnAriaLabel="close loan product dialog"
+        btnType="reset"
+        text="Cancel & Close"
+        variant="raised"
+        matDialogClose
+      ></kps-button>
+      <kps-button
+        btnAriaLabel="submit loan product"
+        btnType="submit"
+        text="Save Loan Product"
+        class="flex-grow-1"
+        variant="flat"
+        [validationController]="getFormGroup()"
+        [isFullWidth]="true"
+        [loading]="loanProductsLoading()"
+      ></kps-button>
+    </kps-dialog-footer>
+  </form>
+</kps-base-dialog>
