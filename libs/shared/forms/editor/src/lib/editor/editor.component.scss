@@ -6,4 +6,16 @@
   min-height: 200px;
   border: 1px solid #ccc;
   border-radius: 4px;
+
+  ::ng-deep {
+    .NgxEditor {
+      min-height: 200px;
+    }
+
+    .NgxEditor__MenuBar {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+  }
 }
