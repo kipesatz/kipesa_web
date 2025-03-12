@@ -1,0 +1,81 @@
+<div class="vertical-tabs-container">
+  <!-- Tab navigation section -->
+  <div class="tabs-navigation">
+    <!-- Primary tabs section -->
+    @if(primaryTabs().length > 0){
+    <div class="tabs-section">
+      @if (sectionTitle()) {
+
+      <h2 class="section-title">{{ sectionTitle() }}</h2>
+      }
+      <ul class="tabs-list">
+        @for(tab of primaryTabs(); track $index){
+        <li
+          [class.active]="isTabActive(tab.id())"
+          (click)="selectTab(tab.id())"
+          (keyup)="selectTab(tab.id())"
+          aria-hidden="true"
+        >
+          <a class="tab-link">
+            @if (tab.icon(); as tabIcon) {
+            <mat-icon class="tab-icon"> {{ tabIcon }} </mat-icon>
+            }
+            <span class="tab-label">{{ tab.label() }}</span>
+            @if (tab.badge()) {
+            <span class="tab-badge">{{ tab.badge() }}</span>
+            }
+          </a>
+        </li>
+        }
+      </ul>
+    </div>
+    }
+
+    <!-- Divider between sections -->
+    @if (primaryTabs.length > 0 && secondaryTabs.length > 0) {
+    <div class="divider"></div>
+    }
+
+    <!-- Secondary tabs section -->
+  @if(secondaryTabs.length > 0){
+      <div class="tabs-section">
+        @if (secondarySectionTitle()) {
+          <h2 class="section-title" >{{ secondarySectionTitle() }}</h2>
+    }
+      <ul class="tabs-list">
+       @for(tab of secondaryTabs(); track $index){
+         <li
+          [class.active]="isTabActive(tab.id())"
+          (click)="selectTab(tab.id())"
+          (keyup)="selectTab(tab.id())"
+          aria-hidden="true"
+        >
+          <a class="tab-link">
+            @if (tab.icon(); as tabIcon) {
+
+              <mat-icon class="tab-icon"> {{ tabIcon }} </mat-icon>
+            }
+            <span class="tab-label">{{ tab.label() }}</span>
+            @if (tab.badge()) {
+              <span class="tab-badge" [ngClass]="{ nitro: tab.id() === 'nitro' }">{{ tab.badge() }}</span>
+              }
+         
+            >
+          </a>
+        </li>}
+      </ul>
+    </div>}
+  </div>
+
+  <!-- Tab content section -->
+  <div class="tab-content-container">
+      @for (tab of tabs(); track $index) {
+        <!-- check active tab -->
+        @if (isTabActive(tab.id())) {
+          <div class="tab-content" >
+            <ng-container [ngTemplateOutlet]="tab.contentTemplate()"></ng-container>
+          </div>
+        }
+      }
+  </div>
+</div>
