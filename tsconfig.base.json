@@ -87,7 +87,9 @@
       "@kps/material/table": ["libs/shared/material/table/src/index.ts"],
       "@kps/material/tabs": ["libs/shared/material/tabs/src/index.ts"],
       "@kps/messaging": ["libs/feats/messaging/src/index.ts"],
-      "@kps/messaging/comments": ["libs/feats/messaging/comments/src/index.ts"]
+      "@kps/messaging/comments": ["libs/feats/messaging/comments/src/index.ts"],
+      "@kps/messaging/mails": ["libs/feats/messaging/mails/src/index.ts"],
+      "@kps/messaging/sms": ["libs/feats/messaging/sms/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
