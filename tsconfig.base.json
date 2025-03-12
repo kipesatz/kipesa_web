@@ -84,7 +84,8 @@
       ],
       "@kps/material/stepper": ["libs/shared/material/stepper/src/index.ts"],
       "@kps/material/table": ["libs/shared/material/table/src/index.ts"],
-      "@kps/material/tabs": ["libs/shared/material/tabs/src/index.ts"]
+      "@kps/material/tabs": ["libs/shared/material/tabs/src/index.ts"],
+      "@kps/messaging": ["libs/feats/messaging/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

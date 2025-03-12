@@ -1,0 +1,36 @@
+{
+  "name": "messaging",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/feats/messaging/src",
+  "prefix": "kps",
+  "projectType": "library",
+  "tags": ["type:feature"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/feats/messaging/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/feats/messaging/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/feats/messaging/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/feats/messaging/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
