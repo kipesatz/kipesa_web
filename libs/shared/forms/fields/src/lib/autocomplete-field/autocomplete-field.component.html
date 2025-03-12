@@ -1,0 +1,36 @@
+<mat-form-field [appearance]="appearance()" [class]="customClass()">
+  @if(label()) {
+  <mat-label>{{ label() }}</mat-label>
+  }
+  <input
+    type="text"
+    matInput
+    [formControl]="controller()"
+    [placeholder]="placeholder()"
+    [matAutocomplete]="auto"
+    (blur)="onBlur()"
+  />
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    [displayWith]="displayWith() ? displayFn.bind(this) : null"
+  >
+    @for (option of filteredOptions(); track $index) {
+    <mat-option [value]="option">
+      @if (displayWith(); as displayWithFn) {
+      {{ displayWithFn(option) }}
+      }@else { option }
+    </mat-option>
+    }
+  </mat-autocomplete>
+
+  @if (controller().value) {
+  <button matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  } @if (controller().invalid && controller().touched) {
+  <mat-error>
+    {{ errorMessage() }}
+  </mat-error>
+  }
+</mat-form-field>

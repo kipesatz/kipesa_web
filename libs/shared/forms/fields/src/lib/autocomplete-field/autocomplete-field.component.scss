@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  width: 100% !important;
+}
+
+.mat-option {
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
