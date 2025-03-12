@@ -1,0 +1,30 @@
+<!-- user-avatar.component.html -->
+<div [ngClass]="containerClass" [style.fontSize.px]="fontSize">
+  <div
+    class="avatar"
+    [style.width.px]="avatarSize"
+    [style.height.px]="avatarSize"
+    [style.lineHeight.px]="avatarSize"
+  >
+    @if (user().profilePhoto; as profilePhoto) {
+    <img
+      [ngSrc]="profilePhoto"
+      [alt]="userShortName"
+      [width]="avatarSize"
+      [height]="avatarSize"
+      priority
+      loading="eager"
+    />
+    } @if (!user().profilePhoto) {
+    <div class="initials" [style.fontSize.px]="initialsSize">
+      {{ user().initials }}
+    </div>
+
+    }
+  </div>
+
+  <div class="user-info">
+    <div class="user-name">{{ userShortName }}</div>
+    <div class="user-email">{{ user().email }}</div>
+  </div>
+</div>
