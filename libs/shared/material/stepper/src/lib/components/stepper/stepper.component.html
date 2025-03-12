@@ -1,0 +1,84 @@
+<div
+  class="stepper-container"
+  [ngClass]="{
+    horizontal: orientation() === 'horizontal',
+    vertical: orientation() === 'vertical'
+  }"
+>
+  <!-- vertical -->
+  @if(orientation() === 'vertical'){
+  <div
+    class="sidebar"
+    [ngClass]="{
+      'sidebar-left': sidebarPosition() === 'left',
+      'sidebar-right': sidebarPosition() === 'right',
+      'theme-dark': theme() === 'dark',
+      'theme-light': theme() === 'light'
+    }"
+  >
+    @if (logo()) {
+    <div class="logo">
+      <h2>{{ logo() }}</h2>
+    </div>
+    }
+
+    <div class="step-header">
+      <h3>{{ stepCountLabel }}</h3>
+      <p>{{ description() }}</p>
+    </div>
+    <div class="steps-nav">
+      @for (step of steps(); track $index; let idx=$index) {
+      <div
+        class="step-item"
+        [ngClass]="{
+          active: idx === currentStepIndex(),
+          completed: step.completed()
+        }"
+        (click)="selectStep(idx)"
+        (keyup)="selectStep(idx)"
+        aria-hidden="true"
+      >
+        <div class="step-number">{{ idx + 1 }}</div>
+        <div class="step-name">{{ step.label() }}</div>
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- horizontal -->
+  } @if (orientation() ==='horizontal') {
+  <div class="steps-header">
+    @for (step of steps(); track $index; let idx=$index) {
+    <div
+      class="step-header-item"
+      [ngClass]="{
+        active: idx === currentStepIndex(),
+        completed: step.completed()
+      }"
+      (click)="selectStep(idx)"
+      (keyup)="selectStep(idx)"
+      aria-hidden="true"
+    >
+      <div class="step-number">{{ idx + 1 }}</div>
+      <div class="step-name">{{ step.label() }}</div>
+    </div>
+    }
+  </div>
+  }
+
+  <div class="main-content">
+    <div class="header">
+      <div class="indicator">
+        <div class="circle">{{ currentStepIndex() + 1 }}</div>
+      </div>
+      <div class="title">
+        <h2>{{ steps()[currentStepIndex()].label() || title() }}</h2>
+        <p>{{ steps()[currentStepIndex()].description() || description() }}</p>
+      </div>
+    </div>
+
+    <div class="step-content">
+      <ng-content select="kps-stepper-step"></ng-content>
+    </div>
+  </div>
+</div>

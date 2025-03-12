@@ -1,0 +1,6 @@
+@if (active()) {
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+   @if (!content) {
+    <ng-content></ng-content>
+   }
+}
