@@ -23,3 +23,7 @@ export * from './lib/file-input/file-input.component';
 export * from './lib/search-field/search-field.component';
 
 export * from './lib/animated-search-field/animated-search-field.component';
+
+export * from './lib/checkbox-row/checkbox-row.component';
+
+export * from './lib/autocomplete-field/autocomplete-field.component';

@@ -6,7 +6,7 @@
       <span class="status-indicator online"></span> Online
     </span>
   </div>
-  <button mat-icon-button>
+  <button mat-icon-button (click)="openAssocSettings()" aria-hidden="true" (keyup)="openAssocSettings()">
     <mat-icon>settings</mat-icon>
   </button>
 </div>

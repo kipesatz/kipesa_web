@@ -43,7 +43,7 @@
   }
 
   <!-- error -->
-  @if(formControl.errors) {
+  @if(formControl && formControl.errors) {
   <mat-error>
     <kps-field-error
       [controller]="formControl"
