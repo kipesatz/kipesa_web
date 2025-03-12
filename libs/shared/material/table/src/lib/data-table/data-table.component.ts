@@ -8,7 +8,11 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatNoDataRow, MatTableDataSource, MatTableModule } from '@angular/material/table';
+import {
+  MatNoDataRow,
+  MatTableDataSource,
+  MatTableModule,
+} from '@angular/material/table';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
@@ -42,6 +46,7 @@ export interface TableFilter {
     MatCheckbox,
     LoadingIndicatorComponent,
     MatNoDataRow,
+    NgTemplateOutlet,
   ],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss',
