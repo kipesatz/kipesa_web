@@ -1,7 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { fromLoan, loanActions } from '../+state';
+import { fromLoan, loanActions, LoanPayload } from '../+state';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +14,12 @@ export class LoanFacadeService {
   readonly loansCount = this.store.selectSignal(fromLoan.selectCount);
   readonly totalLoans = this.store.selectSignal(fromLoan.selectTotal);
 
-  fetchAll(queryParams?: HttpParams) {
+  fetchAssocMembersLoans(queryParams?: HttpParams) {
     this.store.dispatch(loanActions.loadLoans({ queryParams }));
+  }
+
+  dispatchAddOne(payload: LoanPayload) {
+    this.store.dispatch(loanActions.createLoan({ payload }));
   }
 
   deleteLoan(id: string) {

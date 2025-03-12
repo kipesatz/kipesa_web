@@ -13,7 +13,7 @@ export class LoadLoanEffects {
     return this.actions$.pipe(
       ofType(loanActions.loadLoans),
       switchMap(({ queryParams }) =>
-        this.apiService.getMany(queryParams).pipe(
+        this.apiService.getAssocLoans(queryParams).pipe(
           map((queryset) => loanActions.loadLoansSuccess({ queryset })),
           catchError((error) => of(loanActions.loadLoansFailure({ error })))
         )

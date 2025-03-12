@@ -2,7 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Queryset } from '@kps/data/core';
 import { Observable } from 'rxjs';
-import { Loan } from '../+state';
+import { Loan, LoanPayload } from '../+state';
 import { BaseAssocFinancesApiFactoryService } from '../../services';
 
 @Injectable({
@@ -14,8 +14,12 @@ export class LoanDataService extends BaseAssocFinancesApiFactoryService {
     super.configure(`/loans`);
   }
 
-  getMany(queryParams?: HttpParams): Observable<Queryset<Loan>> {
+  getAssocLoans(queryParams?: HttpParams): Observable<Queryset<Loan>> {
     return this.get<Queryset<Loan>>('', queryParams);
+  }
+
+  applyForLoan(payload: LoanPayload): Observable<Loan> {
+    return this.post<Loan, LoanPayload>('/apply/', payload);
   }
 
   getOne(id: string) {
