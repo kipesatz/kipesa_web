@@ -11,9 +11,17 @@ import { AbstractControl } from '@angular/forms';
 })
 export class BaseButtonComponent {
   icon = input<string | undefined>();
+  /**
+   * @deprecated
+   * Use `rouerLink` directive instead
+   */
   btnLink = input<string | string[] | null>(null);
   btnType = input<BtnType>('button');
-  btnAriaLabel = input.required<string>();
+  /**
+   * @deprecated
+   * Use `<div [attr.aria-label]=""></div>` instead
+   */
+  btnAriaLabel = input<string>();
   variant = input<BtnVariant>('plain');
   btnColor = input<ThemePalette>('primary');
   btnDisabled = input<boolean>(false);

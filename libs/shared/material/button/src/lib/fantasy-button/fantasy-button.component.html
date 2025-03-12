@@ -1,0 +1,12 @@
+<button
+  [type]="btnType()"
+  [disabled]="getDisabledState()"
+  class="kps-fantasy-btn"
+
+>
+  @if(loading()) {
+  <kps-loading-indicator />
+  }@else {
+  <ng-content></ng-content>
+  }
+</button>
