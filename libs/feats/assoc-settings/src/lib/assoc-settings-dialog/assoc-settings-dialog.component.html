@@ -1,1 +1,53 @@
-<p>assoc-settings works!</p>
+<div
+  class="settings-backdrop"
+  @fadeAnimation
+  (click)="closeDialog()"
+  (keyup)="closeDialog()"
+  aria-hidden="true"
+>
+  <div
+    class="settings-dialog"
+    @dialogAnimation
+    (click)="$event.stopPropagation()"
+    (keyup)="$event.stopPropagation()"
+    aria-hidden="true"
+  >
+    <div class="settings-sidebar">
+      <div class="sidebar-contents">
+        <div class="settings-header">
+          <h2 class="category-title">FINANCES</h2>
+        </div>
+        <div class="settings-categories">
+          @for(category of settingsCategories; track $index) {
+          <div
+            class="category-item"
+            [routerLink]="[category.route]"
+            routerLinkActive="active-route"
+            #rla="routerLinkActive"
+          >
+            <mat-icon class="category-icon">{{ category.icon }}</mat-icon>
+            <span class="category-text">{{ category.name }}</span>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="settings-content">
+      <router-outlet></router-outlet>
+    </div>
+
+    <div class="settings-aside">
+      <div class="close-btn">
+        <button
+          mat-mini-fab
+          aria-label="close association settings"
+          class="close-button"
+          (click)="closeDialog()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <span>ESC</span>
+      </div>
+    </div>
+  </div>
+</div>
