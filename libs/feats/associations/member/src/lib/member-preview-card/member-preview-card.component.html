@@ -1,0 +1,37 @@
+<!-- member-preview-card.component.html -->
+<mat-card class="member-card">
+  <mat-card-header>
+    <div mat-card-avatar class="member-avatar">
+      {{ member().user.initials }}
+    </div>
+    <mat-card-title>{{ member().user.fullName }}</mat-card-title>
+    <mat-card-subtitle class="d-flex align-items-center flex-nowrap gap-2">
+      <span class="role-badge">{{ member().role.name | titlecase }}</span>
+      <div class="status-indicator" [style.background-color]="getStatusColor()">
+        {{ member().status | titlecase }}
+      </div>
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="content-row">
+      <mat-icon>phone</mat-icon>
+      <span>{{ member().user.phoneNumber }}</span>
+    </div>
+
+    <div class="content-row">
+      <mat-icon>email</mat-icon>
+      <span>{{ member().user.email }}</span>
+    </div>
+
+    <div class="content-row">
+      <mat-icon>work</mat-icon>
+      <span>{{ member().user.occupation }}</span>
+    </div>
+
+    <div class="content-row">
+      <mat-icon>calendar_today</mat-icon>
+      <span>Joined: {{ member().joinedAt | date : 'mediumDate' }}</span>
+    </div>
+  </mat-card-content>
+</mat-card>
