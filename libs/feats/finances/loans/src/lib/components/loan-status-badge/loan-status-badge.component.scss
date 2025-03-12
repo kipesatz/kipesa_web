@@ -1,0 +1,58 @@
+/* loan-status-badge.component.scss */
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.75em;
+  font-size: 0.85em;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+/* Badge color variations based on the image */
+.badge-submitted {
+  background-color: #f8e8a8; /* Yellow like 'Submitted' */
+  color: #8a7200;
+}
+
+.badge-started {
+  background-color: #e8d8ff; /* Purple like 'Started' */
+  color: #6200ea;
+}
+
+.badge-approved {
+  background-color: #c0f0e8; /* Teal like 'Approved' */
+  color: #00796b;
+}
+
+.badge-denied {
+  background-color: #ffd8e0; /* Pink like 'Denied' */
+  color: #c51162;
+}
+
+.badge-funded {
+  background-color: #b8f0e8; /* Turquoise like 'Funded' */
+  color: #00897b;
+}
+
+.badge-agreed {
+  background-color: #d8e8ff; /* Light blue like 'Agreed' */
+  color: #0069c0;
+}
+
+.badge-loan-received {
+  background-color: #d8e0e8; /* Gray blue like 'Loan Received' */
+  color: #455a64;
+}
+
+.badge-suspended {
+  background-color: #ffe0c8; /* Orange like 'Suspended' */
+  color: #e65100;
+}
+
+.badge-default {
+  background-color: #e0e0e0;
+  color: #616161;
+}
