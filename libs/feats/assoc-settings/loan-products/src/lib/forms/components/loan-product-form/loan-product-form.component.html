@@ -1,0 +1,154 @@
+<kps-stepper
+  [linear]="true"
+  orientation="vertical"
+  title="Create Loan Product"
+  theme="light"
+>
+  <kps-stepper-step
+    label="Basic Details"
+    description="Enter basic details"
+    [stepControls]="[getController('name'), getController('description')]"
+  >
+    <kps-input-field [controller]="getController('name')" controlName="name" />
+    <kps-textarea
+      [controller]="getController('description')"
+      controlName="description"
+    />
+    <div kpsStepFooter>
+      <kps-fantasy-button kpsStepperNext>Next</kps-fantasy-button>
+    </div>
+  </kps-stepper-step>
+
+  <kps-stepper-step
+    label="Amounts"
+    [stepControls]="[getController('minAmount'), getController('maxAmount')]"
+  >
+    <div class="d-flex flex-sm-wrap gap-3">
+      <kps-input-field
+        [controller]="getController('minAmount')"
+        controlName="minAmount"
+        customLabel="Minimal Amount"
+        inputType="number"
+      />
+      <kps-input-field
+        [controller]="getController('maxAmount')"
+        controlName="maxAmount"
+        customLabel="Maximum Amount"
+        inputType="number"
+      />
+    </div>
+
+    <div kpsStepFooter>
+      <kps-fantasy-button kpsStepperPrev aria-label="previous"
+        >Previous</kps-fantasy-button
+      >
+      <kps-fantasy-button kpsStepperNext>Next</kps-fantasy-button>
+    </div>
+  </kps-stepper-step>
+
+  <kps-stepper-step
+    label="Duration & Terms"
+    description="Enter duration and terms"
+  >
+    <div class="d-flex flex-sm-wrap gap-3">
+      <kps-input-field
+        [controller]="getController('minTermMonths')"
+        controlName="minTermMonths"
+        customLabel="Minimum Term (Months)"
+        inputType="number"
+      />
+      <kps-input-field
+        [controller]="getController('maxTermMonths')"
+        controlName="maxTermMonths"
+        customLabel="Maximum Term (Months)"
+        inputType="number"
+      />
+    </div>
+    <div kpsStepFooter>
+      <kps-fantasy-button kpsStepperPrev aria-label="previous"
+        >Previous</kps-fantasy-button
+      >
+      <kps-fantasy-button kpsStepperNext aria-label="next"
+        >Next</kps-fantasy-button
+      >
+    </div>
+  </kps-stepper-step>
+
+  <kps-stepper-step
+    label="Principal Calculation Settings"
+    description="Enter principal calculation settings"
+  >
+    <kps-input-field
+      [controller]="getController('interestRate')"
+      controlName="interestRate"
+      customLabel="Interest Rate (Percent)"
+      inputType="number"
+    />
+
+    <kps-select-field
+      appearance="fill"
+      [controller]="getController('paymentFrequency')"
+      controlName="paymentFrequency"
+    >
+      @for (payFrequency of payFreqChoices; track payFrequency.name) {
+      <mat-option [value]="payFrequency.name">
+        {{ payFrequency.value }}
+      </mat-option>
+      }
+    </kps-select-field>
+    <div kpsStepFooter>
+      <kps-fantasy-button kpsStepperPrev aria-label="previous"
+        >Previous</kps-fantasy-button
+      >
+      <kps-fantasy-button kpsStepperNext>Next</kps-fantasy-button>
+    </div>
+  </kps-stepper-step>
+
+  <kps-stepper-step label="Fees">
+    <div class="d-flex flex-wrap gap-3">
+      <kps-input-field
+        [controller]="getController('latePaymentFee')"
+        controlName="latePaymentFee"
+        inputType="number"
+      />
+      <kps-input-field
+        [controller]="getController('earlyPaymentFee')"
+        controlName="earlyPaymentFee"
+        inputType="number"
+      />
+      <kps-input-field
+        [controller]="getController('earlyPaymentPenalty')"
+        controlName="earlyPaymentPenalty"
+        inputType="number"
+      />
+    </div>
+
+    <div kpsStepFooter>
+      <kps-fantasy-button kpsStepperPrev aria-label="previous"
+        >Previous</kps-fantasy-button
+      >
+      <kps-fantasy-button kpsStepperNext>Next</kps-fantasy-button>
+    </div>
+  </kps-stepper-step>
+
+  <kps-stepper-step label="Other Settings">
+    <kps-input-field
+      [controller]="getController('requiredCreditScore')"
+      controlName="requiredCreditScore"
+      inputType="number"
+    />
+
+    <kps-checkbox-row [controller]="getController('earlyPaymentAllowed')">
+      Early Payments Allowed?
+    </kps-checkbox-row>
+    <kps-checkbox-row [controller]="getController('isActive')">
+      Is Active?
+    </kps-checkbox-row>
+
+    <div kpsStepFooter>
+      <kps-fantasy-button kpsStepperPrev aria-label="previous"
+        >Previous</kps-fantasy-button
+      >
+    </div>
+  </kps-stepper-step>
+</kps-stepper>
