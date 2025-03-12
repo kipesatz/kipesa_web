@@ -1,1 +1,5 @@
-export const greeting = 'Hello World!';
+export * from './lib/components';
+
+export * from './lib/services';
+
+export * from './lib/directives';
