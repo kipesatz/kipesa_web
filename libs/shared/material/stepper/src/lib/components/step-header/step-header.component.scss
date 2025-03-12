@@ -1,0 +1,20 @@
+.step-header {
+  display: flex;
+  align-items: center;
+}
+
+.step-number {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.step-label {
+  font-size: 14px;
+}
