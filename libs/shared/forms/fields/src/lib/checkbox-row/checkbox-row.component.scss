@@ -1,0 +1,21 @@
+.option-row {
+  padding: 12px 0;
+  border-bottom: 1px solid #e3e5e8;
+  display: flex;
+  width: auto !important;
+
+  ::ng-deep .mat-mdc-checkbox {
+    width: 100%;
+
+    .mdc-form-field {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mdc-label {
+      flex: 1 !important;
+    }
+  }
+}
