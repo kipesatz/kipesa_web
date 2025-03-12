@@ -41,6 +41,6 @@ export class BaseDialogService {
     component: ComponentType<T>,
     config: MatDialogConfig<D> = {}
   ): MatDialogRef<T, R> {
-    return this.dialog.open(component, config);
+    return this.dialog.open(component, {...config, maxHeight: '90vh'});
   }
 }
