@@ -4,8 +4,10 @@ export interface User {
   middleName: string | null;
   lastName: string;
   fullName: string;
+  initials: string;
   email: string;
   phoneNumber: string;
+  profilePhoto: string | null;
   createdOn: string;
   lastEditedOn: string;
 }

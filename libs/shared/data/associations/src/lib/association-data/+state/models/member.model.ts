@@ -8,4 +8,5 @@ export interface AssocMember {
   email: string;
   phoneNumber: string;
   isActive: boolean;
+  occupation: string;
 }
