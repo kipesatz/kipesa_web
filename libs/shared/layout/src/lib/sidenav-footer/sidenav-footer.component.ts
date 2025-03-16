@@ -16,7 +16,7 @@ export class SidenavFooterComponent {
 
   openAssocSettings(): void {
     this.assocSettingsRouter.storeCurrentRouteBeforeSettings().then(() => {
-      this.router.navigate(['/assocSettings']);
+      this.router.navigate(['/assocSettings'], { skipLocationChange: true });
     });
   }
 }

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { LOPB4_ASSOC_SETTINGS } from '../types/tokens';
 
 @Injectable({
@@ -7,7 +7,6 @@ import { LOPB4_ASSOC_SETTINGS } from '../types/tokens';
 })
 export class AssocSettingsRouterService {
   private router = inject(Router);
-  private curRoute = inject(ActivatedRoute);
   private lastPageToken = inject(LOPB4_ASSOC_SETTINGS);
 
   /**
@@ -25,6 +24,6 @@ export class AssocSettingsRouterService {
 
   getStoredRouteAndNavigate(): Promise<boolean> {
     const lastRoute = sessionStorage.getItem(this.lastPageToken) || '/';
-    return this.router.navigate([lastRoute]);
+    return this.router.navigate([lastRoute], { skipLocationChange: true });
   }
 }
