@@ -9,4 +9,5 @@ export interface AssocMember {
   phoneNumber: string;
   isActive: boolean;
   occupation: string;
+  profilePhoto: string | null;
 }
