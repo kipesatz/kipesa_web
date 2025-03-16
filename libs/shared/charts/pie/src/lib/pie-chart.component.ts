@@ -8,6 +8,7 @@ import { EChartsOption } from 'echarts';
   template: `
     <kps-base-chart
       [options]="chartOptions()"
+      [initOpts]="initOpts()"
       [loading]="loading()"
       [theme]="theme()"
       (chartInitChange)="chartInit.emit($event)"
@@ -21,6 +22,11 @@ export class PieChartComponent {
   chartTitle = input.required<string>();
   loading = input<boolean>(false);
   theme = input<string | object>('default');
+  initOpts = input<{
+    renderer?: 'canvas' | 'svg';
+    width?: number | string;
+    height?: number | string;
+  }>({ renderer: 'canvas' });
   colors = input<string[]>(['#4CAF50', '#2196F3', '#FFC107', '#E91E63']);
 
   chartInit = output<unknown>();
