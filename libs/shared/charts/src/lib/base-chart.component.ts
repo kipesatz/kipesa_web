@@ -17,11 +17,6 @@ import { NgxEchartsModule } from 'ngx-echarts';
     ></div>
   `,
   styles: `
-      :host {
-      display: block;
-      inline-size: 100%;
-      block-size: 400px;
-    }
     .chart {
       inline-size: 100%;
       block-size: 100%;
@@ -33,7 +28,7 @@ export class BaseChartComponent {
   loading = input<boolean>(false);
   theme = input<string | object>('default');
   initOpts = input<{
-    renderer: 'canvas' | 'svg';
+    renderer?: 'canvas' | 'svg';
     width?: number | string;
     height?: number | string;
   }>({ renderer: 'canvas' });
