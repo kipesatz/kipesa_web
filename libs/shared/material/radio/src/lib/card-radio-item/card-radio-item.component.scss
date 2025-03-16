@@ -1,0 +1,41 @@
+:host {
+  height: inherit !important;
+  align-self: stretch;
+}
+
+.card-radio-item {
+  height: 100% !important;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-width: 150px;
+  max-width: 250px;
+}
+
+.card-radio-item.selected {
+  background-color: rgba(33, 150, 243, 0.1);
+  border: 1px solid #2196f3;
+}
+
+.card-radio-item.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  flex: 1;
+}
+
+mat-radio-button {
+  align-self: flex-start;
+}

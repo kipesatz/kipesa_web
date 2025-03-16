@@ -1,0 +1,23 @@
+<div
+  class="card-radio-item"
+  [class.selected]="selected()"
+  [class.disabled]="disabled()"
+  (click)="onSelect()"
+  (keydown.enter)="onSelect()"
+  (keydown.space)="onSelect()"
+  tabindex="0"
+  role="button"
+>
+  <mat-radio-button
+    [checked]="selected()"
+    (click)="onSelect(); $event.stopPropagation()"
+    (keydown.enter)="onSelect()"
+    (keydown.space)="onSelect()"
+    [disabled]="disabled()"
+    [value]="value()"
+  >
+  </mat-radio-button>
+  <div class="card-content">
+    <ng-content></ng-content>
+  </div>
+</div>
