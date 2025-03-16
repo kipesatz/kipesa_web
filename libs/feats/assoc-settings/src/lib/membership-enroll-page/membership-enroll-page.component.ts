@@ -32,7 +32,7 @@ import { InputFieldComponent } from '@kps/forms/fields';
 import { ButtonComponent } from '@kps/material/button';
 import { LoadingIndicatorComponent } from '@kps/material/progress';
 import { debounceTime, map } from 'rxjs';
-import { ConfirmAssocJoinReqDialogComponent } from '../components';
+// import { ConfirmAssocJoinReqDialogComponent } from '../components';
 import { Actions, ofType } from '@ngrx/effects';
 
 export const slideDownAnimation = trigger('slideDown', [
@@ -53,8 +53,8 @@ export const slideDownAnimation = trigger('slideDown', [
 
 @Component({
   selector: 'kps-association-join-request',
-  templateUrl: './association-enroll-page.component.html',
-  styleUrls: ['./association-enroll-page.component.scss'],
+  templateUrl: './membership-enroll-page.component.html',
+  styleUrls: ['./membership-enroll-page.component.scss'],
   animations: [slideDownAnimation],
   standalone: true,
   imports: [
@@ -76,7 +76,7 @@ export const slideDownAnimation = trigger('slideDown', [
     LoadingIndicatorComponent,
   ],
 })
-export class AssociationEnrollPageComponent implements OnInit {
+export class MembershipEnrollPageComponent implements OnInit {
   constructor() {
     effect(() => {
       // fetch associations based on the search term
@@ -135,13 +135,14 @@ export class AssociationEnrollPageComponent implements OnInit {
   }
 
   openJoinReqConfDialog(association: Association) {
-    this.matDialog.open(ConfirmAssocJoinReqDialogComponent, {
-      data: { association },
-    });
+    // this.matDialog.open(ConfirmAssocJoinReqDialogComponent, {
+    //   data: { association },
+    // });
   }
 
   createAssociation(payload: AssociationPayload) {
-    this.assocFacade.dispatchCreateOne(payload);
+    // this.assocFacade.dispatchCreateOne(payload);
+    console.log('the payload is', payload);
   }
 
   ngOnInit(): void {

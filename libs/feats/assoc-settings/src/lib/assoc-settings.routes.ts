@@ -4,7 +4,7 @@ import {
   AssociationDataModule,
   MembershipDataModule,
 } from '@kps/data/associations';
-import { AssociationEnrollPageComponent } from './association-enroll-page/association-enroll-page.component';
+import { MembershipEnrollPageComponent } from './membership-enroll-page/membership-enroll-page.component';
 
 export const assocSettingsRoutes: Routes = [
   {
@@ -16,7 +16,7 @@ export const assocSettingsRoutes: Routes = [
     children: [
       {
         path: 'enroll',
-        component: AssociationEnrollPageComponent,
+        component: MembershipEnrollPageComponent,
         title: 'Enroll',
         providers: [
           importProvidersFrom([MembershipDataModule, AssociationDataModule]),
