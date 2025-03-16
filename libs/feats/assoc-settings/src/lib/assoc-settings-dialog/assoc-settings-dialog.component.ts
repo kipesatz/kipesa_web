@@ -7,6 +7,7 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { MatMiniFabButton } from '@angular/material/button';
 import { AssocSettingsRouterService } from '@kps/core/router';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'kps-assoc-settings-dialog',
@@ -16,6 +17,7 @@ import { AssocSettingsRouterService } from '@kps/core/router';
     MatMiniFabButton,
     RouterLink,
     RouterLinkActive,
+    NgTemplateOutlet
   ],
   templateUrl: './assoc-settings-dialog.component.html',
   styleUrl: './assoc-settings-dialog.component.scss',
@@ -23,6 +25,10 @@ import { AssocSettingsRouterService } from '@kps/core/router';
 })
 export class AssocSettingsDialogComponent {
   private assocSettingsRouter = inject(AssocSettingsRouterService);
+
+  membershipItems = [
+    { name: 'Join/Create Association', route: 'enroll', icon: 'join_left' },
+  ]
 
   settingsCategories = [
     { name: 'Loan Products', route: 'loanProducts', icon: 'real_estate_agent' },

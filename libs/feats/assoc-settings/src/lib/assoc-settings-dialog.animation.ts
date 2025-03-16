@@ -7,7 +7,7 @@ export const assocSettingsDialogAnimation = trigger('dialogAnimation', [
       transform: 'scale(0.3)',
     }),
     animate(
-      '1500ms ease-out',
+      '500ms ease-in',
       style({
         opacity: 1,
         transform: 'scale(1)',
@@ -16,7 +16,7 @@ export const assocSettingsDialogAnimation = trigger('dialogAnimation', [
   ]),
   transition(':leave', [
     animate(
-      '1500ms ease-in',
+      '500ms ease-out',
       style({
         opacity: 0.3,
         transform: 'scale(0.3)',
@@ -28,7 +28,7 @@ export const assocSettingsDialogAnimation = trigger('dialogAnimation', [
 export const assocSettingsFadeAnimation = trigger('fadeAnimation', [
   transition(':enter', [
     style({ opacity: 0.3 }),
-    animate('1500ms ease-out', style({ opacity: 1 })),
+    animate('500ms ease-in', style({ opacity: 1 })),
   ]),
-  transition(':leave', [animate('1500ms ease-in', style({ opacity: 0 }))]),
+  transition(':leave', [animate('500ms ease-out', style({ opacity: 0 }))]),
 ]);
