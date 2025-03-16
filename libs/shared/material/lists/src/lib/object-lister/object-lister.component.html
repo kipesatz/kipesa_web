@@ -1,0 +1,120 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>{{ listGroupTitle() }}</mat-card-title>
+    @if(headerActionTemplate(); as headerTemplate){
+    <div class="header-actions">
+      <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+    </div>
+    }
+  </mat-card-header>
+
+  <mat-card-content>
+    <!-- colon -->
+    @if (displayMode() === 'colon') {
+    <div class="colon-container">
+      @for (key of displayKeys; track $index) { @if(customItemTemplate(); as
+      customTemplate) {
+      <div class="colon-item">
+        <ng-container
+          *ngTemplateOutlet="
+            customTemplate;
+            context: {
+              $implicit: key,
+              value: getValue(key),
+              label: getDisplayLabel(key)
+            }
+          "
+        >
+        </ng-container>
+      </div>
+      }@else {
+      <ng-container *ngTemplateOutlet="defaultColonItem"></ng-container>
+      }
+
+      <ng-template #defaultColonItem>
+        <div class="colon-item">
+          <span class="key-label">{{ getDisplayLabel(key) }}</span>
+          <span class="key-value">{{ getValue(key) }}</span>
+        </div>
+      </ng-template>
+      }
+    </div>
+
+    }
+    <!-- List Style -->
+    @if (displayMode() === 'list') {
+    <mat-list>
+      @for (key of displayKeys; track key) {
+         @if (customItemTemplate(); as customTemplate) {
+      <mat-list-item>
+        <ng-container
+          *ngTemplateOutlet="
+            customTemplate;
+            context: {
+              $implicit: key,
+              value: getValue(key),
+              label: getDisplayLabel(key)
+            }
+          "
+        ></ng-container>
+      </mat-list-item>
+      }@else {
+          <ng-container *ngTemplateOutlet="defaultListItem"></ng-container>
+      } }
+
+      <ng-template #defaultListItem let-key>
+        <mat-list-item>
+          <span matListItemTitle>{{ getDisplayLabel(key) }}</span>
+          <span matListItemLine>{{ getValue(key) }}</span>
+        </mat-list-item>
+      </ng-template>
+      <div class="list-item-divider"></div>
+    </mat-list>
+    }
+
+    <!-- Table Style -->
+    @if (displayMode() === 'table') {
+    <table
+      mat-table
+      [dataSource]="displayKeys"
+      class="mat-elevation-z1 full-width"
+    >
+      <!-- Key Column -->
+      <ng-container matColumnDef="key">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let key">{{ getDisplayLabel(key) }}</td>
+      </ng-container>
+
+      <!-- Value Column -->
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let key">
+          @if (customItemTemplate(); as customTemplate) {
+          <ng-container
+            *ngTemplateOutlet="
+              customTemplate;
+              context: {
+                $implicit: key,
+                value: getValue(key),
+                label: getDisplayLabel(key)
+              }
+            "
+          ></ng-container>
+          }@else {
+          <ng-template #defaultTableCell>
+            {{ getValue(key) }}
+          </ng-template>
+          }
+
+          <ng-template #defaultTableCell>
+            {{ getValue(key) }}
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns"></tr>
+    </table>
+    }
+  </mat-card-content>
+</mat-card>

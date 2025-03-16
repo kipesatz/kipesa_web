@@ -1,0 +1,29 @@
+.header-actions {
+  margin-left: auto;
+}
+
+.colon-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.colon-item {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8px;
+  gap: 0.5rem;
+}
+
+.key-label {
+  color: rgba(0, 0, 0, 0.6);
+  min-width: 120px;
+}
+
+.key-value {
+  font-weight: 500;
+}
+
+.full-width {
+  width: 100%;
+}
