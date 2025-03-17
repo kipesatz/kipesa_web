@@ -26,6 +26,7 @@
         "libs/feats/accounts/my-account/src/index.ts"
       ],
       "@kps/accounts/user": ["libs/feats/accounts/user/src/index.ts"],
+      "@kps/acls": ["libs/shared/acls/src/index.ts"],
       "@kps/admin": ["libs/feats/admin/src/index.ts"],
       "@kps/admin/settings": ["libs/feats/admin/settings/src/index.ts"],
       "@kps/assoc-settings": ["libs/feats/assoc-settings/src/index.ts"],
