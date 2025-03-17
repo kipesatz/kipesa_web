@@ -43,6 +43,7 @@ export class MainLayoutComponent {
 
   appSidenav = signal<MatSidenav | undefined>(undefined);
 
-  isExpanded = signal(false);
+  startSidenavExpanded = signal(true)
+  endSidenavExpanded = signal(false);
   isSmallScreen = signal(false);
 }

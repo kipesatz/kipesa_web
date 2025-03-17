@@ -13,7 +13,7 @@ import { ButtonComponent } from '@kps/material/button';
 import { map, take, timer } from 'rxjs';
 
 @Component({
-  selector: 'kps-assoc-switch-dialog',
+  selector: 'kps-confirm-switch-assoc-dialog',
   standalone: true,
   imports: [
     MatDialogContent,
@@ -22,11 +22,11 @@ import { map, take, timer } from 'rxjs';
     MatDialogActions,
     ButtonComponent,
   ],
-  templateUrl: './assoc-switch-dialog.component.html',
+  templateUrl: './confirm-switch-assoc-dialog.component.html',
   styles: ``,
 })
-export class AssocSwitchDialogComponent {
-  private dialogRef = inject(MatDialogRef<AssocSwitchDialogComponent>);
+export class ConfirmSwitchAssocDialogComponent {
+  private dialogRef = inject(MatDialogRef<ConfirmSwitchAssocDialogComponent>);
   private dialogData: { association: Association } = inject(MAT_DIALOG_DATA);
   private timerThreshold = 30;
 
@@ -49,7 +49,7 @@ export class AssocSwitchDialogComponent {
   getAssociation() {
     try {
       return this.dialogData.association;
-    } catch (_: unknown) {
+    } catch {
       // close the dialog and throw an error
       this.dialogRef.close(false);
       throw Error('AssocSwitchDialog must have `association` as data');

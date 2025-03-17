@@ -14,7 +14,7 @@ import {
   Association,
   ActivatedAssociationService,
 } from '@kps/data/associations';
-import { AssocSwitchDialogComponent } from '../assoc-switch-dialog/assoc-switch-dialog.component';
+import { ConfirmSwitchAssocDialogComponent } from '../confirm-switch-assoc-dialog/confirm-switch-assoc-dialog.component';
 import { LoadingIndicatorComponent } from '@kps/material/progress';
 
 @Component({
@@ -44,17 +44,17 @@ export class AppBarAssocMenuComponent {
   myMembershipsLoading = this.membershipsFacade.loading;
 
   triggerAssocSwitchDialog(association: Association): void {
-    const dialogRef = this.matDialog.open(AssocSwitchDialogComponent, {
+    const dialogRef = this.matDialog.open(ConfirmSwitchAssocDialogComponent, {
       data: { association },
     });
 
     dialogRef.afterClosed().subscribe((shouldSwitch: boolean) => {
       if (shouldSwitch) {
         // switch to selected
-        this.activatedAssocService.switchCurAssoc(association);
-
-        // navigate to assoc dashboard
-        this.router.navigate(['/associations', association.id, 'dashboard']);
+        this.activatedAssocService.switchCurAssoc(association).then(() => {
+          // navigate to assoc dashboard
+          this.activatedAssocService.navigateToAssocDashboard();
+        });
       }
     });
   }

@@ -1,24 +1,41 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="main-sidenav-container">
   <mat-sidenav
     #appSidenav="matSidenav"
     [mode]="isSmallScreen() ? 'over' : 'side'"
     [opened]="!isSmallScreen()"
-    [class.sidenav-expanded]="isExpanded()"
-    class="dark-theme-sidenav"
+    [class.left-sidenav-expanded]="startSidenavExpanded()"
     style="width: 250px !important"
+    position="start"
+    class="left-sidenav"
   >
     <kps-app-sidenav
       [sidenavRef]="appSidenav"
-      [(isExpanded)]="isExpanded"
+      [(isExpanded)]="startSidenavExpanded"
       [(isSmallScreen)]="isSmallScreen"
     />
   </mat-sidenav>
 
-  <mat-sidenav-content class="d-flex flex-column overflow-hidden">
+  <mat-sidenav-content class="outer-sidenav-content">
     <kps-app-bar (toggleSidenavChange)="appSidenav.toggle()" />
 
-    <section class="flex-grow-1 overflow-auto">
-      <router-outlet></router-outlet>
-    </section>
+    <mat-sidenav-container class="inner-sidenav-container">
+      <mat-sidenav
+        #innerSidenav
+        mode="side"
+        [opened]="true"
+        style="width: 70px; margin-right: 0px !important"
+        class="right-sidenav"
+        position="end"
+      >
+        <!-- <button mat-fab (click)="(onClick)">
+          <mat-icon class="mat-18">ligature</mat-icon>
+        </button> -->
+        <button (click)="innerSidenav.close()">Close</button>
+      </mat-sidenav>
+
+      <mat-sidenav-content class="inner-sidenav-content">
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   </mat-sidenav-content>
 </mat-sidenav-container>
