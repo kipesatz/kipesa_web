@@ -100,7 +100,10 @@
       "@kps/messaging": ["libs/feats/messaging/src/index.ts"],
       "@kps/messaging/comments": ["libs/feats/messaging/comments/src/index.ts"],
       "@kps/messaging/mails": ["libs/feats/messaging/mails/src/index.ts"],
-      "@kps/messaging/sms": ["libs/feats/messaging/sms/src/index.ts"]
+      "@kps/messaging/sms": ["libs/feats/messaging/sms/src/index.ts"],
+      "@kps/payments": ["libs/shared/payments/src/index.ts"],
+      "@kps/payments/bank": ["libs/shared/payments/bank/src/index.ts"],
+      "@kps/payments/mobile": ["libs/shared/payments/mobile/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
