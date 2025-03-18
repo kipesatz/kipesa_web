@@ -22,6 +22,9 @@ export class CreateAssociationFormService extends BaseFormService<AssociationPay
   public override buildForm(): AssociationFormGroup {
     return this.builder.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],
+      groupType: ['', [Validators.required, Validators.maxLength(30)]],
+      groupCapacity: [1, [Validators.required, Validators.min(1)]],
+      initialBalance: [1, [Validators.required, Validators.min(1000)]],
       description: ['', [Validators.required, Validators.maxLength(15000)]],
     });
   }
