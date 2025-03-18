@@ -1,0 +1,41 @@
+<kps-base-dialog dialogTitle="Configure a New Payment Option">
+  <form
+    method="post"
+    [formGroup]="getFormGroup()"
+    enctype="multipart/form-data"
+    (ngSubmit)="savePaymentProvider()"
+  >
+    <div class="d-flex flex-column">
+      <mat-dialog-content class="flex-grow-1 overflow-x-hidden overflow-y-auto">
+        
+        <!-- form -->
+        <kps-payment-provider-form
+          [formGroup]="getFormGroup()"
+          (logoChange)="selectedLogo.set($event)"
+          class="d-flex"
+        />
+      </mat-dialog-content>
+
+      <!-- dialog footer -->
+      <kps-dialog-footer>
+        <small>* Required fields</small>
+        <div class="d-flex gap-3">
+          <kps-button
+            btnAriaLabel="cancel & exit"
+            text="Cancel & Exit"
+            variant="raised"
+            matDialogClose
+          ></kps-button>
+
+          <kps-button
+            text="Add Provider"
+            btnType="submit"
+            btnAriaLabel="add payment provider"
+            [validationController]="getFormGroup()"
+            variant="raised"
+          ></kps-button>
+        </div>
+      </kps-dialog-footer>
+    </div>
+  </form>
+</kps-base-dialog>

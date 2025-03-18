@@ -16,7 +16,7 @@ import { BaseFormComponent } from '@kps/forms';
 import { ContributionFg } from '../../services';
 import {
   ContributionPurpose,
-  PaymentMethodFacadeService,
+  PaymentProviderFacadeService,
 } from '@kps/data/finances';
 import {
   InputFieldComponent,
@@ -86,13 +86,13 @@ export class ContributionFormComponent
 
   private curAssoc = inject(ActivatedAssociationService);
   private membershipFacade = inject(MembershipFacadeService);
-  private payMethodFacade = inject(PaymentMethodFacadeService);
+  private paymentProviderFacade = inject(PaymentProviderFacadeService);
 
   // data
   memberships = this.membershipFacade.memberships;
   membershipsLoading = this.membershipFacade.loading;
-  payMethods = this.payMethodFacade.allPaymentMethods;
-  payMethodsLoading = this.payMethodFacade.loading;
+  paymentProviders = this.paymentProviderFacade.allPaymentProviders;
+  paymentProvidersLoading = this.paymentProviderFacade.loading;
   // inputs & outputs
   formGroup = input.required<ContributionFg>();
   contributionPurpose = input.required<ContributionPurpose>();
@@ -115,7 +115,7 @@ export class ContributionFormComponent
     ]);
 
     // Only fetch payment methods initially
-    this.payMethodFacade.dispatchFetchAll();
+    this.paymentProviderFacade.dispatchFetchAll();
 
     if (!this.isForSomeoneElse()) {
       // Create a one-time effect for self-contribution scenario

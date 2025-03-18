@@ -86,22 +86,22 @@
     </div>
 
     <h5 class="mt-4">Payment Method</h5>
-    @if (payMethodsLoading()) {
+    @if (paymentProvidersLoading()) {
     <kps-loading-indicator />
     }@else {
     <mat-radio-group
       class="payment-methods-group"
       [formControl]="getController('paymentMethod')"
     >
-      @for (payMethod of payMethods(); track payMethod.id) {
-      <mat-radio-button [value]="payMethod.id" class="payment-method-option">
+      @for (paymentProvider of paymentProviders(); track paymentProvider.id) {
+      <mat-radio-button [value]="paymentProvider.id" class="payment-method-option">
         <div class="payment-method-content">
           <img
-            [src]="payMethod.providerLogo"
-            [alt]="payMethod.name"
+            [src]="paymentProvider.logo"
+            [alt]="paymentProvider.name"
             class="payment-logo"
           />
-          <span>{{ payMethod.name }}</span>
+          <span>{{ paymentProvider.name }}</span>
         </div>
       </mat-radio-button>
       }

@@ -1,0 +1,60 @@
+<kps-data-table
+  [columns]="columns"
+  [data]="allPaymentProviders()"
+  tableTitle="Payment Providers"
+  [visibleColumns]="visibleColumns"
+  [availableFilters]="filters"
+  [dataLoading]="providersLoading()"
+  (selectionChange)="onSelectionChange($event)"
+  (refreshChange)="refreshData()"
+  (delete)="onDelete($event)"
+  (filterChange)="onFilterChange($event)"
+  (add)="onAdd()"
+>
+  <kps-search-field
+    searchPlaceholder="Search payment providers..."
+    [(searchTerm)]="searchTerm"
+  />
+
+  <!-- Custom Tools -->
+  <button tableTools mat-icon-button (click)="onExport()">
+    <mat-icon>download</mat-icon>
+  </button>
+
+  <!-- templates -->
+  <ng-template #logoTemplate let-element>
+    <img
+      [src]="element.logo"
+      alt="provider logo"
+      class="table-img-sm"
+    />
+  </ng-template>
+
+  <ng-template #channelTmpl let-element>
+    <mat-chip>{{ element.channel }}</mat-chip>
+  </ng-template>
+
+  <ng-template #createdTmpl let-element>
+    <span>{{ element.createdOn | date : 'medium' }}</span>
+  </ng-template>
+
+  <ng-template #modifiedTmpl let-element>
+    <span>{{ element.lastEditedOn | date : 'medium' }}</span>
+  </ng-template>
+
+  <ng-template #actionsTmpl let-element>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEdit(element)">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item (click)="onDelete([element])">
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  </ng-template>
+</kps-data-table>
