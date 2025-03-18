@@ -38,6 +38,9 @@
         "libs/feats/associations/current-assoc/src/index.ts"
       ],
       "@kps/associations/forms": ["libs/feats/associations/forms/src/index.ts"],
+      "@kps/associations/invitations": [
+        "libs/feats/associations/invitations/src/index.ts"
+      ],
       "@kps/associations/member": [
         "libs/feats/associations/member/src/index.ts"
       ],
