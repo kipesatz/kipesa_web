@@ -1,0 +1,47 @@
+<kps-input-field
+  controlName="cardNumber"
+  [controller]="getController('cardNumber')"
+  fieldPlaceholder="Enter your card number"
+/>
+
+<kps-input-field
+  controlName="cardHolder"
+  [controller]="getController('cardHolder')"
+  customLabel="Card Holder's name"
+  fieldPlaceholder="Enter name of the card holder"
+/>
+
+<div class="d-flex align-items-center gap-3 flex-nowrap mb-3">
+  <div class="d-flex flex-column">
+    <p>Expiration Date</p>
+
+    <div class="d-flex gap-3">
+      <kps-input-field
+        [hideLabel]="true"
+        controlName="cardExpiryMonth"
+        fieldPlaceholder="MM"
+        [controller]="getController('cardExpiryMonth')"
+        inputType="number"
+      />
+      <kps-input-field
+        [hideLabel]="true"
+        controlName="cardExpiryYear"
+        fieldPlaceholder="YY"
+        [controller]="getController('cardExpiryYear')"
+        inputType="number"
+      />
+    </div>
+  </div>
+
+  <div class="d-flex flex-column">
+    <p>CVV</p>
+    <kps-input-field
+      [hideLabel]="true"
+      controlName="cardCvv"
+      fieldPlaceholder="YY"
+      [controller]="getController('cardCvv')"
+    >
+      <mat-icon matSuffix>credit_card</mat-icon>
+    </kps-input-field>
+  </div>
+</div>

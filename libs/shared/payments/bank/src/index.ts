@@ -1,1 +1,1 @@
-export const greeting = 'Hello World!';
+export * from './lib/pay-bank-form/pay-bank-form.component';
