@@ -1,0 +1,32 @@
+<kps-base-dialog>
+  <kps-dialog-header>Enter Invitation Code</kps-dialog-header>
+  <form
+    [formGroup]="getFormGroup()"
+    (ngSubmit)="confirmInvitation()"
+    method="post"
+  >
+    <mat-dialog-content class="d-flex justify-content-center flex-column gap-3">
+      <p class="mb-3">
+        To join your new group, copy the Invitation Code from the invitation
+        that you received and add it below.
+      </p>
+
+      <kps-input-field
+        [controller]="getController('invitationCode')"
+        controlName="invitationCode"
+        fieldPlaceholder="Paste your invitation code here"
+      />
+    </mat-dialog-content>
+
+    <kps-dialog-footer>
+      <kps-button
+        btnAriaLabel="confirm your code"
+        text="Confirm your Code"
+        btnType="submit"
+        variant="flat"
+        style="width: 100%"
+        [isFullWidth]="true"
+      ></kps-button>
+    </kps-dialog-footer>
+  </form>
+</kps-base-dialog>
