@@ -107,7 +107,8 @@
       "@kps/messaging/sms": ["libs/feats/messaging/sms/src/index.ts"],
       "@kps/payments": ["libs/shared/payments/src/index.ts"],
       "@kps/payments/bank": ["libs/shared/payments/bank/src/index.ts"],
-      "@kps/payments/mobile": ["libs/shared/payments/mobile/src/index.ts"]
+      "@kps/payments/mobile": ["libs/shared/payments/mobile/src/index.ts"],
+      "@kps/payments/providers": ["libs/shared/payments/providers/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
