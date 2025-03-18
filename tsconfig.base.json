@@ -44,6 +44,9 @@
       "@kps/associations/member": [
         "libs/feats/associations/member/src/index.ts"
       ],
+      "@kps/associations/membership": [
+        "libs/feats/associations/membership/src/index.ts"
+      ],
       "@kps/charts": ["libs/shared/charts/src/index.ts"],
       "@kps/charts/bar": ["libs/shared/charts/bar/src/index.ts"],
       "@kps/charts/doughnut": ["libs/shared/charts/doughnut/src/index.ts"],
