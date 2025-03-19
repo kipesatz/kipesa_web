@@ -71,8 +71,8 @@
         "libs/feats/finances/contributions/src/index.ts"
       ],
       "@kps/finances/loans": ["libs/feats/finances/loans/src/index.ts"],
-      "@kps/finances/payment-methods": [
-        "libs/feats/finances/payment-methods/src/index.ts"
+      "@kps/finances/payment-providers": [
+        "libs/feats/finances/payment-providers/src/index.ts"
       ],
       "@kps/finances/reports": ["libs/feats/finances/reports/src/index.ts"],
       "@kps/finances/transactions": [
@@ -95,6 +95,7 @@
       "@kps/material/lists": ["libs/shared/material/lists/src/index.ts"],
       "@kps/material/progress": ["libs/shared/material/progress/src/index.ts"],
       "@kps/material/radio": ["libs/shared/material/radio/src/index.ts"],
+      "@kps/material/sliders": ["libs/shared/material/sliders/src/index.ts"],
       "@kps/material/snack-bar": [
         "libs/shared/material/snack-bar/src/index.ts"
       ],
