@@ -7,11 +7,7 @@ import {
   CpDetailsComponent,
 } from './pages';
 import { importProvidersFrom } from '@angular/core';
-import {
-  ContributionDataModule,
-  CpDataModule,
-  PaymentMethodDataModule,
-} from '@kps/data/finances';
+import { ContributionDataModule, CpDataModule } from '@kps/data/finances';
 import { MembershipDataModule } from '@kps/data/associations';
 
 export const cpRoutes: Routes = [
@@ -20,7 +16,6 @@ export const cpRoutes: Routes = [
     providers: [
       importProvidersFrom(
         CpDataModule,
-        PaymentMethodDataModule,
         MembershipDataModule,
         ContributionDataModule
       ),

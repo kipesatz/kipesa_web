@@ -35,7 +35,6 @@ export class CpDetailsContainerComponent implements OnInit {
 
   cpId = signal(this.route.snapshot.params['cpId']);
   cpurpose = computed(() => this.cpFacade.selectOne(this.cpId()));
-  cpLoading = this.cpFacade.cpsLoading;
   cpError = this.cpFacade.cpError;
 
   tabLinks: Array<{ label: string; link: string[] | string }> = [
