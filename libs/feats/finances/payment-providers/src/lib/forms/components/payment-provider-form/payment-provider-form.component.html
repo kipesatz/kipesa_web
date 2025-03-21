@@ -1,75 +1,160 @@
-<div class="d-block">
-  <kps-input-field
-    [controller]="getController('provider')"
-    controlName="provider"
-    customLabel="Payment Provider"
-  >
-    <mat-hint>
-      Internally used name, has to be unique but it represents a payment
-      provider
-    </mat-hint>
-  </kps-input-field>
-
-  <kps-input-field [controller]="getController('name')" controlName="name">
-    <mat-hint>
-      A human convinient name & commonly used name. The name written here will
-      be displayed while selecting payment option
-    </mat-hint>
-  </kps-input-field>
-
-  <!-- provider-logo  -->
-  <section class="d-block my-3">
-    <h6>Provider Logo</h6>
-    <small class="mb-3">
-      The image helps to users to quickly understand which option to choose.
-    </small>
-
-    <kps-file-input
-      controlName="logo"
-      [controller]="getController('logo')"
-      (selectedFilesChange)="logoChange.emit($event[0])"
-    >
-      <mat-hint>If not set, the default image will be used</mat-hint>
-    </kps-file-input>
-  </section>
-
-  <section class="d-block my-4">
-    <section class="mb-3">
-      <h6 class="mb-2">Active status</h6>
-      <mat-checkbox
-        [formControl]="getController('isActive')"
-        value=""
-        color="primary"
-        class="d-block"
-      >
-        Active
-      </mat-checkbox>
-
-      <mat-hint class="d-block">
-        Active status determines if this payment method can be used by users to
-        make payments
-      </mat-hint>
-    </section>
-
-    <kps-textarea
-      [controller]="getController('description')"
-      controlName="description"
-    />
-
-    <div class="d-block">
-      <h6>Information which can be included in the description are like:</h6>
-      <ol>
-        <li>Steps to follow</li>
-        <li>How to confirm a payment</li>
-      </ol>
-
-      <div class="d-block">
-        <strong>NB: </strong>
-        <span>
-          The data provided here will be shown to users to enable them while
-          making payment
-        </span>
+<mat-stepper orientation="vertical">
+  <mat-step>
+    <ng-template matStepLabel>
+      <div class="d-inline-flex gap-2 flex-nowrap">
+        <mat-icon>branding_watermark</mat-icon>
+        <span>Name & Logo</span>
       </div>
-    </div>
-  </section>
-</div>
+    </ng-template>
+
+    <ng-template matStepContent>
+      <kps-input-field [controller]="getController('name')" controlName="name">
+        <mat-hint>
+          A human convinient name & commonly used name. The name written here
+          will be displayed while selecting payment option
+        </mat-hint>
+      </kps-input-field>
+
+      <div class="my-3">
+        <h5>Choose Payment Channel</h5>
+
+        <kps-card-radio-group [formControl]="getController('channel')">
+          @for (channel of providerChannelOptions; track channel.value) {
+          <kps-card-radio-item [value]="channel.value">
+            <mat-icon> {{ channel.icon }} </mat-icon>
+            <h6>{{ channel.name }}</h6>
+          </kps-card-radio-item>
+          }
+        </kps-card-radio-group>
+      </div>
+
+      <!-- provider-logo  -->
+      <section class="my-3">
+        <h6>Provider Logo</h6>
+        <small class="mb-3">
+          The image helps to users to quickly understand which option to choose.
+        </small>
+
+        <kps-file-input
+          controlName="logo"
+          [controller]="getController('logo')"
+          (selectedFilesChange)="logoChange.emit($event[0])"
+        >
+          <mat-hint>If not set, the default image will be used</mat-hint>
+        </kps-file-input>
+      </section>
+
+      <div kpsStepFooter>
+        <button mat-raised-button matStepperNext>Next</button>
+      </div>
+    </ng-template>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>
+      <div class="d-inline-flex gap-2 flex-nowrap">
+        <mat-icon>code</mat-icon>
+        <span>Developer Settings</span>
+      </div>
+    </ng-template>
+
+    <ng-template matStepContent>
+      <kps-input-field
+        [controller]="getController('internalName')"
+        controlName="internalName"
+      >
+        <mat-hint>
+          Internally used name, has to be unique but it represents a payment
+          provider
+        </mat-hint>
+      </kps-input-field>
+
+      <kps-input-field
+        [controller]="getController('apiKey')"
+        controlName="apiKey"
+        customLabel="API Key"
+        fieldPlaceholder="Paste API Key here from the Thirdy Party"
+      />
+
+      <kps-input-field
+        [controller]="getController('apiSecret')"
+        controlName="apiSecret"
+        customLabel="API Secret"
+        fieldPlaceholder="Paste API Secret here from the Thirdy Party"
+      />
+
+      <div class="row row-cols-2">
+        <div class="col">
+          <kps-input-field
+            [controller]="getController('swiftCode')"
+            controlName="swiftCode"
+          />
+        </div>
+        <div class="col">
+          <kps-input-field
+            [controller]="getController('routingNumber')"
+            controlName="routingNumber"
+          />
+        </div>
+      </div>
+
+      <div kpsStepFooter>
+        <button mat-raised-button matStepperPrevious>Previous</button>
+        <button mat-raised-button matStepperNext>Next</button>
+      </div>
+    </ng-template>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>
+      <div class="d-inline-flex gap-2 flex-nowrap">
+        <mat-icon>more_horiz</mat-icon>
+        <span>Additional information</span>
+      </div>
+    </ng-template>
+
+    <ng-template matStepContent>
+      <section class="mb-3">
+        <h6 class="mb-2">Active status</h6>
+        <mat-checkbox
+          [formControl]="getController('isActive')"
+          value=""
+          color="primary"
+          class="d-block"
+        >
+          Active
+        </mat-checkbox>
+
+        <mat-hint class="d-block">
+          Active status determines if this payment method can be used by users
+          to make payments
+        </mat-hint>
+      </section>
+
+      <div class="my-3">
+        <kps-textarea
+          [controller]="getController('description')"
+          controlName="description"
+        />
+
+        <h6>Information which can be included in the description are like:</h6>
+        <ol>
+          <li>Steps to follow</li>
+          <li>How to confirm a payment</li>
+        </ol>
+
+        <div class="d-block">
+          <strong>NB: </strong>
+          <span>
+            The data provided here will be shown to users to enable them while
+            making payment
+          </span>
+        </div>
+      </div>
+
+      <div kpsStepFooter>
+        <button mat-raised-button matStepperPrevious>Previous</button>
+      </div>
+    </ng-template>
+  </mat-step>
+</mat-stepper>

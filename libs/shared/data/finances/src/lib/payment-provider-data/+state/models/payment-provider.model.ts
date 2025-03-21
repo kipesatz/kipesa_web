@@ -15,10 +15,16 @@ export interface PaymentProvider {
   readonly lastEditedOn: string;
 }
 
-export interface PaymentProviderPayload
-  extends Pick<
-    PaymentProvider,
-    'name' | 'internalName' | 'isActive' | 'description'
-  > {
-  logo: string | null;
-}
+export type PaymentProviderPayload = Pick<
+  PaymentProvider,
+  | 'name'
+  | 'internalName'
+  | 'channel'
+  | 'isActive'
+  | 'description'
+  | 'apiKey'
+  | 'apiSecret'
+  | 'swiftCode'
+  | 'routingNumber'
+  | 'logo'
+>;

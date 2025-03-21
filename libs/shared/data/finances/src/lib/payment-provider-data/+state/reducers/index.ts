@@ -1,3 +1,3 @@
-import * as fromPaymentProvider from './payment-method.reducer';
+import * as fromPaymentProvider from './payment-provider.reducer';
 
 export { fromPaymentProvider };

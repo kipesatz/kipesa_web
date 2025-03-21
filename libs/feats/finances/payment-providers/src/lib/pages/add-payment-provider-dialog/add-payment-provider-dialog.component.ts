@@ -9,6 +9,7 @@ import {
 import {
   BaseDialogComponent,
   DialogFooterComponent,
+  DialogHeaderComponent,
 } from '@kps/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BaseFormComponent } from '@kps/forms';
@@ -30,6 +31,7 @@ import { map } from 'rxjs';
     MatDialogClose,
     PaymentProviderFormComponent,
     ReactiveFormsModule,
+    DialogHeaderComponent,
   ],
   templateUrl: './add-payment-provider-dialog.component.html',
   styles: ``,
@@ -56,7 +58,7 @@ export class AddPaymentProviderDialogComponent extends BaseFormComponent {
     if (this.getFormGroup().valid) {
       if (this.selectedLogo() !== null) {
         const _formD = super.getFormData();
-        _formD.set('providerLogo', this.selectedLogo() as File);
+        _formD.set('logo', this.selectedLogo() as File);
         // save payMethod
         this.facadeService.dispatchCreateOne(_formD);
 

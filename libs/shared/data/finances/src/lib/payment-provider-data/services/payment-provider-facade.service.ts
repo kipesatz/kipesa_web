@@ -31,8 +31,4 @@ export class PaymentProviderFacadeService {
       paymentProviderActions.updatePaymentProvider({ id, updates })
     );
   }
-
-  dispatchDelete(id: string) {
-    this.store.dispatch(paymentProviderActions.deletePaymentProvider({ id }));
-  }
 }

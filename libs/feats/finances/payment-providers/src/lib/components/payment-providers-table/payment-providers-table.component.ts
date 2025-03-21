@@ -20,14 +20,14 @@ import {
 } from '@kps/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPaymentProviderDialogComponent } from '../../pages';
-import { SearchFieldComponent } from '@kps/forms/fields';
+import { AnimatedSearchFieldComponent } from '@kps/forms/fields';
 import { RouterService } from '@kps/core/router';
 
 @Component({
   selector: 'kps-payment-methods-tbl',
   imports: [
     DataTableComponent,
-    SearchFieldComponent,
+    AnimatedSearchFieldComponent,
     MatChip,
     MatIcon,
     MatIconButton,
@@ -67,7 +67,7 @@ export class PaymentProvidersTableComponent implements OnInit {
   columns: TableColumn[] = [];
   visibleColumns = [
     'name',
-    'internaleName',
+    'internalName',
     'channel',
     'logo',
     'isActive',
@@ -81,9 +81,9 @@ export class PaymentProvidersTableComponent implements OnInit {
   ngOnInit() {
     // Define columns after templates are available
     this.columns = [
-      {key: 'name',label: 'name'},
-      {key: 'isActive',label: 'Active'},
-      {key: 'internalName', label: 'Internal Name',sortable: true},
+      { key: 'name', label: 'name' },
+      { key: 'isActive', label: 'Active' },
+      { key: 'internalName', label: 'Internal Name', sortable: true },
       {
         key: 'channel',
         label: 'Channel',
@@ -147,7 +147,9 @@ export class PaymentProvidersTableComponent implements OnInit {
   }
 
   onAdd() {
-    this.matDialog.open(AddPaymentProviderDialogComponent);
+    this.matDialog.open(AddPaymentProviderDialogComponent, {
+      minWidth: '950px',
+    });
   }
 
   onExport() {

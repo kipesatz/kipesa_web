@@ -29,8 +29,4 @@ export class PaymentProviderApiService extends BaseFinancesApiFactoryService {
   updatePaymentProvider(id: string, payload: FormData) {
     return this.put<PaymentProvider, FormData>(id, payload);
   }
-
-  deletePaymentProvider(id: string) {
-    return this.delete<void>(id);
-  }
 }
