@@ -34,9 +34,16 @@ export class CardRadioGroupComponent
         // handle items added automatically
         this.updateItemSelections();
       }
+
+      if (this.widthPerItem() && this.cardItems().length > 0) {
+        this.cardItems().forEach((item) =>
+          item.itemWidth.set(this.widthPerItem())
+        );
+      }
     });
   }
   cardItems = contentChildren(CardRadioItemComponent);
+  widthPerItem = input<string>('200px');
   name = input('card-radio-group');
   value = signal<unknown>('');
   disabled = signal<boolean>(false);

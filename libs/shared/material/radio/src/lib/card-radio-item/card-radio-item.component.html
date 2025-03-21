@@ -1,5 +1,6 @@
 <div
   class="card-radio-item"
+  [ngStyle]="{ width: itemWidth() }"
   [class.selected]="selected()"
   [class.disabled]="disabled()"
   (click)="onSelect()"

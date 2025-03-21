@@ -1,7 +1,9 @@
+import { NgStyle } from '@angular/common';
 import {
   Component,
   forwardRef,
   input,
+  model,
   signal,
   ViewEncapsulation,
 } from '@angular/core';
@@ -10,7 +12,7 @@ import { MatRadioButton } from '@angular/material/radio';
 
 @Component({
   selector: 'kps-card-radio-item',
-  imports: [MatRadioButton],
+  imports: [MatRadioButton, NgStyle],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -24,6 +26,7 @@ import { MatRadioButton } from '@angular/material/radio';
 })
 export class CardRadioItemComponent implements ControlValueAccessor {
   value = input<unknown>();
+  itemWidth = model<string>('200px');
 
   selected = signal<boolean>(false);
   disabled = signal<boolean>(false);
