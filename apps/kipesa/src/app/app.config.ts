@@ -21,6 +21,9 @@ import { KpsDialogDefaultConfig } from '@kps/material/dialog';
 import { provideNativeDateAdapter } from '@angular/material/core';
 
 import { provideEchartsCore } from 'ngx-echarts';
+import { providePaymentMethodState } from '@kps/data/payments';
+import { providePaymentProviderState } from '@kps/data/finances';
+import { provideRootStore } from './root-store.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,12 +31,10 @@ export const appConfig: ApplicationConfig = {
     provideNativeDateAdapter(),
     provideRouter(appRoutes),
     provideAnimationsAsync('animations'),
-    provideStore(),
-    provideEffects(),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    ...provideRootStore(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: KpsDialogDefaultConfig },
-    { provide: DEFAULT_CURRENCY_CODE, useValue: 'TSH' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'TZS ' },
     provideEchartsCore({
       echarts: () => import('echarts'), // Lazy load echarts
     }),

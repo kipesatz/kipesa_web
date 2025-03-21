@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+  @if (pageLoading() || myMembershipStore.loading()) {
+  <div class="loading-overlay">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p class="loading-text">Preparing everything for you...</p>
+    </div>
+  </div>
+
+  }
+  <router-outlet></router-outlet>
+</div>

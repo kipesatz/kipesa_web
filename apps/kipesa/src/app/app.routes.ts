@@ -1,5 +1,6 @@
 import { importProvidersFrom } from '@angular/core';
 import { Route } from '@angular/router';
+import { associationAccessGuard } from '@kps/acls';
 import { MembershipDataModule } from '@kps/data/associations';
 import { LoginDataModule, LogoutDataModule } from '@kps/data/auth';
 import { MainLayoutComponent } from '@kps/layout';
@@ -11,7 +12,7 @@ export const appRoutes: Route[] = [
       importProvidersFrom(
         LoginDataModule,
         LogoutDataModule,
-        MembershipDataModule
+        MembershipDataModule,
       ),
     ],
     children: [
@@ -24,6 +25,7 @@ export const appRoutes: Route[] = [
       {
         path: 'assocSettings',
         title: 'Association Settings',
+        providers: [importProvidersFrom(MembershipDataModule)],
         loadChildren: () =>
           import('@kps/assoc-settings').then((m) => m.assocSettingsRoutes),
       },
@@ -44,12 +46,14 @@ export const appRoutes: Route[] = [
           {
             path: 'finances',
             title: 'Finances',
+            canActivate: [associationAccessGuard],
             loadChildren: () =>
               import('@kps/finances').then((m) => m.financesRoutes),
           },
           {
             path: 'associations',
             title: 'Associations',
+            canActivate: [associationAccessGuard],
             loadChildren: () =>
               import('@kps/associations').then((m) => m.associationsRoutes),
           },

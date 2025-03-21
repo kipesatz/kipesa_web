@@ -164,3 +164,6 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #5865f2; // Lighter blue on hover
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
