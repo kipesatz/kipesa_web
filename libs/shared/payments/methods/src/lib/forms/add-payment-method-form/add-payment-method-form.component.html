@@ -1,0 +1,112 @@
+<mat-stepper orientation="vertical">
+  <mat-step>
+    <ng-template matStepLabel>
+      <div class="d-inline-flex gap-2 flex-nowrap">
+        <span>Payment Method Type</span>
+      </div>
+    </ng-template>
+
+    <ng-template matStepContent>
+      <div class="my-3">
+        <h5>Choose Payment Method Type</h5>
+
+        <kps-card-radio-group
+          [formControl]="getController('methodType')"
+          widthPerItem="130px"
+        >
+          @for(methodType of paymentMethodTypes; track methodType.value) {
+          <kps-card-radio-item [value]="methodType.value">
+            <mat-icon style="font-size: 30px; height: 30px; width: 30px">
+              {{ methodType.icon }}
+            </mat-icon>
+            <h6>{{ methodType.name }}</h6>
+          </kps-card-radio-item>
+          }
+        </kps-card-radio-group>
+      </div>
+
+      <div kpsStepFooter>
+        <button mat-raised-button type="button" matStepperNext>Next</button>
+      </div>
+    </ng-template>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>
+      <div class="d-inline-flex gap-2 flex-nowrap">
+        <span>Payment Option Configuration</span>
+      </div>
+    </ng-template>
+
+    <ng-template matStepContent>
+      <!-- providers based on the category selected in the prev step -->
+      @if (providersLoading()) {
+      <kps-loading-indicator />
+      }@else {
+      <kps-card-slider
+        (activeSlideChange)="onActiveSlideChange($event.item.data())"
+      >
+        @for (paymentProvider of paymentProviders(); track paymentProvider.id) {
+        <kps-card-slider-item [data]="paymentProvider">
+          <div class="card-body text-center">
+            <img
+              [src]="paymentProvider.logo"
+              alt="{{ paymentProvider.name }} logo"
+              class="logo"
+            />
+            <h5 class="card-title mt-2">{{ paymentProvider.name }}</h5>
+          </div>
+        </kps-card-slider-item>
+        }
+      </kps-card-slider>
+      }
+
+      <div class="my-3">
+        @if (getController('methodType').value === 'MOBILE') {
+        <h5>Enter Mobile Phone Number</h5>
+        <kps-phone-field
+          [(phoneString)]="getFormGroup().controls.phoneNumber.value"
+        />
+        }@else {
+        <kps-pay-bank-form [formGroup]="getFormGroup()" />
+        }
+      </div>
+
+      <div kpsStepFooter>
+        <button mat-raised-button type="button" matStepperPrevious>Previous</button>
+        <button mat-raised-button type="button" matStepperNext>Next</button>
+      </div>
+    </ng-template>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>
+      <div class="d-inline-flex gap-2 flex-nowrap">
+        <span>Optional Settings</span>
+      </div>
+    </ng-template>
+
+    <ng-template matStepContent>
+      <div class="my-3">
+        <kps-input-field
+          controlName="nickname"
+          [controller]="getController('nickname')"
+        />
+
+        <kps-checkbox-row [controller]="getController('isDefault')">
+          Set as Default
+        </kps-checkbox-row>
+        <kps-checkbox-row
+          [controller]="getController('isActive')"
+          [attr.hidden]="true"
+        >
+          Set as Active
+        </kps-checkbox-row>
+      </div>
+
+      <div kpsStepFooter>
+        <button mat-raised-button type="button" matStepperPrevious>Previous</button>
+      </div>
+    </ng-template>
+  </mat-step>
+</mat-stepper>
