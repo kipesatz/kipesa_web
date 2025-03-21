@@ -14,8 +14,15 @@ export class LoanFacadeService {
   readonly loansCount = this.store.selectSignal(fromLoan.selectCount);
   readonly totalLoans = this.store.selectSignal(fromLoan.selectTotal);
 
+  selectOne = (loanId: string) =>
+    this.store.selectSignal(fromLoan.selectOne(loanId));
+
   fetchAssocMembersLoans(queryParams?: HttpParams) {
     this.store.dispatch(loanActions.loadLoans({ queryParams }));
+  }
+
+  dispatchFetchOne(loanId: string): void {
+    this.store.dispatch(loanActions.loadLoan({ id: loanId }));
   }
 
   dispatchAddOne(payload: LoanPayload) {

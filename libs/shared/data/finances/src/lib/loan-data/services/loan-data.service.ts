@@ -23,7 +23,7 @@ export class LoanDataService extends BaseAssocFinancesApiFactoryService {
   }
 
   getOne(id: string) {
-    return this.get<Loan>(id);
+    return this.get<Loan>(`/${id}`);
   }
 
   deleteOne(loanId: string) {

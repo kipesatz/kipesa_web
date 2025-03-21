@@ -41,8 +41,8 @@ export const fincStatsReducer = createReducer(
   }))
 );
 
-export const fincStatsFeatureSelector =
-  createFeatureSelector<FincStatsState>(fincStatsFeatureKey);
+// export const fincStatsFeatureSelector =
+//   createFeatureSelector<FincStatsState>(fincStatsFeatureKey);
 
 export const fincStatsFeature = createFeature({
   name: fincStatsFeatureKey,
