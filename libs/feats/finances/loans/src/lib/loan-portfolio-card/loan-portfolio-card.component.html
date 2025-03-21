@@ -1,0 +1,9 @@
+<mat-card>
+  <kps-pie-chart
+    chartTitle="Loan Portfolio"
+    seriesName="Loans Portfolio"
+    [data]="loanStatsPerStatusChartData()"
+    [colors]="['#4CAF50', '#E0E0E0']"
+    [initOpts]="{height: '400px'}"
+  />
+</mat-card>

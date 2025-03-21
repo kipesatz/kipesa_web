@@ -1,0 +1,25 @@
+:host {
+  max-width: 300px !important;
+  height: fit-content !important;
+}
+
+.mat-card {
+  background-color: #e1e1e1 !important;
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+
+  .stat-label {
+    font-size: 17px;
+    color: #546e7a;
+  }
+
+  .stat-value {
+    font-size: 23px;
+    font-weight: 500;
+    color: #1976d2;
+  }
+}

@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-content class="d-flex gap-3 flex-nowrap">
+    <kps-progress-pie-chart
+      [chartTitle]="loanStatsPerStatusItem().name | titlecase"
+      [progress]="loanStatsPerStatusItem().relativePercent * 0.5"
+      [initOpts]="{ height: '100px', width: '100px' }"
+    />
+
+    <div class="mt-4 d-flex flex-column gap-3">
+      <div class="stat-item">
+        <span class="stat-label"> Members </span>
+        <span class="stat-value">
+          {{ loanStatsPerStatusItem().membersCount }}
+        </span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label"> Worth </span>
+        <span class="stat-value">
+          {{ loanStatsPerStatusItem().grandTotal | currency }}
+        </span>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
