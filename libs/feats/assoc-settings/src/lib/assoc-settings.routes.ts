@@ -1,10 +1,4 @@
-import { importProvidersFrom } from '@angular/core';
 import { Routes } from '@angular/router';
-import {
-  AssociationDataModule,
-  MembershipDataModule,
-} from '@kps/data/associations';
-import { MembershipEnrollPageComponent } from './membership-enroll-page/membership-enroll-page.component';
 
 export const assocSettingsRoutes: Routes = [
   {
@@ -14,14 +8,6 @@ export const assocSettingsRoutes: Routes = [
         (m) => m.AssocSettingsDialogComponent
       ),
     children: [
-      {
-        path: 'enroll',
-        component: MembershipEnrollPageComponent,
-        title: 'Enroll',
-        providers: [
-          importProvidersFrom([MembershipDataModule, AssociationDataModule]),
-        ],
-      },
       {
         path: 'loanProducts',
         title: 'Loan Products',

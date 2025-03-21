@@ -18,28 +18,15 @@
         <div class="flex-grow-1">
           <div class="category-group">
             <div class="category-header">
-              <h2 class="category-title">MEMBERSHIP</h2>
-            </div>
-
-            @for (category of membershipItems; track $index) {
-            <ng-template
-              [ngTemplateOutlet]="categoryItem"
-              [ngTemplateOutletContext]="{ $implicit: category }"
-            ></ng-template>
-            }
-          </div>
-
-          <div class="category-group">
-            <div class="category-header">
               <h2 class="category-title">FINANCES</h2>
             </div>
 
             @for(category of settingsCategories; track $index) {
             <div
               class="category-item"
-              [routerLink]="[category.route, { skipLocationChange: true }]"
               routerLinkActive="active-route"
               #rla="routerLinkActive"
+              (click)="navigateTo(category.route)"
             >
               <mat-icon class="category-icon">{{ category.icon }}</mat-icon>
               <span class="category-text">{{ category.name }}</span>
@@ -52,7 +39,7 @@
       <ng-template #categoryItem let-category>
         <div
           class="category-item"
-          [routerLink]="[category.route, { skipLocationChange: true }]"
+          (click)="navigateTo(category.route)"
           routerLinkActive="active-route"
           #rla="routerLinkActive"
         >
