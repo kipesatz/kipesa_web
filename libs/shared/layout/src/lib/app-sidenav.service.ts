@@ -55,8 +55,8 @@ export class AppSidenavService {
                 children: [
                   {
                     icon: 'dashboard',
-                    label: 'Payment Methods',
-                    route: '/admin/settings/finances/paymentMethods',
+                    label: 'Payment Providers',
+                    route: '/admin/settings/finances/paymentProviders',
                   },
                 ],
               },

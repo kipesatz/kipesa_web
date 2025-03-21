@@ -14,8 +14,8 @@ import {
   Association,
   ActivatedAssociationService,
 } from '@kps/data/associations';
-import { ConfirmSwitchAssocDialogComponent } from '../confirm-switch-assoc-dialog/confirm-switch-assoc-dialog.component';
 import { LoadingIndicatorComponent } from '@kps/material/progress';
+import { ConfirmSwitchAssocDialogComponent } from '@kps/layout/association';
 
 @Component({
   selector: 'kps-app-bar-assoc-menu',

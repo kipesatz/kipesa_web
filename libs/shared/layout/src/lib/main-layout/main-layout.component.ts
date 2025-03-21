@@ -6,11 +6,11 @@ import {
   MatSidenavContainer,
   MatSidenavContent,
 } from '@angular/material/sidenav';
-import { RouterOutlet } from '@angular/router';
 import { AuthCheckService } from '@kps/data/auth';
 import { ActivatedAssociationService } from '@kps/data/associations';
 import { AppBarComponent } from '../app-bar/app-bar.component';
 import { AppSidenavComponent } from '../app-sidenav/app-sidenav.component';
+import { InnerSidenavContainerComponent } from '../inner-sidenav-container/inner-sidenav-container.component';
 
 @Component({
   selector: 'kps-main-layout',
@@ -19,9 +19,9 @@ import { AppSidenavComponent } from '../app-sidenav/app-sidenav.component';
     MatSidenavContainer,
     MatSidenav,
     MatSidenavContent,
-    RouterOutlet,
     AppBarComponent,
     AppSidenavComponent,
+    InnerSidenavContainerComponent,
   ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',
@@ -41,9 +41,6 @@ export class MainLayoutComponent {
   authCheck = inject(AuthCheckService);
   activatedAssocService = inject(ActivatedAssociationService);
 
-  appSidenav = signal<MatSidenav | undefined>(undefined);
-
-  startSidenavExpanded = signal(true)
-  endSidenavExpanded = signal(false);
+  startSidenavExpanded = signal(true);
   isSmallScreen = signal(false);
 }

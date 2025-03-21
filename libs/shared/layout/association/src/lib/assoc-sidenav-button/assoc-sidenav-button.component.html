@@ -1,0 +1,17 @@
+<div
+  class="assoc-button"
+  [class.active]="isActive()"
+  [matTooltip]="association().name"
+  matTooltipPosition="right"
+  (click)="selectTenant()"
+  (keydown.enter)="selectTenant()"
+  tabindex="0"
+>
+  <div class="assoc-icon" [class.has-logo]="hasLogo()">
+    @if (hasLogo()) {
+      <img [src]="association().logo" alt="{{ association().name }}" />
+    }@else {
+      <span class="assoc-initials">{{ assocNameInitials }}</span>
+    }
+  </div>
+</div>

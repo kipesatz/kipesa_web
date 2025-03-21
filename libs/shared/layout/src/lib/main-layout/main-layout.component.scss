@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 $sidenav-minimal-width: 65px;
 $sidenav-expanded-width: 250px;
 
@@ -12,24 +14,12 @@ $sidenav-expanded-width: 250px;
     overflow: hidden;
     height: 100%;
     flex-grow: 1 !important;
-
-    .inner-sidenav-container {
-      display: flex;
-
-      .inner-sidenav-content {
-        flex-grow: 1 !important;
-      }
-
-      .right-sidenav {
-        width: 70px !important;
-        margin-inline: 0px;
-      }
-    }
   }
 
   .left-sidenav {
     width: 250px !important;
     border-right: 1px solid rgba(0, 0, 0, 0.12);
+    background-color: color.adjust(#f6f8fc, $lightness: -3%);
   }
 }
 

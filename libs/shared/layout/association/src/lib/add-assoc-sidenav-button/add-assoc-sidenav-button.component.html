@@ -1,0 +1,10 @@
+<div
+  class="add-button"
+  [matTooltip]="tooltipText()"
+  matTooltipPosition="left"
+  (click)="addClicked.emit()"
+  (keydown.enter)="addClicked.emit()"
+  tabindex="0"
+>
+  <mat-icon>add</mat-icon>
+</div>

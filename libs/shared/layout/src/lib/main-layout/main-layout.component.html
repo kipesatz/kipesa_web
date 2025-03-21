@@ -18,24 +18,6 @@
   <mat-sidenav-content class="outer-sidenav-content">
     <kps-app-bar (toggleSidenavChange)="appSidenav.toggle()" />
 
-    <mat-sidenav-container class="inner-sidenav-container">
-      <mat-sidenav
-        #innerSidenav
-        mode="side"
-        [opened]="true"
-        style="width: 70px; margin-right: 0px !important"
-        class="right-sidenav"
-        position="end"
-      >
-        <!-- <button mat-fab (click)="(onClick)">
-          <mat-icon class="mat-18">ligature</mat-icon>
-        </button> -->
-        <button (click)="innerSidenav.close()">Close</button>
-      </mat-sidenav>
-
-      <mat-sidenav-content class="inner-sidenav-content">
-        <router-outlet></router-outlet>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
+    <kps-inner-sidenav-container class="flex-grow-1 h-100 overflow-hidden" />
   </mat-sidenav-content>
 </mat-sidenav-container>

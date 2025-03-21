@@ -1,0 +1,78 @@
+<mat-sidenav-container class="inner-sidenav-container">
+  <mat-sidenav
+    #innerSidenav="matSidenav"
+    mode="side"
+    [(opened)]="sidenavExpanded"
+    [class.right-sidenav-expanded]="sidenavExpanded()"
+    class="right-sidenav"
+    position="end"
+    [ngStyle]="{ width: sidenavExpanded() ? '70px' : '0px' }"
+  >
+    <div
+      class="w-100 overflow-x-hidden overflow-y-auto h-100 d-flex flex-column align-items-center"
+    >
+      @if (membershipsLoading()) {
+      <kps-loading-indicator />
+      } @else { @for (membership of memberships(); track membership.id) {
+      <kps-assoc-sidenav-button [association]="membership.association" />
+      } }
+
+      <button
+        mat-mini-fab
+        class="flat-fab-btn mb-2"
+        matTooltip="View All"
+        matTooltipPosition="left"
+        (click)="openSwitchAssocDialog()"
+      >
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+
+      <button
+        mat-mini-fab
+        class="flat-fab-btn mb-2"
+        matTooltip="Join By Invitation"
+        matTooltipPosition="left"
+        (click)="openInvitationConfDialog()"
+      >
+        <mat-icon>rsvp</mat-icon>
+      </button>
+
+      <button
+        mat-mini-fab
+        class="flat-fab-btn mb-2"
+        matTooltip="Add Association"
+        matTooltipPosition="left"
+        (click)="openAddAssocDialog()"
+        (keydown.enter)="openAddAssocDialog()"
+        tabindex="0"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content
+    class="inner-sidenav-content"
+    [ngStyle]="{ marginRight: sidenavExpanded() ? '70px' : '0px' }"
+  >
+    <div class="content-container">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- sidenav toggle btn -->
+    <button
+      mat-mini-fab
+      class="sidenav-toggle-fab"
+      color="primary"
+      [class.expanded]="sidenavExpanded()"
+      matTooltip="{{ sidenavExpanded() ? 'Hide sidebar' : 'Show sidebar' }}"
+      (click)="innerSidenav.toggle()"
+    >
+      <mat-icon>{{
+        sidenavExpanded() ? 'chevron_right' : 'chevron_left'
+      }}</mat-icon>
+    </button>
+
+    <kps-app-footer />
+  </mat-sidenav-content>
+</mat-sidenav-container>
