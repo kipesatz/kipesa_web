@@ -1,11 +1,5 @@
 import { Component, inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BaseFormComponent } from '@kps/forms';
 import { ButtonComponent } from '@kps/material/button';
 import {
@@ -37,6 +31,6 @@ export class ConfirmInvitationDialogComponent extends BaseFormComponent {
   getFormGroup = (): ConfInvitationFg => this.formService.formGroup();
 
   confirmInvitation(): void {
-    const payload = this.getFormGroup().value;
+    // const payload = this.getFormGroup().value;
   }
 }

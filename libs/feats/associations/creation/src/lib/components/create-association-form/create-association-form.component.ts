@@ -1,13 +1,21 @@
-import { Component, inject, output } from '@angular/core';
-import { AssociationPayload } from '@kps/data/associations';
-import { BaseFormComponent } from '@kps/forms';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CreateAssociationFormService } from '../../services';
 import {
-  InputFieldComponent,
-  TextareaComponent,
-} from '@kps/forms/fields';
+  Component,
+  inject,
+  input,
+  OnDestroy,
+  OnInit,
+  output,
+} from '@angular/core';
+import {
+  ASSOCIATION_TYPE_OPTIONS,
+  AssociationPayload,
+} from '@kps/data/associations';
+import { BaseFormComponent } from '@kps/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateAssocFg } from '../../services';
+import { InputFieldComponent, TextareaComponent } from '@kps/forms/fields';
 import { ButtonComponent, FantasyButtonComponent } from '@kps/material/button';
+import { PaymentMethodFacadeService } from '@kps/data/payments';
 import {
   StepContentDirective,
   StepFooterDirective,
@@ -17,15 +25,26 @@ import {
   StepperStepComponent,
 } from '@kps/material/stepper';
 import { MatHint } from '@angular/material/form-field';
-import { CardRadioGroupComponent, CardRadioItemComponent } from '@kps/material/radio';
+import {
+  CardRadioGroupComponent,
+  CardRadioItemComponent,
+} from '@kps/material/radio';
 import { MatIcon } from '@angular/material/icon';
+import { TitleCasePipe } from '@angular/common';
+import { AddPaymentMethodDialogComponent } from '@kps/payments/methods';
+import { BaseDialogService } from '@kps/material/dialog';
+import { LoadingIndicatorComponent } from '@kps/material/progress';
+import {
+  CardSliderComponent,
+  CardSliderItemComponent,
+} from '@kps/material/sliders';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'kps-create-association-form',
   imports: [
     InputFieldComponent,
     TextareaComponent,
-    ButtonComponent,
     ReactiveFormsModule,
 
     StepperComponent,
@@ -39,21 +58,48 @@ import { MatIcon } from '@angular/material/icon';
     CardRadioGroupComponent,
     CardRadioItemComponent,
     MatIcon,
+    TitleCasePipe,
+    FormsModule,
+    ButtonComponent,
+    LoadingIndicatorComponent,
+    CardSliderComponent,
+    CardSliderItemComponent,
   ],
   templateUrl: './create-association-form.component.html',
   styleUrl: './create-association-form.component.scss',
 })
-export class CreateAssociationFormComponent extends BaseFormComponent {
-  formService = inject(CreateAssociationFormService);
+export class CreateAssociationFormComponent
+  extends BaseFormComponent
+  implements OnInit, OnDestroy
+{
+  private diagService = inject(BaseDialogService);
+  private paymentMethodsFacade = inject(PaymentMethodFacadeService);
+  assocTypeOpts = inject(ASSOCIATION_TYPE_OPTIONS);
+  private subscriptions = new Subscription();
 
+  formGroup = input.required<CreateAssocFg>();
   createFormSubmitted = output<AssociationPayload>();
-  groupTypeOpts = [
-    { name: 'family', value: 'Family' },
-    { name: 'vicoba', value: 'VICOBA' },
-  ];
 
-  override getFormGroup(): FormGroup {
-    return this.formService.associationForm();
+  override getFormGroup = () => this.formGroup();
+
+  groupCapacityChoice: 'unlimited' | 'limited' = 'limited';
+  groupCapacityChoices = ['limited', 'unlimited'];
+  selectedPaymentChannel: 'mobile' | 'bank' = 'mobile';
+
+  // side-effects data
+  payMethodsLoading = this.paymentMethodsFacade.loading;
+  paymentMethods = this.paymentMethodsFacade.paymentMethods;
+
+  ngOnInit(): void {
+    this.paymentMethodsFacade.dispatchFetchAll();
+
+    // set 0 if unlimited
+    if (this.groupCapacityChoice === 'unlimited') {
+      this.getFormGroup().controls.groupCapacity.setValue(0);
+    }
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   displayGroupTypeFn(
@@ -68,7 +114,21 @@ export class CreateAssociationFormComponent extends BaseFormComponent {
 
   notifySubmit(): void {
     if (this.getFormGroup().valid) {
-      this.createFormSubmitted.emit(this.getFormGroup().value);
+      this.createFormSubmitted.emit(this.getFormGroup().getRawValue());
     }
+  }
+
+  openAddPaymentMethodDialog(): void {
+    const dialogRef = this.diagService.openDefault(
+      AddPaymentMethodDialogComponent,
+      {
+        minWidth: '678px',
+      }
+    );
+    this.subscriptions.add(
+      dialogRef
+        .afterClosed()
+        .subscribe(() => this.paymentMethodsFacade.dispatchFetchAll())
+    );
   }
 }

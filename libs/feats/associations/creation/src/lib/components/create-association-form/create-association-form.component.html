@@ -1,118 +1,150 @@
-@if (getFormGroup() !== undefined) {
-
-<form [formGroup]="getFormGroup()" (ngSubmit)="notifySubmit()">
-  <kps-stepper orientation="horizontal" [linear]="true">
-    <kps-stepper-step
-      label="Choose Group Type"
-      description="Based on your requirements, selecte a group that fits your needs"
-      [stepControls]="[getController('name')]"
-    >
-      <ng-template kpsStepContent>
-        <kps-card-radio-group [formControl]="getController('groupType')">
-          <kps-card-radio-item value="family">
-            <mat-icon>family_restroom</mat-icon>
-            <h3>Family Group</h3>
-            <p>Create a group for family members</p>
+<kps-stepper orientation="vertical" [linear]="true" theme="light">
+  <kps-stepper-step
+    label="Group Settings"
+    description="Based on your requirements, choose group type and expected number of members"
+    [stepControls]="[
+      getController('groupType'),
+      getController('groupCapacity')
+    ]"
+  >
+    <ng-template kpsStepContent>
+      <div class="mb-3">
+        <h5>Group Type</h5>
+        <kps-card-radio-group
+          [formControl]="getController('groupType')"
+          widthPerItem="200px"
+        >
+          @for (assocType of assocTypeOpts; track assocType.name) {
+          <kps-card-radio-item [value]="assocType.name">
+            <mat-icon> {{ assocType.icon }} </mat-icon>
+            <h6>{{ assocType.name }}</h6>
           </kps-card-radio-item>
-
-          <kps-card-radio-item value="vicoba">
-            <mat-icon>groups</mat-icon>
-            <h3>VICOBA</h3>
-            <p>Village Community Banking</p>
-          </kps-card-radio-item>
-
-          <kps-card-radio-item value="business">
-            <mat-icon>business</mat-icon>
-            <h3>Business</h3>
-            <p>For business partnerships</p>
-          </kps-card-radio-item>
-
-          <kps-card-radio-item value="community">
-            <mat-icon>diversity_3</mat-icon>
-            <h3>Community</h3>
-            <p>For community-based groups</p>
-          </kps-card-radio-item>
+          }
         </kps-card-radio-group>
+      </div>
 
-        <div kpsStepFooter>
-          <kps-fantasy-button kpsStepperNext>Continue</kps-fantasy-button>
-        </div>
-      </ng-template>
-    </kps-stepper-step>
-
-    <kps-stepper-step
-      label="Basic Information"
-      description="Enter basic information below"
-      [stepControls]="[getController('name'), getController('description')]"
-    >
-      <ng-template kpsStepContent>
-        <kps-input-field
-          [controller]="getController('name')"
-          controlName="name"
+      <div class="mb-3">
+        <h5>Number of Members</h5>
+        <kps-card-radio-group
+          [(ngModel)]="groupCapacityChoice"
+          aria-labelledby="group capacity radio group label"
+          class="mb-4"
         >
-        </kps-input-field>
+          @for (capacityType of groupCapacityChoices; track capacityType) {
+          <kps-card-radio-item [value]="capacityType">
+            <h6>{{ capacityType | titlecase }}</h6>
+          </kps-card-radio-item>
+          }
+        </kps-card-radio-group>
+      </div>
 
-        <kps-textarea
-          [controller]="getController('description')"
-          controlName="description"
+      @if(groupCapacityChoice === 'limited') {
+      <kps-input-field
+        controlName="groupCapacity"
+        [controller]="getController('groupCapacity')"
+        customLabel="Maximum Capacity"
+        inputType="number"
+      >
+        <mat-hint>
+          Specify maximum number of members you are expecting this group will
+          accommodate (you can change it any time you want to).
+        </mat-hint>
+      </kps-input-field>
+      }@else {
+      <input
+        type="number"
+        [attr.value]="0"
+        [formControl]="getController('groupCapacity')"
+        [attr.hidden]="true"
+      />
+      }
+
+      <div kpsStepFooter>
+        <kps-fantasy-button kpsStepperNext>Continue</kps-fantasy-button>
+      </div>
+    </ng-template>
+  </kps-stepper-step>
+
+  <kps-stepper-step
+    label="Basic Information"
+    description="Enter basic information below"
+    [stepControls]="[getController('name'), getController('description')]"
+  >
+    <ng-template kpsStepContent>
+      <kps-input-field
+        [controller]="getController('name')"
+        controlName="name"
+      />
+      <kps-textarea
+        [controller]="getController('description')"
+        controlName="description"
+      />
+
+      <div kpsStepFooter>
+        <kps-fantasy-button kpsStepperPrev>Previous</kps-fantasy-button>
+        <kps-fantasy-button kpsStepperNext>Next</kps-fantasy-button>
+      </div>
+    </ng-template>
+  </kps-stepper-step>
+
+  <kps-stepper-step
+    label="Initial Deposit"
+    description="Add initial deposit to the association account."
+  >
+    <ng-template kpsStepContent>
+      <kps-input-field
+        controlName="initialBalance"
+        [controller]="getController('initialBalance')"
+        customLabel="Set Initial Balance"
+        inputType="number"
+      >
+        <mat-hint>
+          Enter amount that you would like to start with, minimum is
+          <strong>1000</strong>
+        </mat-hint>
+      </kps-input-field>
+
+      <h5 class="my-3">Choose Payment Method</h5>
+      @if (payMethodsLoading()) {
+      <kps-loading-indicator />
+      }@else { @for (paymentMethod of paymentMethods(); track paymentMethod.id)
+      {
+      <!-- TODO: Payment method should be part of association creation -->
+      <kps-card-slider class="mb-3">
+        <kps-card-slider-item [data]="paymentMethod">
+          <div class="card-body text-center">
+            <img
+              [src]="paymentMethod.provider.logo"
+              alt="{{ paymentMethod.provider.name }} logo"
+              class="logo"
+            />
+            <h5 class="card-title mt-2">
+              {{ paymentMethod.provider.name }}
+            </h5>
+          </div>
+        </kps-card-slider-item>
+      </kps-card-slider>
+
+      }@empty {
+      <div
+        class="alert alert-info d-flex justify-content-between align-items-center"
+      >
+        <span class="alert-text"
+          >You haven't added any payment method yet.</span
+        >
+
+        <kps-button
+          btnAriaLabel="open add payment method form"
+          text="Add Now"
+          icon="add_circle"
+          (clicked)="openAddPaymentMethodDialog()"
         />
+      </div>
+      } }
 
-        <div kpsStepFooter>
-          <kps-fantasy-button kpsStepperPrev>Previous</kps-fantasy-button>
-          <kps-fantasy-button kpsStepperNext>Next</kps-fantasy-button>
-        </div>
-      </ng-template>
-    </kps-stepper-step>
-
-    <kps-stepper-step label="Configurations" description="">
-      <ng-template kpsStepContent>
-        <kps-input-field
-          controlName="groupCapacity"
-          [controller]="getController('groupCapacity')"
-          customLabel="Maximum Capacity"
-          inputType="number"
-        >
-          <mat-hint>
-            Maximum number of members you are expecting this group will
-            accommodate (you can change it any time you want to)
-          </mat-hint>
-        </kps-input-field>
-
-        <kps-input-field
-          controlName="initialBalance"
-          [controller]="getController('initialBalance')"
-          customLabel="Set Initial Balance"
-          inputType="number"
-        >
-          <mat-hint>Enter amount that you would like to start with.</mat-hint>
-        </kps-input-field>
-
-        <div kpsStepFooter>
-          <kps-fantasy-button kpsStepperPrev>Previous</kps-fantasy-button>
-          <kps-fantasy-button kpsStepperPrev>Next</kps-fantasy-button>
-        </div>
-      </ng-template>
-    </kps-stepper-step>
-
-    <kps-stepper-step
-      label="Finalize payment"
-      description="Choose payment method to finalize group creation"
-    >
-      <ng-template kpsStepContent>
-        <div kpsStepFooter>
-          <kps-fantasy-button kpsStepperPrev>Previous</kps-fantasy-button>
-        </div>
-      </ng-template>
-    </kps-stepper-step>
-  </kps-stepper>
-
-  <div class="w-100 d-flex justify-content-end">
-    <kps-button
-      text="Create Association"
-      btnType="submit"
-      variant="flat"
-      btnAriaLabel="create association"
-    />
-  </div>
-</form>
-}
+      <div kpsStepFooter>
+        <kps-fantasy-button kpsStepperPrev>Previous</kps-fantasy-button>
+      </div>
+    </ng-template>
+  </kps-stepper-step>
+</kps-stepper>
