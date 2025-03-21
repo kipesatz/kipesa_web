@@ -1,12 +1,22 @@
+import { importProvidersFrom } from '@angular/core';
 import { Routes } from '@angular/router';
+import { PaymentProviderDataModule } from '@kps/data/finances';
 
 export const adminSettingsRoutes: Routes = [
   {
-    path: 'settings',
-    loadChildren: () =>
-      import('./admin-settings/admini-settings.routes').then(
-        (m) => m.adminSettingsRoutes
-      ),
+    path: 'finances',
+    children: [
+      {
+        path: 'paymentProviders',
+
+        loadChildren: () =>
+          import('@kps/finances/payment-providers').then(
+            (m) => m.paymentProviderssRoutes
+          ),
+        providers: [importProvidersFrom(PaymentProviderDataModule)],
+      },
+      { path: '**', redirectTo: 'paymentProviders', pathMatch: 'full' },
+    ],
   },
-  { path: '**', redirectTo: 'settings', pathMatch: 'full' },
+  { path: '**', redirectTo: 'finances', pathMatch: 'full' },
 ];
