@@ -1,0 +1,50 @@
+<mat-card class="loan-card">
+  <div class="loan-card-container">
+    <div class="chart-container">
+      <kps-progress-pie-chart
+        [progress]="performanceStats().relativePercent"
+        [chartTitle]="(category() | titlecase) + ' Loans Issued'"
+      />
+    </div>
+    <div class="stats-container">
+      <div class="card-header">
+        <h2>{{ (category() | titlecase) + ' Loans Issued' }}</h2>
+      </div>
+      <div class="stats-list">
+        <div class="stat-item">
+          <div class="stat-label">
+            {{ category() | titlecase }} Loan Applications
+          </div>
+          <div class="stat-value">
+            {{ performanceStats().applications | currency }}
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            {{ category() | titlecase }} Loan Funded Amount
+          </div>
+          <div class="stat-value">
+            {{ performanceStats().fundedAmount | currency }}
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            {{ category() | titlecase }} Total Received Amount
+          </div>
+          <div class="stat-value">
+            {{ performanceStats().totalRepaidAmount | currency }}
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">{{ category() | titlecase }} Applicants</div>
+          <div class="stat-value">
+            {{ performanceStats().totalMembers }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

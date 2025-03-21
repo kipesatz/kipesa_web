@@ -21,6 +21,7 @@ import { ButtonComponent } from '@kps/material/button';
 
 import { UserAvatarComponent } from '@kps/accounts/user';
 import { LoanStatusBadgeComponent } from '../loan-status-badge/loan-status-badge.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'kps-loans-tbl',
@@ -35,6 +36,7 @@ import { LoanStatusBadgeComponent } from '../loan-status-badge/loan-status-badge
     ButtonComponent,
     UserAvatarComponent,
     LoanStatusBadgeComponent,
+    RouterLink
   ],
   templateUrl: './loans-table.component.html',
   styles: ``,

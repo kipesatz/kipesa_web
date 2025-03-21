@@ -1,0 +1,81 @@
+.loan-card {
+  color: #2c3e50;
+  width: 100%;
+  min-height: 150px;
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.loan-card-container {
+  display: flex;
+  height: 100%;
+}
+
+.chart-container {
+  flex: 0 0 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background-color: #f4f3f6;
+}
+
+.stats-container {
+  flex: 0 0 60%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f0f7ff;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 1px solid #e0e6ed;
+}
+
+.card-header {
+  margin-bottom: 16px;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 27px;
+  font-weight: 600;
+  color: #4a69dd; /* Blue from the wheel */
+}
+
+.stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-label {
+  font-size: 18px;
+  color: #546e7a;
+  font-weight: 400;
+}
+
+.stat-value {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+/* Custom colors for each stat value based on the wheel colors */
+.stat-item:nth-child(1) .stat-value {
+  color: #4a69dd; /* Blue */
+}
+
+.stat-item:nth-child(2) .stat-value {
+  color: #9b5de5; /* Purple */
+}
+
+.stat-item:nth-child(3) .stat-value {
+  color: #f15a59; /* Red */
+}

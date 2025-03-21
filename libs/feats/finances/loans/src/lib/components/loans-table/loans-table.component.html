@@ -30,7 +30,11 @@
 
   <!-- templates -->
   <ng-template #memberTmpl let-element>
-    <kps-user-avatar [user]="element.member.user" />
+    <kps-user-avatar
+      [user]="element.member.user"
+      [routerLink]="['../', element.id]"
+      style="cursor: pointer"
+    />
   </ng-template>
 
   <ng-template #loanStatusTmpl let-element>
