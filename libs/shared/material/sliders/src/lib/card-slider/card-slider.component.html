@@ -1,0 +1,31 @@
+<div class="content-slider-container">
+  @if (showNavigation()) {
+  <button
+    mat-icon-button
+    class="navigation-button prev"
+    (click)="navigatePrevious()"
+    [disabled]="activeSlideIndex === 0"
+  >
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  }
+  <div class="slider-content">
+    <div
+      class="slider-wrapper"
+      [style.transform]="'translateX(' + -activeSlideIndex * 100 + '%)'"
+    >
+      <ng-content select="kps-card-slider-item"></ng-content>
+    </div>
+  </div>
+
+  @if (showNavigation()) {
+  <button
+    mat-icon-button
+    class="navigation-button next"
+    (click)="navigateNext()"
+    [disabled]="activeSlideIndex === sliderItems().length - 1"
+  >
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+  }
+</div>

@@ -1,0 +1,25 @@
+:host {
+  padding: 10px;
+}
+
+.slider-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  transition: transform 0.2s ease !important;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box !important;
+  background: white;
+
+  .active-slide {
+    display: block;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .slider-card-content {
+    padding: 20px;
+  }
+}
