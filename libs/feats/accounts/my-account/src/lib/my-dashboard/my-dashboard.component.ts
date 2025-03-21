@@ -64,15 +64,16 @@ export class MyDashboardComponent implements OnInit {
   contributionsLoading = this.contributionFacade.loading;
 
   ngOnInit(): void {
-    this.myMembershipsFacade.fetchMyMemberships();
+    // this.myMembershipsFacade.fetchMyMemberships();
 
-    this.subscriptions.add(
-      this.actions$
-        .pipe(ofType(MembershipActions.loadMyMembershipsSuccess))
-        .subscribe(() => {
-          this.contributionFacade.fetchSelfContributions();
-        })
-    );
+    // this.subscriptions.add(
+    //   this.actions$
+    //     .pipe(ofType(MembershipActions.loadMyMembershipsSuccess))
+    //     .subscribe(() => {
+    //       this.contributionFacade.fetchSelfContributions();
+    //     })
+    // );
+    console.log()
   }
 
   refreshDashboard(): void {

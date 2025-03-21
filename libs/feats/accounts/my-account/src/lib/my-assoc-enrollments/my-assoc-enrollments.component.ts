@@ -19,7 +19,7 @@ import {
 import { SearchFieldComponent } from '@kps/forms/fields';
 import { IconicButtonComponent } from '@kps/material/button';
 import { DataTableComponent, TableColumn } from '@kps/material/table';
-import { AssocSwitchDialogComponent } from '@kps/layout';
+import { ConfirmSwitchAssocDialogComponent } from '@kps/layout/association';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -88,7 +88,7 @@ export class MyAssocEnrollmentsComponent implements OnInit {
   }
 
   openAssociation(association: Association): void {
-    const dialogRef = this.diagService.open(AssocSwitchDialogComponent, {
+    const dialogRef = this.diagService.open(ConfirmSwitchAssocDialogComponent, {
       data: { association },
     });
 

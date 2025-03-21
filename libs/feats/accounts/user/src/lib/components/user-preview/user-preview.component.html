@@ -1,0 +1,37 @@
+<!-- user-preview.component.html -->
+<div class="user-preview-card mat-elevation-z4">
+  <div class="user-preview-header">
+    <div class="preview-avatar">
+      @if(user().profilePhoto === null){
+      <div class="preview-initials">
+        {{ user().initials }}
+      </div>
+      }@else {
+      <img [src]="user().profilePhoto" class="preview-photo" alt="User Photo" />
+
+      }
+    </div>
+
+    <div class="user-preview-details">
+      <div class="preview-name">
+        {{ user().firstName }} {{ user().lastName }}
+      </div>
+      <div class="preview-title">{{ user().occupation || 'User' }}</div>
+    </div>
+  </div>
+
+  <div class="user-preview-content">
+    <div class="preview-info-row">
+      <mat-icon class="preview-icon">email</mat-icon>
+      <span>{{ user().email }}</span>
+    </div>
+
+    <div class="preview-info-row">
+      <mat-icon class="preview-icon">phone</mat-icon>
+      <span>{{ user().phoneNumber }}</span>
+    </div>
+
+    <!-- any additional information -->
+    <ng-content></ng-content>
+  </div>
+</div>
