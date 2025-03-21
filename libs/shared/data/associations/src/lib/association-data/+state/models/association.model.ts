@@ -4,6 +4,7 @@ export interface Association {
   groupType: string;
   groupCapacity: number;
   initialBalance: number;
+  logo: string | null;
   description: string;
   createdOn: string;
   lastEditedOn: string;

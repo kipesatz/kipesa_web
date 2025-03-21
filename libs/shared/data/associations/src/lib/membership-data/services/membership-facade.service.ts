@@ -15,7 +15,9 @@ export class MembershipFacadeService {
   private store = inject(Store);
 
   readonly memberships = this.store.selectSignal(fromMembership.selectAll);
+  readonly membershipIds = this.store.selectSignal(fromMembership.selectIds);
   readonly loading = this.store.selectSignal(fromMembership.selectLoading);
+  readonly error = this.store.selectSignal(fromMembership.selectError);
   readonly membershipsCount = this.store.selectSignal(
     fromMembership.selectCount
   );

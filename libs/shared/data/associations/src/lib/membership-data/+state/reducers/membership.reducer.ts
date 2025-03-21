@@ -102,6 +102,7 @@ export const membershipsFeature = createFeature({
 });
 
 export const {
+  selectIds,
   selectAll,
   selectError,
   selectOne,
