@@ -1,0 +1,51 @@
+<kps-data-table
+  [columns]="columns"
+  [data]="loanFiles()"
+  tableTitle="Uploaded Loan files"
+  [visibleColumns]="visibleColumns"
+  [defaultVisibleTools]="['refresh', 'delete']"
+  [availableFilters]="filters"
+  [dataLoading]="loanFilesLoading()"
+  (selectionChange)="onSelectionChange($event)"
+  (refreshChange)="refreshData()"
+  (filterChange)="onFilterChange($event)"
+>
+  <kps-animated-search-field
+    [(searchTerm)]="searchTerm"
+    searchPlaceholder="Search..."
+  />
+
+  <!-- table tool -->
+  <kps-button
+    tableTools
+    btnAriaLabel="add new"
+    text="Add new file"
+    variant="raised"
+    (clicked)="openAddLoanFileDialog()"
+  />
+
+  <!-- templates -->
+  <ng-template #uploadTmpl let-element>
+    {{ element.uploadDate | date : 'medium' }}
+  </ng-template>
+
+  <ng-template #verificationDateTmpl let-element>
+    {{ element.verificationDate | date : 'long' }}
+  </ng-template>
+
+  <ng-template #actionsTmpl let-element>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEdit(element)">
+        <mat-icon>edit</mat-icon>
+        <span>Open File</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>Modify file data</span>
+      </button>
+    </mat-menu>
+  </ng-template>
+</kps-data-table>

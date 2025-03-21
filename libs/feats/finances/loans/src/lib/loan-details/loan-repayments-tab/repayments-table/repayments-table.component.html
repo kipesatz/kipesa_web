@@ -1,0 +1,51 @@
+<kps-data-table
+  [columns]="columns"
+  [data]="loanPayments()"
+  tableTitle="All Completed Repayments"
+  [visibleColumns]="visibleColumns"
+  [defaultVisibleTools]="['refresh', 'delete']"
+  [availableFilters]="filters"
+  [dataLoading]="loanPaymentsLoading()"
+  (selectionChange)="onSelectionChange($event)"
+  (refreshChange)="refreshData()"
+  (filterChange)="onFilterChange($event)"
+>
+  <kps-animated-search-field
+    [(searchTerm)]="searchTerm"
+    searchPlaceholder="Search..."
+  />
+
+  <!-- table tool -->
+  <kps-button
+    tableTools
+    btnAriaLabel="repay loan"
+    text="Repay Loan"
+    variant="raised"
+    (clicked)="openAddLoanPaymentDialog()"
+  />
+
+  <!-- templates -->
+  <ng-template #paymentDateTmpl let-element>
+    {{ element.valuationDate | date : 'medium' }}
+  </ng-template>
+
+  <ng-template #paidAmtTmpl let-element>
+    {{ element.paidAmount | currency }}
+  </ng-template>
+
+  <ng-template #interestAmtTmpl let-element>
+    {{ element.interestAmount | currency }}
+  </ng-template>
+
+  <ng-template #principalAmtTmpl let-element>
+    {{ element.principalAmount | currency }}
+  </ng-template>
+
+  <ng-template #beginningBcTmpl let-element>
+    {{ element.beginningBalance | currency }}
+  </ng-template>
+
+  <ng-template #endingBcTmpl let-element>
+    {{ element.endingBalance | currency }}
+  </ng-template>
+</kps-data-table>

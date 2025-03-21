@@ -1,0 +1,14 @@
+<section class="p-3">
+  <div class="d-flex gap-3 flex-wrap my-3">
+    @for (fileStatus of loanFileStates; track fileStatus.name) {
+    <kps-stat-card
+      [label]="fileStatus.value"
+      [value]="3"
+      [icon]="fileStatus.icon"
+      class="flex-grow-1 flex-basis-0"
+    ></kps-stat-card>
+    }
+  </div>
+
+  <kps-loan-files-table />
+</section>

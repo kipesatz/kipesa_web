@@ -1,0 +1,32 @@
+<div class="h-100 overflow-x-hidden overflow-y-auto p-3">
+  <div class="section-tracking-header">
+    <h5 class="tracking-section-title">Comments</h5>
+  </div>
+
+  @for (comment of loanComments(); track $index) {
+  <kps-loan-comment-card [loanComment]="comment" />
+  }
+
+  <div class="section-tracking-header">
+    <h5 class="tracking-section-title">SMS & Emails</h5>
+  </div>
+
+  <mat-tab-group
+    [mat-stretch-tabs]="false"
+    [mat-align-tabs]="'center'"
+    [disableRipple]="false"
+  >
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="me-2">sms</mat-icon>
+        <span>Sent SMS</span>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="me-2">mail</mat-icon>
+        <span>Sent Mails</span>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

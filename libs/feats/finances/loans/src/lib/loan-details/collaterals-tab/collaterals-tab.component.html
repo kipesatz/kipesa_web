@@ -1,0 +1,13 @@
+<section class="p-3">
+  <div class="my-3 d-flex gap-3 flex-wrap">
+    @for (status of collateralStats; track status.name) {
+    <kps-stat-card
+      [label]="status.value"
+      [value]="30"
+      [icon]="status.icon"
+      class="flex-grow-1 flex-basis-0"
+    />
+    }
+  </div>
+  <kps-collaterals-table />
+</section>

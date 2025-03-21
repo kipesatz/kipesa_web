@@ -1,0 +1,14 @@
+.mat-sidenav {
+  inline-size: 365px;
+  padding: 1rem 0.5rem;
+}
+
+.mat-toolbar {
+  block-size: 50px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  padding: 0.25rem 1rem !important;
+}

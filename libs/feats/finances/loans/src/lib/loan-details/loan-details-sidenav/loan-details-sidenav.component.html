@@ -1,0 +1,59 @@
+<section class="section-item">
+  <div class="section-header"><span>Applicant Details</span></div>
+  <div class="section-body">
+    <kps-user-avatar [user]="loanItem().member.user" />
+    <kps-object-lister
+      [data]="loanItem().member.user"
+      [showKeys]="['phoneNumber', 'address']"
+    />
+  </div>
+</section>
+
+<section class="section-item">
+  <div class="section-header"><span>Primary Loan Details</span></div>
+  <div class="section-body">
+    <kps-object-lister
+      [data]="loanItem()"
+      [displayMode]="'colon'"
+      [showKeys]="[
+        'loanPurpose',
+        'loanTermYears',
+        'loanTermMonths',
+        'paymentFrequency'
+      ]"
+    />
+  </div>
+</section>
+
+<section class="section-item">
+  <div class="section-header"><span>Funding Details</span></div>
+  <div class="section-body">
+    <kps-object-lister
+      [data]="loanItem()"
+      [showKeys]="['interestRate', 'loanAmount']"
+    />
+  </div>
+
+  <section class="section-item">
+    <div class="section-header"><span>Loan Metadata</span></div>
+    <div class="section-body">
+      <kps-object-lister
+        [data]="loanItem()"
+        [showKeys]="[
+          'loanNumber',
+          'applicationDate',
+          'createdOn',
+          'lastEditedOn',
+          'expectedCompletionDate',
+          'completionDate',
+          'approvalDate',
+          'disbursementDate',
+          'paidAmount',
+          'paidPrincipal',
+          'paidInterest',
+          'totalPayable',
+        ]"
+      />
+    </div>
+  </section>
+</section>

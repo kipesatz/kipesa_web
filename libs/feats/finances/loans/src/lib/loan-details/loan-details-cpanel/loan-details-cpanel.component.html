@@ -1,0 +1,54 @@
+<div class="h-100 overflow-hidden">
+  <div class="d-flex flex-column h-100">
+    <mat-toolbar class="border-bottom border-secondary-subtle">
+      <div class="flex-grow-1 d-inline-flex flex-nowrap gap-3">
+        <kps-iconic-button
+          icon="arrow_back"
+          [btnLink]="['../']"
+          btnAriaLabel="go back"
+        />
+        <span>Loan Details CPanel</span>
+      </div>
+
+      <button mat-flat-button color="accent">Launch Review</button>
+    </mat-toolbar>
+
+    <div class="flex-grow-1 overflow-hidden">
+      <mat-sidenav-container class="h-100">
+        <mat-sidenav
+          mode="side"
+          align="start"
+          opened
+          class="border-secondary-subtle border-end"
+        >
+          @if (loanLoading()) {
+          <kps-loading-indicator />
+          }@else { @if (loanDetails(); as loanItem) {
+          <kps-loan-details-sidenav [loanItem]="loanItem" />
+          } }
+        </mat-sidenav>
+
+        <mat-sidenav-content class="h-100 d-flex flex-column overflow-hidden">
+          <nav mat-tab-nav-bar [tabPanel]="tabPanel" mat-stretch-tabs="false">
+            @for (tabLink of tabLinks; track $index) {
+            <a
+              mat-tab-link
+              [routerLink]="tabLink.link"
+              routerLinkActive
+              #rla="routerLinkActive"
+              [active]="rla.isActive"
+              class="d-inline-flex align-items-center"
+            >
+              <mat-icon class="tab-icon me-2">{{ tabLink.icon }}</mat-icon>
+              <span class="tab-label">{{ tabLink.label }}</span>
+            </a>
+            }
+          </nav>
+          <mat-tab-nav-panel #tabPanel class="flex-grow-1 overflow-hidden">
+            <router-outlet />
+          </mat-tab-nav-panel>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </div>
+  </div>
+</div>

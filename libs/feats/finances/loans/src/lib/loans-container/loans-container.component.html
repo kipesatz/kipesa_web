@@ -1,0 +1,21 @@
+<div class="h-100 d-flex flex-column overflow-hidden">
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel" mat-stretch-tabs="false">
+    @for (tabLink of tabLinks; track $index) {
+    <a
+      mat-tab-link
+      [routerLink]="tabLink.link"
+      routerLinkActive
+      [routerLinkActiveOptions]="{ exact: false }"
+      #rla="routerLinkActive"
+      [active]="rla.isActive"
+      class="d-inline-flex align-items-center"
+    >
+      <mat-icon class="tab-icon me-2">{{ tabLink.icon }}</mat-icon>
+      <span class="tab-label">{{ tabLink.label }}</span>
+    </a>
+    }
+  </nav>
+  <mat-tab-nav-panel #tabPanel class="overflow-hidden">
+    <router-outlet />
+  </mat-tab-nav-panel>
+</div>

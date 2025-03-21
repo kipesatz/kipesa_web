@@ -1,0 +1,56 @@
+<kps-data-table
+  [columns]="columns"
+  [data]="collaterals()"
+  tableTitle="Collaterals associated with this loan."
+  [visibleColumns]="visibleColumns"
+  [defaultVisibleTools]="['refresh', 'delete']"
+  [availableFilters]="filters"
+  [dataLoading]="collateralsLoading()"
+  (selectionChange)="onSelectionChange($event)"
+  (refreshChange)="refreshData()"
+>
+  <kps-animated-search-field
+    [(searchTerm)]="searchTerm"
+    searchPlaceholder="Search..."
+  />
+
+  <!-- table tool -->
+  <kps-button
+    tableTools
+    btnAriaLabel="add collateral"
+    text="Add Collateral"
+    variant="raised"
+    (clicked)="openAddCollateralDialog()"
+  />
+
+  <!-- templates -->
+  <ng-template #createdTmpl let-element>
+    {{ element.createdOn | date : 'medium' }}
+  </ng-template>
+  <ng-template #verificationDateTmpl let-element>
+    {{ element.verificationDate | date : 'medium' }}
+  </ng-template>
+  <ng-template #valuationDateTmpl let-element>
+    {{ element.valuationDate | date : 'medium' }}
+  </ng-template>
+
+  <ng-template #estimatedValueTmpl let-element>
+    {{ element.estimatedValue | currency }}
+  </ng-template>
+
+  <ng-template #actionsTmpl let-element>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEdit(element)">
+        <mat-icon>edit</mat-icon>
+        <span>Edit details</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>Remove this Collateral</span>
+      </button>
+    </mat-menu>
+  </ng-template>
+</kps-data-table>
