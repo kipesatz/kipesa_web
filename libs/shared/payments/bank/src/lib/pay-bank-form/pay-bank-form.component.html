@@ -6,7 +6,7 @@
 
 <kps-input-field
   controlName="cardHolder"
-  [controller]="getController('cardHolder')"
+  [controller]="getController('cardHoldersName')"
   customLabel="Card Holder's name"
   fieldPlaceholder="Enter name of the card holder"
 />
@@ -22,6 +22,7 @@
         fieldPlaceholder="MM"
         [controller]="getController('cardExpiryMonth')"
         inputType="number"
+        class="number-field"
       />
       <kps-input-field
         [hideLabel]="true"
@@ -29,6 +30,7 @@
         fieldPlaceholder="YY"
         [controller]="getController('cardExpiryYear')"
         inputType="number"
+        class="number-field"
       />
     </div>
   </div>
@@ -40,6 +42,8 @@
       controlName="cardCvv"
       fieldPlaceholder="YY"
       [controller]="getController('cardCvv')"
+      inputType="number"
+      class="number-field"
     >
       <mat-icon matSuffix>credit_card</mat-icon>
     </kps-input-field>
