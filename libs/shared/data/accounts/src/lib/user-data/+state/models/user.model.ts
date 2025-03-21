@@ -8,6 +8,7 @@ export interface User {
   email: string;
   phoneNumber: string;
   profilePhoto: string | null;
+  occupation: string;
   createdOn: string;
   lastEditedOn: string;
 }

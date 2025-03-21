@@ -38,12 +38,12 @@ export class ProgressPieChartComponent {
           {
             value: this.progress() + 10,
             name: 'Progress',
-            itemStyle: { color: '#FFD700' },
+            // itemStyle: { color: '#FFD700' },
           },
           {
             value: 100 - this.progress(),
             name: 'Remaining',
-            itemStyle: { color: '#0A2647' },
+            // itemStyle: { color: '#0A2647' },
           },
         ],
       },
