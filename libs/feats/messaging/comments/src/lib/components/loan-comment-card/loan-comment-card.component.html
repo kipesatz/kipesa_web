@@ -1,0 +1,39 @@
+<div class="loan-comment-card mat-elevation-z1">
+  <div class="vertical-timeline-strip"></div>
+
+  <div class="loan-comment-header">
+    <div
+      class="user-avatar-container"
+      #userAvatar
+      (mouseenter)="showUserPreview($event)"
+    >
+      @if (loanComment().member.user.profilePhoto === null) {
+      <div class="user-initials">
+        {{ loanComment().member.user.initials }}
+      </div>
+      }@else {
+      <img
+        [src]="loanComment().member.user.profilePhoto"
+        class="user-photo"
+        alt="User Photo"
+      />
+
+      }
+    </div>
+
+    <div class="loan-comment-content">
+      <div class="comment-user-info">
+        {{ loanComment().member.user.email }} |
+        {{ loanComment().member.user.phoneNumber }}
+      </div>
+
+      <div class="comment-text">
+        {{ loanComment().content }}
+      </div>
+
+      <div class="comment-timestamp">
+        {{ getHumanizedTimestamp(loanComment().timestamp) }}
+      </div>
+    </div>
+  </div>
+</div>
