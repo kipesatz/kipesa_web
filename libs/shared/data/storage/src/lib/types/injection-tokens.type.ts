@@ -2,11 +2,11 @@ import { InjectionToken } from '@angular/core';
 import { KpsStorage } from './storage.type';
 
 export const BROWSER_STORAGE_TYPE =
-  new InjectionToken<KpsStorage<unknown> | null>(
+  new InjectionToken<KpsStorage | null>(
     'Configure browser storage to use.',
     {
       providedIn: 'root',
-      factory: () => localStorage,
+      factory: () => localStorage as KpsStorage,
     }
   );
 
