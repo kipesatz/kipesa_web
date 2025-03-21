@@ -2,6 +2,7 @@ import { InjectionToken } from '@angular/core';
 
 export interface PaymentChannelOption {
   name: string;
+  value: string;
   icon: string;
 }
 
@@ -11,10 +12,12 @@ export const PAYMENT_CHANNEL_OPTIONS = new InjectionToken<
   factory: () => [
     {
       name: 'Bank',
-      icon: 'bank',
+      value: 'BANK',
+      icon: 'assured_workload',
     },
     {
       name: 'Mobile',
+      value: 'MOBILE',
       icon: 'smartphone',
     },
   ],
