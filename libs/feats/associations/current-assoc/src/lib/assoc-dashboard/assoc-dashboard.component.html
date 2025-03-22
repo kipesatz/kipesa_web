@@ -1,245 +1,113 @@
 <section class="h-100 overflow-hidden d-flex flex-column">
   <!-- Widget Management -->
-  <mat-toolbar class="position-sticky top-0 mt-3 px-2">
-    <div class="widget-controls bg-white rounded-2">
-      <kps-button
-        text="Reset to Defaults"
-        btnAriaLabel="reset to defaults"
-        variant="stroked"
-        (click)="resetWidgetDefaults()"
-      />
-      <kps-button
-        icon="add_box"
-        text="Add Widget"
-        btnAriaLabel="Add widget"
-        (click)="openWidgetSidenav()"
-      />
-      <kps-button
-        [icon]="isEditMode() ? 'lock' : 'drag_indicator'"
-        text="Add Widget"
-        btnAriaLabel="Add widget"
-        (click)="toggleEditMode()"
-      />
-    </div>
+  <mat-toolbar class="position-sticky top-0 p-3 mb-3">
+    <span class="my-0 kps-title-md">{{ curAssoc.getName() }} Overview Dashboard</span>
   </mat-toolbar>
 
   <!-- scrollable contents section -->
-  <section class="flex-grow-1 overflow-x-hidden overflow-y-auto">
-    <!-- Draggable Widget Grid -->
-    <div class="widget-grid" cdkDropListGroup>
-      <div
-        cdkDropList
-        [cdkDropListData]="activeWidgets()"
-        (cdkDropListDropped)="drop($event)"
-        [class.edit-mode]="isEditMode()"
-      >
-        <!-- Financial Overview Widget -->
-        @if (hasWidget('financial-overview')) {
-        <div class="widget" cdkDrag>
-          <mat-card appearance="outlined" class="mb-3">
-            <mat-card-header>
-              <mat-card-title>Financial Overview</mat-card-title>
-              <kps-iconic-button
-                btnAriaLabel="remove widget"
-                icon="close"
-                (clicked)="removeWidget('financial-overview')"
-              />
-            </mat-card-header>
-            <mat-card-content>
-              <div class="financial-metrics">
-                <kps-stat-card
-                  icon="apartment"
-                  label="Total Assets"
-                  [value]="totalAssets | currency"
-                />
-                <kps-stat-card
-                  icon="paid"
-                  label="Monthly Collections"
-                  [value]="monthlyCollections | currency"
-                />
-                <kps-stat-card
-                  icon="attach_money"
-                  label="Outstanding Loans"
-                  [value]="outstandingLoans | currency"
-                />
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-        }
-
-        <div class="row row-cols-lg-2 row-cols-1">
-          <div class="col-lg-8 col-12">
-            <!-- Cash Flow Widget -->
-            @if (hasWidget('cash-flow')) {
-            <div class="widget" cdkDrag>
-              <mat-card class="mb-3" appearance="outlined">
-                <mat-card-header>
-                  <mat-card-title>Cash Flow Trends</mat-card-title>
-
-                  <kps-iconic-button
-                    btnAriaLabel="remove widget"
-                    icon="close"
-                    (clicked)="removeWidget('cash-flow')"
-                  />
-                </mat-card-header>
-                <mat-card-content>
-                  <div class="charts-container">
-                    <mat-card class="chart-card">
-                      <mat-card-header>
-                        <mat-card-title>Cash Flow Analysis</mat-card-title>
-                      </mat-card-header>
-                      <mat-card-content>
-                        <kps-line-chart
-                          [config]="cashFlowChartConfig()"
-                          [loading]="cashFlowLoading()"
-                          [height]="300"
-                        ></kps-line-chart>
-                      </mat-card-content>
-                    </mat-card>
-                  </div>
-                </mat-card-content>
-              </mat-card>
-            </div>
-            }
-          </div>
-          <div class="col-lg-4 col-12">
-            <!-- Loan Status Widget -->
-            @if (hasWidget('loan-status')) {
-            <div class="widget" cdkDrag>
-              <mat-card class="mb-3" appearance="outlined">
-                <mat-card-header>
-                  <mat-card-title>Loan Status</mat-card-title>
-
-                  <kps-iconic-button
-                    btnAriaLabel="remove widget"
-                    icon="close"
-                    (clicked)="removeWidget('loan-status')"
-                  />
-                </mat-card-header>
-                <mat-card-content>
-                  <div class="loan-metrics">
-                    <kps-stat-card
-                      icon="pending_actions"
-                      label="Pending Applications"
-                      [value]="pendingLoans"
-                      colorClass="warning"
-                    />
-                    <kps-stat-card
-                      icon="payments"
-                      label="Active Loans"
-                      [value]="activeLoans"
-                      colorClass="primary"
-                    />
-                    <kps-stat-card
-                      icon="warning"
-                      label="Defaulted Loans"
-                      [value]="defaultedLoans"
-                      colorClass="danger"
-                    />
-                  </div>
-                </mat-card-content>
-              </mat-card>
-            </div>
-            }
-          </div>
-        </div>
-
-        <!-- Membership Stats Widget -->
-        @if (hasWidget('membership-stats')) {
-        <div class="widget" cdkDrag>
-          <mat-card appearance="outlined" class="mb-3">
-            <mat-card-header>
-              <mat-card-title>Membership Stats</mat-card-title>
-              <kps-iconic-button
-                btnAriaLabel="remove widget"
-                icon="close"
-                (clicked)="removeWidget('membership-stats')"
-              />
-            </mat-card-header>
-            <mat-card-content>
-              <div class="stats-grid">
-                @if (statsLoading()) {
-                <kps-loading-indicator />
-                }@else { @if (statsData(); as membershipStats) {
-                <kps-stat-card
-                  icon="people"
-                  label="Active Members"
-                  [value]="membershipStats.activeMemberships"
-                  colorClass="primary"
-                />
-
-                <kps-stat-card
-                  icon="pending"
-                  label="Pending Members"
-                  [value]="membershipStats.pendingMemberships"
-                  colorClass="warning"
-                />
-
-                <kps-stat-card
-                  icon="person_off"
-                  label="Rejected Members"
-                  [value]="membershipStats.rejectedMemberships"
-                  colorClass="danger"
-                />
-                }}
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-        }
-
-        <!-- Recent Activities Widget -->
-        @if (hasWidget('recent-activities')) {
-        <div class="widget" cdkDrag>
-          <mat-card class="mb-3" appearance="outlined">
-            <mat-card-header>
-              <mat-card-title>Recent Activities</mat-card-title>
-
-              <kps-iconic-button
-                btnAriaLabel="remove widget"
-                icon="close"
-                (clicked)="removeWidget('recent-activities')"
-              />
-            </mat-card-header>
-            <mat-card-content>
-              <kps-activity-list
-                [activities]="recentActivities()"
-                [loading]="activitiesLoading()"
-              />
-            </mat-card-content>
-          </mat-card>
-        </div>
-        }
-      </div>
-    </div>
-  </section>
-</section>
-
-<!-- Widget Sidenav -->
-<mat-sidenav #widgetSidenav mode="over" position="end" class="widget-sidenav">
-  <div class="d-flex flex-column overflow-hidden h-100">
-    <div class="sidenav-header">
-      <h5 class="sidenav-title">Available Widgets</h5>
-      <kps-iconic-button
-        btnAriaLabel="close sidenav"
-        icon="close"
-        (clicked)="widgetSidenav.close()"
+  <section class="flex-grow-1 overflow-x-hidden overflow-y-auto p-2">
+    <!-- Financial Overview Widget -->
+    <div class="d-flex mb-3 justify-content-between flex-nowrap gap-3">
+      <kps-stat-card
+        icon="apartment"
+        label="Total Assets"
+        [value]="totalAssets | currency"
+        class="flex-grow-1 flex-basis-0"
+      />
+      <kps-stat-card
+        icon="paid"
+        label="Monthly Collections"
+        [value]="monthlyCollections | currency"
+        class="flex-grow-1 flex-basis-0"
+      />
+      <kps-stat-card
+        icon="attach_money"
+        label="Outstanding Loans"
+        [value]="outstandingLoans | currency"
+        class="flex-grow-1 flex-basis-0"
       />
     </div>
-  
-    <div class="flex-grow-1 overflow-x-hidden overflow-y-scroll">
-      <mat-nav-list>
-        @for (widget of availableWidgets(); track widget.id) {
-        <mat-list-item (click)="addWidget(widget.id)">
-          <mat-icon matListItemIcon>{{ widget.icon }}</mat-icon>
-          <span matListItemLine>{{ widget.name }}</span>
-          <span matListItemLine class="widget-description">{{
-            widget.description
-          }}</span>
-        </mat-list-item>
-        }
-      </mat-nav-list>
+
+    <div class="row row-cols-lg-2 row-cols-1 mb-3">
+      <div class="col-lg-4 col-12">
+        <mat-card appearance="outlined">
+          <mat-card-content class="d-flex flex-column gap-3">
+            <kps-stat-card
+              icon="pending_actions"
+              label="Pending Applications"
+              [value]="pendingLoans"
+              colorClass="warning"
+            />
+            <kps-stat-card
+              icon="payments"
+              label="Active Loans"
+              [value]="activeLoans"
+              colorClass="primary"
+            />
+            <kps-stat-card
+              icon="warning"
+              label="Defaulted Loans"
+              [value]="defaultedLoans"
+              colorClass="danger"
+            />
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-lg-8 col-12">
+        <mat-card>
+          <mat-card-content>
+            <kps-line-chart
+              [config]="cashFlowChartConfig()"
+              [loading]="cashFlowLoading()"
+              [height]="300"
+            ></kps-line-chart>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
     </div>
-  </div>
-</mat-sidenav>
+
+    <div class="d-flex gap-3 flex-nowrap mb-3">
+      @if (statsLoading()) {
+      <kps-loading-indicator />
+      }@else { @if (statsData(); as membershipStats) {
+      <kps-stat-card
+        icon="people"
+        label="Active Members"
+        [value]="membershipStats.activeMemberships"
+        colorClass="primary"
+        class="flex-grow-1 flex-basis-0"
+      />
+
+      <kps-stat-card
+        icon="pending"
+        label="Pending Members"
+        [value]="membershipStats.pendingMemberships"
+        colorClass="warning"
+        class="flex-grow-1 flex-basis-0"
+      />
+
+      <kps-stat-card
+        icon="person_off"
+        label="Rejected Members"
+        [value]="membershipStats.rejectedMemberships"
+        colorClass="danger"
+        class="flex-grow-1 flex-basis-0"
+      />
+      }}
+    </div>
+
+    <!-- Recent Activities Widget -->
+    <mat-card class="mb-3" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Recent Activities</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <kps-activity-list
+          [activities]="recentActivities()"
+          [loading]="activitiesLoading()"
+        />
+      </mat-card-content>
+    </mat-card>
+  </section>
+</section>

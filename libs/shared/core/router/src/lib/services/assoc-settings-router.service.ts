@@ -24,6 +24,6 @@ export class AssocSettingsRouterService {
 
   getStoredRouteAndNavigate(): Promise<boolean> {
     const lastRoute = sessionStorage.getItem(this.lastPageToken) || '/';
-    return this.router.navigate([lastRoute], { skipLocationChange: true });
+    return this.router.navigate([lastRoute]);
   }
 }
